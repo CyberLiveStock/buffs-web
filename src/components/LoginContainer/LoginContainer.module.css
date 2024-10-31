@@ -1,0 +1,44 @@
+.containerCover {
+    display: flex;
+    height: 100vh;
+}
+
+.imageSide {
+    flex: 1;
+    background-image: url("/images/bg.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.formSide {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fdf7ec; /* Cor de fundo clara */
+}
+
+/* Se existir um contêiner pai, ajuste o padding/margin aqui */
+.container {
+    margin-top: 0; /* Remover ou reduzir a margem superior */
+    padding-top: 0; /* Remover o padding superior, se houver */
+    height: auto; /* Permitir que a altura se ajuste ao conteúdo */
+    display: flex;
+    justify-content: center; /* Para centralizar o conteúdo verticalmente */
+    align-items: center; /* Alinhamento vertical centralizado */
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .containerCover {
+        flex-direction: column;
+    }
+
+    .imageSide {
+        height: 50vh;
+    }
+
+    .formSide {
+        height: 50vh;
+    }
+}

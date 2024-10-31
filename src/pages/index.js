@@ -1,4 +1,5 @@
-// import LoginContainer from "@/components/LoginContainer"
+import LoginContainer from "@/components/LoginContainer/LoginContainer";
+import LoginContent from "@/components/LoginContent/LoginContent";
 // Import LoginContent from "@/components/LoginContent"
 import Head from "next/head";
 
@@ -11,8 +12,11 @@ export default function Index() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>{/* <Container></Container> */}</main>
-      {/* testando o ambiente */}
+      <main>
+        <LoginContainer>
+          <LoginContent />
+        </LoginContainer>
+      </main>
     </>
   );
 }
