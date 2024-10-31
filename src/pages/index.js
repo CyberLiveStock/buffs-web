@@ -1,4 +1,3 @@
-import LoginContainer from "@/components/LoginContainer/LoginContainer";
 import LoginContent from "@/components/LoginContent/LoginContent";
 // Import LoginContent from "@/components/LoginContent"
 import Head from "next/head";
@@ -13,9 +12,7 @@ export default function Index() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <LoginContainer>
           <LoginContent />
-        </LoginContainer>
       </main>
     </>
   );
