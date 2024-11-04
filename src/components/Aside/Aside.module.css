@@ -1,0 +1,30 @@
+.aside {
+  width: 250px; 
+  background-color: #F4F4F4; 
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); 
+  height: 100vh; 
+  position: sticky; 
+  top: 0; 
+}
+
+.menuList {
+  list-style: none; 
+  padding: 0; 
+}
+
+.menuList li {
+  margin: 0.5rem 0; 
+  height: 55px;
+  align-items: center;
+  display: flex;
+}
+
+.menuList li:hover {
+  background-color: #D9D9D9;
+}
+
+.menuList a {
+  text-decoration: none; 
+  color: #404040; 
+  transition: color 0.3s; 
+}

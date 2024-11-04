@@ -1,0 +1,17 @@
+.header {
+  background-color: #F5F5F5; 
+}
+
+.title {
+  color: #333; 
+}
+
+.button {
+  font-size: 1rem; 
+  background-color: #f2b84d; 
+  color: #43310b; 
+}
+
+.button:hover {
+  background-color: #e0a300; 
+}
