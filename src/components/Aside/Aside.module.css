@@ -1,22 +1,27 @@
+/* src/components/Aside/Aside.module.css */
+
 .aside {
   width: 250px; 
   background-color: #F4F4F4; 
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); 
-  height: 100vh; 
+  height: 92vh; 
   position: sticky; 
   top: 0; 
+  padding: 0;
+  margin: 0;
 }
 
 .menuList {
   list-style: none; 
   padding: 0; 
+  margin: 0; 
 }
 
 .menuList li {
-  margin: 0.5rem 0; 
+  margin: 0;
+  padding: 0.5rem 0;
   height: 55px;
-  align-items: center;
   display: flex;
+  align-items: center;
 }
 
 .menuList li:hover {
@@ -27,4 +32,23 @@
   text-decoration: none; 
   color: #404040; 
   transition: color 0.3s; 
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Estilo para o item ativo */
+.active {
+  border-left: 4px solid #FFCF78; /* Border left da cor especificada */
+  background-color: #D9D9D9; /* Opcional: cor de fundo para o item ativo */
+}
+
+.icon {
+  margin-right: 8px;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  vertical-align: middle;
 }

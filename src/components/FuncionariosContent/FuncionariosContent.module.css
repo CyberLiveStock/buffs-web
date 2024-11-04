@@ -1,9 +1,9 @@
 .content {
   flex: 1; 
-  background-color: #ffffff; 
+  background-color: #e2e2e2; 
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-  height: 100vh; 
-  overflow-y: auto; 
+  height: 92vh; 
+  overflow-y: auto;
 }
 
 .title {
