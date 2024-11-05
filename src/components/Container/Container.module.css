@@ -1,11 +1,24 @@
 .containerCover {
   display: flex; 
+  flex-direction: row;  /* Alinha Aside e HomeContent lado a lado em telas grandes */
+  min-height: 100vh;  /* Garante que o container ocupe toda a altura da tela */
 }
 
+@media (max-width: 768px) {
+  .containerCover {
+    flex-direction: column; /* Em telas pequenas, os itens ficam empilhados */
+  }
+}
 
-
+/* Estilo para o conteúdo */
 .content {
-  flex: 1; 
+  flex: 1; /* O conteúdo ocupa o restante do espaço disponível */
   padding: 1rem;
-  overflow-y: auto; 
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: 1rem 0.5rem; /* Ajuste de padding em telas pequenas */
+  }
 }

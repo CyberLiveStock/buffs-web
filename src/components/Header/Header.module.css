@@ -1,6 +1,6 @@
 .header {
   background-color: #FFCF78; 
-  height: 6vh; 
+  height: 9vh; 
   display: flex; 
   align-items: center; 
   padding: 0 1rem; 
@@ -8,7 +8,7 @@
 }
 
 .logo {
-  height: 40px; 
+  height: auto; 
   width: auto; 
   margin-right: auto; 
 }
@@ -19,7 +19,5 @@
     padding: 0 0.5rem; 
   }
 
-  .logo {
-    height: 35px; 
-  }
+  
 }

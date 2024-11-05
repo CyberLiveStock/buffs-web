@@ -1,7 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Aside.module.css";
 
-const Aside = () => {
+const Aside = ({ isOpen }) => {
+  const [isActive, setIsActive] = useState(false);
+
   useEffect(() => {
     const menuItems = document.querySelectorAll(`.${styles.menuList} li`);
     const currentPath = window.location.pathname;
@@ -40,6 +42,9 @@ const Aside = () => {
     menuItems.forEach((item) => {
       item.addEventListener("click", () => {
         setActiveItem(item);
+        if (window.innerWidth <= 768) {
+          setIsActive(false); // Fecha o menu após clicar em um item no mobile
+        }
       });
     });
 
@@ -51,7 +56,7 @@ const Aside = () => {
   }, []);
 
   return (
-    <div className={styles.aside}>
+    <div className={`${styles.aside} ${isOpen ? styles.active : ""}`}>
       <ul className={styles.menuList}>
         <li>
           <a href="/home">
@@ -60,7 +65,7 @@ const Aside = () => {
               alt="Página Inicial"
               className={styles.icon}
             />{" "}
-            Pagina Inicial
+            Página Inicial
           </a>
         </li>
         <li>
@@ -80,7 +85,7 @@ const Aside = () => {
               alt="Funcionários"
               className={styles.icon}
             />{" "}
-            Funcionarios
+            Funcionários
           </a>
         </li>
         <li>
