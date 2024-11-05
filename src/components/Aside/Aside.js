@@ -1,54 +1,48 @@
-// src/components/Aside/Aside.js
-
 import { useEffect } from "react";
 import styles from "./Aside.module.css";
 
 const Aside = () => {
   useEffect(() => {
     const menuItems = document.querySelectorAll(`.${styles.menuList} li`);
-    const currentPath = window.location.pathname; // Obtém a rota atual
+    const currentPath = window.location.pathname;
 
-    // Função para definir o item ativo
     const setActiveItem = (item) => {
       menuItems.forEach((i) => i.classList.remove(styles.active));
       item.classList.add(styles.active);
     };
 
-    // Define o item ativo com base na rota atual
     switch (currentPath) {
-      case "/":
-        setActiveItem(menuItems[0]); // Home
+      case "/home":
+        setActiveItem(menuItems[0]);
         break;
       case "/demandas":
-        setActiveItem(menuItems[1]); // Demandas
+        setActiveItem(menuItems[1]);
         break;
       case "/funcionarios":
-        setActiveItem(menuItems[2]); // Funcionários
+        setActiveItem(menuItems[2]);
         break;
       case "/bubalinos":
-        setActiveItem(menuItems[3]); // Bubalinos
+        setActiveItem(menuItems[3]);
         break;
       case "/controle-zootecnico":
-        setActiveItem(menuItems[4]); // Controle Zootécnico
+        setActiveItem(menuItems[4]);
         break;
       case "/controle-sanitario":
-        setActiveItem(menuItems[5]); // Controle Sanitário
+        setActiveItem(menuItems[5]);
         break;
       case "/controle-reproducao":
-        setActiveItem(menuItems[6]); // Controle de Reprodução
+        setActiveItem(menuItems[6]);
         break;
       default:
-        setActiveItem(menuItems[0]); // Fallback para Home
+        setActiveItem(menuItems[0]);
     }
 
-    // Adiciona o evento de clique a cada item
     menuItems.forEach((item) => {
       item.addEventListener("click", () => {
-        setActiveItem(item); // Define o item ativo ao clicar
+        setActiveItem(item);
       });
     });
 
-    // Cleanup: remove event listeners ao desmontar o componente
     return () => {
       menuItems.forEach((item) => {
         item.removeEventListener("click", () => {});
@@ -60,7 +54,7 @@ const Aside = () => {
     <div className={styles.aside}>
       <ul className={styles.menuList}>
         <li>
-          <a href="/">
+          <a href="/home">
             <img
               src="/images/icons/home.svg"
               alt="Página Inicial"

@@ -1,14 +1,25 @@
 .header {
   background-color: #FFCF78; 
-  height: 6vh;
+  height: 6vh; 
+  display: flex; 
+  align-items: center; 
+  padding: 0 1rem; 
+  box-sizing: border-box; 
 }
 
 .logo {
   height: 40px; 
   width: auto; 
+  margin-right: auto; 
 }
 
-.title {
-  font-size: 1.5rem; 
-  color: #333; 
+@media (max-width: 768px) {
+  .header {
+    height: 8vh; 
+    padding: 0 0.5rem; 
+  }
+
+  .logo {
+    height: 35px; 
+  }
 }

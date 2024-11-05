@@ -1,7 +1,7 @@
 import Aside from "@/components/Aside/Aside";
 import Container from "@/components/Container/Container";
-import FuncionariosContent from "@/components/FuncionariosContent/FuncionariosContent";
 import Header from "@/components/Header/Header";
+import HomeContent from "@/components/HomeContent/HomeContent";
 import Head from "next/head";
 
 export default function Funcionarios() {
@@ -14,10 +14,10 @@ export default function Funcionarios() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Header/>
+        <Header />
         <Container>
-          <Aside/>  
-          <FuncionariosContent/>
+          <Aside />
+          <HomeContent />
         </Container>
       </main>
     </>
