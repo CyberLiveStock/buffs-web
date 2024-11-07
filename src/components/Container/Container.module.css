@@ -1,7 +1,7 @@
 .containerCover {
   display: flex; 
   flex-direction: row;  /* Alinha Aside e HomeContent lado a lado em telas grandes */
-  min-height: 100vh;  /* Garante que o container ocupe toda a altura da tela */
+  min-height: 90vh;  /* Garante que o container ocupe toda a altura da tela */
 }
 
 @media (max-width: 768px) {
