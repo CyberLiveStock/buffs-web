@@ -1,29 +1,32 @@
 .content {
-  flex: 1; 
-  background-color: #ffffff; 
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-  height: 92vh; 
+  flex: 1;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: 92vh;
   overflow-y: auto;
-  padding: 1rem; 
-  box-sizing: border-box; 
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
 .indicators {
   display: flex;
   gap: 1rem;
-  margin-bottom: 5rem;
+  margin-bottom: 2rem;
+  justify-content: center;
   margin-left: 10%;
   margin-right: 10%;
+  flex-wrap: wrap;
 }
 
 .indicatorCard {
   flex: 1;
   background-color: #f5c97b;
   border-radius: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding: 1rem;
   text-align: center;
   color: #333;
+  min-width: 180px;
+  box-sizing: border-box;
 }
 
 .indicatorCard h3 {
@@ -31,64 +34,160 @@
   color: #333;
 }
 
-.charts {
+.indicatorCard > p,
+.indicatorCard > h3 {
+  margin: 0;
+}
+
+.doughnutCharts {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.chartContainer {
+  width: 220px;  /* Tamanho ajustado para gráficos mais visíveis */
+  text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-}
-
-.donutCharts {
-  display: flex;
-  justify-content: space-around;
-  gap: 1rem;
-  margin-bottom: 7rem;
-}
-
-.donutChart {
+  align-items: center;
   flex: 1;
-  text-align: center;
+  min-width: 180px;
 }
 
-.donutChart .chart {
-  width: 100%;
-  height: 450px;
+.chart {
+  width: 100% !important;
+  height: 220px !important; /* Aumentar altura para melhorar visualização */
+  max-width: 220px !important;
+  margin-bottom: 1rem;
 }
 
-.barCharts {
-  display: flex;
-  justify-content: space-around;
-  gap: 1rem;
+.chartContainer h4 {
+  font-size: 0.9rem;  /* Font-size ajustado */
+  color: #333;
+  margin: 0;
 }
 
-.barChart {
-  flex: 1;
-  text-align: center;
-}
-
-.barChart .chart {
-  width: 70%;
-  height: 450px;
-}
-
+/* Responsividade para telas pequenas */
 @media (max-width: 768px) {
   .content {
     padding: 0.5rem;
   }
 
+  .doughnutCharts {
+    gap: 1rem;
+  }
+
+  .chartContainer {
+    width: 160px; /* Tamanho ajustado */
+  }
+
+  .chart {
+    height: 180px !important; /* Ajustar altura para telas menores */
+    max-width: 180px !important;
+  }
+
+  .chartContainer h4 {
+    font-size: 0.8rem;  /* Font-size ajustado */
+  }
+
+  .barPieCharts {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .chartb {
+    width: 100% !important;
+    height: 180px !important;
+    max-width: 180px !important;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .indicators {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
   .indicatorCard {
-    padding: 0.5rem;
+    min-width: 120px;
+    flex: 1;
   }
 
-  .donutChart .chart, .barChart .chart {
-    height: 150px;
+  .chartContainer {
+    width: 120px;
+  }
+
+  .chart {
+    height: 120px !important;
+    max-width: 120px !important;
+  }
+
+  .chartContainer h4 {
+    font-size: 0.6rem;
+  }
+
+  .barPieCharts {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .chartb {
+    width: 100% !important;
+    height: 120px !important;
+    max-width: 120px !important;
+    margin-bottom: 1rem;
+  }
+
+  .chartContainer h4 {
+    font-size: 0.6rem;
   }
 }
 
+/* Para telas pequenas com largura inferior a 456px */
+@media (max-width: 456px) {
+  .barPieCharts {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
 
+  .chartb {
+    width: 100% !important;
+    height: 120px !important;
+    max-width: 120px !important;
+    margin-bottom: 1rem;
+  }
 
-.indicatorCard > p{
-  margin-bottom: 0;
+  .chartContainer h4 {
+    font-size: 0.6rem;
+  }
 }
-.indicatorCard > h3{
-  margin-bottom: 0;
+
+.barPieCharts {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.chartb {
+  width: 100% !important;
+  height: 220px !important; /* Ajuste de altura para gráficos de barra */
+  max-width: 220px !important;
+  margin-bottom: 1rem;
+}
+
+.chartContainer h4 {
+  font-size: 0.9rem;  /* Font-size ajustado */
+  color: #333;
+  margin: 0;
 }

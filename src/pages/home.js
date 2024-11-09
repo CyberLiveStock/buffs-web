@@ -4,7 +4,7 @@ import Header from "@/components/Header/Header";
 import HomeContent from "@/components/HomeContent/HomeContent";
 import Head from "next/head";
 
-export default function Funcionarios() {
+export default function Home() { // Renomeado para "Home"
   return (
     <>
       <Head>
