@@ -19,6 +19,7 @@ export default function Home() { // Renomeado para "Home"
           <Aside />
           <HomeContent />
         </Container>
+        {/* teste */}
       </main>
     </>
   );
