@@ -29,3 +29,34 @@
 .button:hover {
   background-color: #0056b3; 
 }
+
+.barraPesquisa{
+  width: 90%;
+  margin-left: 40px;
+}
+.buttonPesquisar{
+  background-color: #2D220A;
+  margin-left: 8px;
+}
+
+.divInfosFunc{
+  width: 95%;
+  height: auto; 
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 20px;
+  margin-bottom: 20px;
+  margin-top: 0px;
+  border-radius: 10px; 
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.headerCell {
+  background-color: #FFCF78 !important;;
+}
