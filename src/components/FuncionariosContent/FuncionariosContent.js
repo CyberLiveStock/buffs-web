@@ -27,7 +27,7 @@ const FuncionariosContent = () => {
             <button
               className={`btn btn-secondary ml-2 ${styles.buttonPesquisar}`}
               type="button" // Mudei de "submit" para "button"
-              onClick={openModal} // Função para abrir o modal
+              
             >
               Pesquisar
             </button>

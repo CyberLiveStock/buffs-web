@@ -10,7 +10,7 @@ const LoginContent = () => {
     
     // Verifica o tipo do input e alterna
     if (passwordInput.type === "password") {
-      passwordInput.type = "text";a
+      passwordInput.type = "text";
       icon.src = "images/not-view-password.svg"; // Troca o ícone para visualização
     } else {
       passwordInput.type = "password";
