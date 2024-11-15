@@ -1,13 +1,28 @@
-import React, { useState } from 'react';
+import axios from "axios";
+import { useEffect, useState } from "react";
 import styles from './FuncionariosContent.module.css';
-import HeaderFuncionarios from '../HeaderFuncionarios/HeaderFuncionarios'; // Importe o Header
+import HeaderFuncionarios from '../HeaderFuncionarios/HeaderFuncionarios';
 import ModalFuncionario from '../ModalFuncionario/ModalFuncionario'; // Importe o ModalFuncionario
 
 const FuncionariosContent = () => {
+  const [funcionarios, setFuncionarios] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false); // Estado para controlar a visibilidade do modal
 
   const openModal = () => setModalOpen(true); // Função para abrir o modal
   const closeModal = () => setModalOpen(false); // Função para fechar o modal
+
+  useEffect(() => {
+    const fetchFuncionarios = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/funcionarios");
+        setFuncionarios(response.data.funcionarios); //'funcionarios' array de funcionarios
+        console.log(funcionarios)
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchFuncionarios(); // Chamando a função para executar a requisição
+  }, []); // '[]' dependência do useEffect
 
   return (
     <div className={styles.content}>
@@ -27,7 +42,6 @@ const FuncionariosContent = () => {
             <button
               className={`btn btn-secondary ml-2 ${styles.buttonPesquisar}`}
               type="button" // Mudei de "submit" para "button"
-              
             >
               Pesquisar
             </button>
@@ -41,18 +55,18 @@ const FuncionariosContent = () => {
           <thead>
             <tr>
               <th scope="col" className={styles.headerCell}>Nome</th>
-              <th scope="col" className={styles.headerCell}>CPF</th>
               <th scope="col" className={styles.headerCell}>Cargo</th>
-              <th scope="col" className={styles.headerCell}></th>
-              <th scope="col" className={styles.headerCell}></th>
-              <th scope="col" className={styles.headerCell}></th>
               <th scope="col" className={styles.headerCell}>Editar / Deletar</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td colSpan="7" className="text-center">Patrão vai mexer futuramente</td>
-            </tr>
+            {funcionarios.map((funcionario) => (
+              <tr key={funcionario._id}>
+                <td className="text-center">{funcionario.nome}</td>
+                <td className="text-center">{funcionario.descCargo}</td>
+                <td className="text-center">AAA</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
