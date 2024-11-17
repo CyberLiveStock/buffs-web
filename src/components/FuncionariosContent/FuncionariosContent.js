@@ -73,21 +73,95 @@ const FuncionariosContent = () => {
 
       {/* Modal de Adicionar Funcionário */}
       <ModalFuncionario isOpen={isModalOpen} closeModal={closeModal}>
-        <h2>Adicionar Novo Funcionário</h2>
+      
+      <h2 style={{ marginLeft: "14px" }}>Cadastrar Funcionário</h2>
+
         <form>
-          <div className="form-group">
-            <label>Nome</label>
-            <input type="text" className="form-control" placeholder="Digite o nome" />
+          <div className={styles.divModal}>
+            <div className="form-group">
+              <label className={styles.label}>Nome</label>
+              <input type="text" className="form-control" placeholder="Digite o nome" />
+            </div>
+
+            <div className="form-group">
+              <label className={styles.label}>Salário</label>
+              <input type="text" className="form-control" placeholder="Digite o salário" />
+            </div>
           </div>
-          <div className="form-group">
-            <label>CPF</label>
-            <input type="text" className="form-control" placeholder="Digite o CPF" />
+
+          <div className={styles.divModal}>
+            <div className="form-group">
+              <label className={styles.label}>CPF</label>
+              <input type="text" className="form-control" placeholder="Digite o CPF" />
+            </div>
+
+            <div className="form-group">
+              <label className={styles.label}>Data de Nascimento</label>
+              <input type="text" className="form-control" placeholder="   /  /   " />
+            </div>
           </div>
+
+          
+          <div className={styles.divModal}>
           <div className="form-group">
-            <label>Cargo</label>
-            <input type="text" className="form-control" placeholder="Digite o cargo" />
+              <label className={styles.label}>Email</label>
+              <input type="text" className="form-control" placeholder="Digite o Email" />
+            </div>
+
+            <div className="form-group">
+              <label className={styles.label}>Telefone</label>
+              <input type="text" className="form-control" placeholder="(xx) XXXXX-XXXX " />
+            </div>
           </div>
-          <button type="submit" className="btn btn-success">Salvar</button>
+
+          <div className={styles.divModal}>
+          <div className="form-group">
+              <label className={styles.label}>Gênero</label>
+              <input type="text" className="form-control" placeholder="Digite o gênero" />
+            </div>
+
+            <div className="form-group">
+              <label className={styles.label}>Rua</label>
+              <input type="text" className="form-control" placeholder="Digite a rua" />
+            </div>
+          </div>
+
+          <div className={styles.divModal}>
+          <div className="form-group">
+              <label className={styles.label}>Bairro</label>
+              <input type="text" className="form-control" placeholder="Digite o bairro" />
+            </div>
+
+            <div className="form-group">
+              <label className={styles.label}>Estado</label>
+              <input type="text" className="form-control" placeholder="Digite o estado" />
+            </div>
+          </div>
+
+          <div className={styles.divModal}>
+          <div className="form-group">
+              <label className={styles.label}>Número</label>
+              <input type="text" className="form-control" placeholder="Digite o número" />
+            </div>
+
+            <div className="form-group">
+              <label className={styles.label}>Cidade</label>
+              <input type="text" className="form-control" placeholder="Digite a cidade" />
+            </div>
+          </div>
+
+          <div className={styles.divModal}>
+          <div className="form-group">
+              <label className={styles.labelCustom}>Descrição do Cargo</label>
+              <input type="text" className="form-control" placeholder="Digite a descrição do cargo" />
+            </div>
+          </div>
+
+          <div className={styles.divModal}> 
+          <button type="submit" style={{ backgroundColor: "#CE7D0A", border: "2px #CE7D0A"  }} className="btn btn-success">Cadastrar</button>
+
+          <button type="submit" style={{ backgroundColor: "#FFCF78", border: "2px #FFCF78", color : "black"  }} className="btn btn-success">Cancelar</button>
+          </div> 
         </form>
       </ModalFuncionario>
     </div>

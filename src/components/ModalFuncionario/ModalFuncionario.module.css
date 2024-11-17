@@ -16,8 +16,10 @@
   background-color: white;
   padding: 20px;
   border-radius: 8px;
-  width: 300px;
+  width: 530px;
   position: relative;
+  align-items: center;
+  margin-left: 0px;
 }
 
 .closeButton {
@@ -33,3 +35,4 @@
 .content {
   margin-top: 20px;
 }
+

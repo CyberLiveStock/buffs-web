@@ -181,7 +181,35 @@ const HomeContent = () => {
           <h4>Comparativo de Sexos</h4>
         </div>
       </div>
+
+     {/* TABELA DE FUNCIONÁRIOS */}
+     <div className={styles.divTabela}>
+      <div>
+      <h2 style={{ textAlign: "center", fontWeight: "bold" }}>Ultimas Tarefas</h2>
+      </div>
+     <div className={styles.divCorpoTabelaS}>
+        <table className="table table-striped" id="funcionariosTable">
+          <thead>
+            <tr>
+              <th scope="col" className={styles.headerCell}>Nome</th>
+              <th scope="col" className={styles.headerCell}>Tipo de Serviço</th>
+              <th scope="col" className={styles.headerCell}>Status</th>
+              <th scope="col" className={styles.headerCell}>Funções</th>
+
+            </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <td>AAA</td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+
+
     </div>
+
   );
 };
 
