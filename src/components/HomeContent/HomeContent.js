@@ -1,8 +1,25 @@
-import React, { useEffect, useRef } from "react";
+import axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
 import styles from "./HomeContent.module.css";
 
 const HomeContent = () => {
+  const [demandas, setDemandas] = useState([]);
+
+  useEffect(() => {
+    const fetchDemandas = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/demandas");
+        setDemandas(response.data.demandas); //'demandas' array de demandas
+        console.log(demandas)
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchDemandas(); // Chamando a função para executar a requisição
+  }, []); // '[]' dependência do useEffect
+
+
   const natalidadeRef = useRef(null);
   const prenhezRef = useRef(null);
   const gestacaoRef = useRef(null);
@@ -199,9 +216,14 @@ const HomeContent = () => {
             </tr>
           </thead>
           <tbody>
-              <tr>
-                <td>AAA</td>
+            {demandas.map((demanda) => (
+              <tr key={demanda._id}>
+                <td className="text-center">{demanda.idFuncionario?.nome || "Sem nome"}</td>
+                <td className="text-center">{demanda.categoria}</td>
+                <td className="text-center">{demanda.status}</td>
+                <td className="text-center">AAAAA</td>
               </tr>
+            ))}
           </tbody>
         </table>
       </div>
