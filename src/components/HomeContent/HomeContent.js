@@ -202,7 +202,7 @@ const HomeContent = () => {
      {/* TABELA DE FUNCIONÁRIOS */}
      <div className={styles.divTabela}>
       <div>
-      <h2 style={{ textAlign: "center", fontWeight: "bold" }}>Ultimas Tarefas</h2>
+      <h2 style={{ textAlign: "center", fontWeight: "bold", fontSize: "24px", marginBottom:"30px"}}>Últimas Tarefas</h2>
       </div>
      <div className={styles.divCorpoTabelaS}>
         <table className="table table-striped" id="funcionariosTable">

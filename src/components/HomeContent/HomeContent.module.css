@@ -215,5 +215,8 @@
 }
 
 .headerCell {
-  background-color: #FFCF78 !important;;
+  background-color: #FFCF78 !important;
+  text-align: center;
+  font-size: 16px;
+  vertical-align: middle;
 }
