@@ -3,9 +3,21 @@ import { useEffect, useRef, useState } from "react";
 import styles from './SanitariosContent.module.css'
 import HeaderSanitarios from "../HeaderSanitarios/HeaderSanitarios";
 
-
-
 const SanitariosContent = () => {
+    const [bufalos, setBufalos] = useState([]);
+
+    useEffect(() => {
+        const fetchBufalos = async () => {
+          try {
+            const response = await axios.get("http://localhost:4000/bufalos");
+            setBufalos(response.data.bufalos); //'sanitario' array de sanitarios
+            console.log(bufalos)
+          } catch (error) {
+            console.log(error);
+          }
+        };
+        fetchBufalos(); // Chamando a função para executar a requisição
+      }, []); // '[]' dependência do useEffect
     return(
         <div className={styles.content}>
             <HeaderSanitarios/>
@@ -24,9 +36,17 @@ const SanitariosContent = () => {
                             </tr>
                         </thead>
                         <tbody>
-                                <tr>
-                                    <td className="text-center">AA</td>
+                        {bufalos.map((bufalo) => (
+                                <tr key={bufalo._id}>
+                                    <td className="text-center">{bufalo.sanitario?.[0]?.nomeTratamento || "N/A"}</td>
+                                    <td className="text-center">
+                                        {new Date(bufalo.sanitario?.[0]?.dataAplicacao || "N/A").toLocaleDateString("pt-BR", { year: "numeric", month: "2-digit", day: "2-digit" })}
+                                    </td>
+                                    <td className="text-center">{bufalo.tagBufalo || "N/A"}</td>
+                                    <td className="text-center">{bufalo.sanitario?.[0]?.tipoSanitario || "N/A"}</td>
+                                    <td>AA</td>
                                 </tr>
+                        ))}
                         </tbody>
                     </table>
                 </div>
