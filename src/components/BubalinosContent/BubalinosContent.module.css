@@ -34,3 +34,76 @@
     font-size: 16px;
     vertical-align: middle;
   }
+
+  .divModal {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-top: 15px;
+    margin-left: 14px;
+    margin-right: 14px;
+  }
+
+  .divModal1 {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-top: 0px;
+    margin-left: 14px;
+    margin-right: 14px;
+  }
+
+  .divModal2 {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-top: 15px;
+    margin-left: 14px;
+    margin-right: 14px;
+  }
+
+  .divLeftContent{
+    display: flex;
+    width: 220px;
+    height:250px;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+  .leftContent{
+    background-image: url('/images/bufalo.png');
+    width: 210px;
+    height:192px;
+    border-radius: 25px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+
+.divRightContent{
+  display: flex;
+  width: 220px;
+  height:250px;
+  align-items: center;
+  justify-content: center;
+}
+
+  .rightContent{
+    width: 220px;
+    height:200px;
+  }
+
+  
+  .label{
+    font-weight: bold;
+  }
+  
+  .labelCustom {
+    display: inline-block; /* Mantém o layout adequado para controle de tamanho */
+    width: 460px; /* Ajuste o valor para o tamanho desejado */
+    font-weight: bold;
+  }
+
+  
+  

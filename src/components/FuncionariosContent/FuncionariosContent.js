@@ -90,10 +90,7 @@ const FuncionariosContent = () => {
           </div>
 
           <div className={styles.divModal}>
-            <div className="form-group">
-              <label className={styles.label}>CPF</label>
-              <input type="text" className="form-control" placeholder="Digite o CPF" />
-            </div>
+            
 
             <div className="form-group">
               <label className={styles.label}>Data de Nascimento</label>
