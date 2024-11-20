@@ -18,6 +18,7 @@ const SanitariosContent = () => {
         };
         fetchBufalos(); // Chamando a função para executar a requisição
       }, []); // '[]' dependência do useEffect
+      
     return(
         <div className={styles.content}>
             <HeaderSanitarios/>
