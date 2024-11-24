@@ -83,7 +83,8 @@ const BubalinosContent = () => {
       <ModalBubalinos isOpen={isModalOpen} closeModal={closeModal}>
         <h2 style={{ textAlign: "center" }}>Dados Gerais</h2>
         <form>
-          <div className={styles.divModal}>
+        
+          <div className={styles.divContent}>
             <div className={styles.divLeftContent}>
             <div className={styles.leftContent}>
                   {/*  BACKGROUND IMAGE*/}
@@ -143,7 +144,7 @@ const BubalinosContent = () => {
             </div>
           </div>
 
-          <div className={styles.divModal}>
+          <div className={styles.divModal2}>
             <div className="form-group">
               <label className={styles.label}>Raça</label>
               <input
@@ -163,19 +164,20 @@ const BubalinosContent = () => {
             </div>
           </div>
 
-          <div className={styles.divModal}> 
-          <button type="submit" style={{ backgroundColor: "#FFCF78", border: "2px #FFCF78", color : "black"  }} className="btn btn-success">Zootécnico</button>
+          <div className={styles.divButton}> 
+          <button type="submit" style={{ backgroundColor: "#FFCF78", border: "2px #FFCF78", color : "black"}} className="btn btn-success">Zootécnico</button>
           <button type="submit" style={{ backgroundColor: "#FFCF78", border: "2px #FFCF78", color : "black"  }} className="btn btn-success">Reprodução</button>
           <button type="submit" style={{ backgroundColor: "#FFCF78", border: "2px #FFCF78", color : "black"  }} className="btn btn-success">Sanitário</button>
           </div> 
 
-          <div className={styles.divModal}> 
-          <button type="submit" style={{ backgroundColor: "#CE7D0A", border: "2px #CE7D0A"  }} className="btn btn-success">Fechar</button>
+          <div className={styles.divButton}> 
+          <button type="submit" style={{ backgroundColor: "#CE7D0A", border: "2px #CE7D0A"   }} className="btn btn-success">Fechar</button>
           </div> 
 
         </form>
       </ModalBubalinos>
     </div>
+    
   );
 };
 
