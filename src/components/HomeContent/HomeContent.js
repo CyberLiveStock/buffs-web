@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
 import styles from "./HomeContent.module.css";
+import { Popover, PopoverTrigger, PopoverContent, Button, Card, CardBody } from "@nextui-org/react";
 
 const HomeContent = () => {
   const [demandas, setDemandas] = useState([]);         // Coleção Demandas
@@ -12,7 +13,7 @@ const HomeContent = () => {
   const [quantidadeFuncionariosAtivo, setQuantidadeFuncionariosAtivo] = useState(0);
   const [quantidadeFuncionariosInativo, setQuantidadeFuncionariosInativo] = useState(0);
 
-  
+
 
   // Fetch para coleção Demandas
   useEffect(() => {
@@ -265,10 +266,27 @@ const HomeContent = () => {
           <canvas ref={natalidadeRef} className={styles.chart}></canvas>
           <h4>Taxa de natalidade</h4>
         </div>
+
         <div className={styles.chartContainer}>
+          <Popover placement="right">
+            <PopoverTrigger>
+              <Button>(i)</Button>
+            </PopoverTrigger>
+            <PopoverContent>
+              <Card style={{ backgroundColor: "#f9f9f9", borderRadius: "8px", padding: "2px", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}>
+                <CardBody>
+                  <p style={{ fontSize: "14px", color: "#333", lineHeight: "0.3" }}>
+                    Indicativo de sucesso da inseminação.
+                  </p>
+                </CardBody>
+              </Card>
+
+            </PopoverContent>
+          </Popover>
           <canvas ref={prenhezRef} className={styles.chart}></canvas>
           <h4>Taxa de prenhez</h4>
         </div>
+
         <div className={styles.chartContainer}>
           <canvas ref={gestacaoRef} className={styles.chart}></canvas>
           <h4>Em gestação</h4>
