@@ -216,7 +216,8 @@ const HomeContent = () => {
             </tr>
           </thead>
           <tbody>
-            {demandas.map((demanda) => (
+              {/* Filtro para renderizar somente tarefas em produção no caso diferente de "Finalizado" */}
+            {demandas.filter((demanda) => demanda.status !== "Finalizado").map((demanda) => ( 
               <tr key={demanda._id}>
                 <td className="text-center">{demanda.idFuncionario?.nome || "Sem nome"}</td>
                 <td className="text-center">{demanda.categoria}</td>
