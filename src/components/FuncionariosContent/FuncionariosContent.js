@@ -57,7 +57,7 @@ const FuncionariosContent = () => {
             <tr>
               <th scope="col" className={styles.headerCell}>Nome</th>
               <th scope="col" className={styles.headerCell}>Cargo</th>
-              <th scope="col" className={styles.headerCell}>Editar / Deletar</th>
+              <th scope="col" className={styles.headerCell}>Editar / Desativar</th>
             </tr>
           </thead>
           <tbody>
@@ -65,7 +65,13 @@ const FuncionariosContent = () => {
               <tr key={funcionario._id}>
                 <td className="text-center">{funcionario.nome}</td>
                 <td className="text-center">{funcionario.descCargo}</td>
-                <td className="text-center">AAA</td>
+                <td className="text-center">
+                <img
+                      src="/images/prontuario.svg"
+                      alt="Prontuários"
+                      style={{ width: "24px", height: "24px" }}
+                    />
+                </td>
               </tr>
             ))}
           </tbody>

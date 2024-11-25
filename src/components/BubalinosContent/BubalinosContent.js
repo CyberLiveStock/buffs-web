@@ -3,9 +3,7 @@ import { useEffect, useState } from "react";
 import styles from "./BubalinosContent.module.css";
 import HeaderBubalinos from "../HeaderBubalinos/HeaderBubalinos";
 import ModalBubalinos from "../ModalBubalinos/ModalBubalinos";
-import ModalBubalinosZootecnicos from "../ModalBubalinosZootecnicos/ModalBubalinosZootecnicos.js";
-import ModalBubalinosSanitarios from "../ModalBubalinosSanitarios/ModalBubalinosSanitarios.js";
-import ModalBubalinosReproducao from "../ModalBubalinosReproducao/ModalBubalinosReproducao.js";
+
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -307,7 +305,7 @@ const BubalinosContent = () => {
         </form>
       </ModalBubalinos>
       {/* Modal de Zootécnicos */}
-      <ModalBubalinosZootecnicos
+      <ModalBubalinos
         isOpen={isModalZootecnicoOpen}
         closeModal={closeModalZootecnico}
       >
@@ -391,6 +389,8 @@ const BubalinosContent = () => {
               type="button"
               className="btn btn-danger"
               onClick={closeModalZootecnico}
+              
+              
               style={{
                 backgroundColor: "#FFCF78",
                 color: "black",
@@ -401,9 +401,9 @@ const BubalinosContent = () => {
             </button>
           </div>
         </form>
-      </ModalBubalinosZootecnicos>
+      </ModalBubalinos>
       {/* Modal de Sanitários */}
-      <ModalBubalinosSanitarios
+      <ModalBubalinos
         isOpen={isModalSanitarioOpen}
         closeModal={closeModalSanitario}
       >
@@ -497,9 +497,9 @@ const BubalinosContent = () => {
             </button>
           </div>
         </form>
-      </ModalBubalinosSanitarios>
+      </ModalBubalinos>
       {/* Modal de Sanitários */}
-      <ModalBubalinosReproducao
+      <ModalBubalinos
         isOpen={isModalReproducaoOpen}
         closeModal={closeModalReproducao}
       >
@@ -593,7 +593,7 @@ const BubalinosContent = () => {
             </button>
           </div>
         </form>
-      </ModalBubalinosReproducao>
+      </ModalBubalinos>
     </div>
   );
 };
