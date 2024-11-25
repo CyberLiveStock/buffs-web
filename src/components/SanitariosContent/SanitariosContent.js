@@ -8,20 +8,20 @@ const SanitariosContent = () => {
 
     useEffect(() => {
         const fetchBufalos = async () => {
-          try {
-            const response = await axios.get("http://localhost:4000/bufalos");
-            setBufalos(response.data.bufalos); //'sanitario' array de sanitarios
-            console.log(bufalos)
-          } catch (error) {
-            console.log(error);
-          }
+            try {
+                const response = await axios.get("http://localhost:4000/bufalos");
+                setBufalos(response.data.bufalos); //'sanitario' array de sanitarios
+                console.log(bufalos)
+            } catch (error) {
+                console.log(error);
+            }
         };
         fetchBufalos(); // Chamando a função para executar a requisição
-      }, []); // '[]' dependência do useEffect
-      
-    return(
+    }, []); // '[]' dependência do useEffect
+
+    return (
         <div className={styles.content}>
-            <HeaderSanitarios/>
+            <HeaderSanitarios />
             <div className={styles.divTabela}>
                 {/* TABELA DE DADOS SANITARIOS */}
                 <div className={styles.divCorpoTabela}>
@@ -32,12 +32,12 @@ const SanitariosContent = () => {
                                 <th scope="col" className={styles.headerCell}>Data</th>
                                 <th scope="col" className={styles.headerCell}>Tag</th>
                                 <th scope="col" className={styles.headerCell}>Descrição</th>
-                                <th scope="col" className={styles.headerCell}>Visualizar</th> 
+                                <th scope="col" className={styles.headerCell}>Visualizar</th>
                                 {/* ALTERAR DEPOIS A ULTIMA DE ACORDO COM O FIGMA  */}
                             </tr>
                         </thead>
                         <tbody>
-                        {bufalos.map((bufalo) => (
+                            {bufalos.map((bufalo) => (
                                 <tr key={bufalo._id}>
                                     <td className="text-center">{bufalo.sanitario?.[0]?.nomeTratamento || "N/A"}</td>
                                     <td className="text-center">
@@ -45,9 +45,15 @@ const SanitariosContent = () => {
                                     </td>
                                     <td className="text-center">{bufalo.tagBufalo || "N/A"}</td>
                                     <td className="text-center">{bufalo.sanitario?.[0]?.tipoSanitario || "N/A"}</td>
-                                    <td>AA</td>
+                                    <td>
+                                        <img
+                                            src="/images/prontuario.svg"
+                                            alt="Prontuários"
+                                            className={styles.icon}
+                                        />
+                                    </td>
                                 </tr>
-                        ))}
+                            ))}
                         </tbody>
                     </table>
                 </div>

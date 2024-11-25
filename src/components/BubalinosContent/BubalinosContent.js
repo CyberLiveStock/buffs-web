@@ -160,7 +160,7 @@ const BubalinosContent = () => {
                     <img
                       src="/images/prontuario.svg"
                       alt="Prontuários"
-                      style={{ width: "24px", height: "24px" }}
+                      className={styles.icon}
                       onClick={() => openModal(bufalo)}
                     />
                   </td>

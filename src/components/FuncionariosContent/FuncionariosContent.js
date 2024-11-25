@@ -98,7 +98,7 @@ const FuncionariosContent = () => {
             <tr>
               <th scope="col" className={styles.headerCell}>Nome</th>
               <th scope="col" className={styles.headerCell}>Cargo</th>
-              <th scope="col" className={styles.headerCell}>Editar / Deletar</th>
+              <th scope="col" className={styles.headerCell}>Funções</th>
             </tr>
           </thead>
           <tbody>
@@ -106,7 +106,10 @@ const FuncionariosContent = () => {
               <tr key={funcionario._id}>
                 <td className="text-center">{funcionario.nome}</td>
                 <td className="text-center">{funcionario.descCargo}</td>
-                <td className="text-center">AAA</td>
+                <td className="text-center">
+                  <a><img src="/images/icons/pen.svg" className={styles.icon}/></a>
+                  <a><img src="/images/icons/box.svg" className={styles.icon}/></a>
+                </td>
               </tr>
             ))}
           </tbody>

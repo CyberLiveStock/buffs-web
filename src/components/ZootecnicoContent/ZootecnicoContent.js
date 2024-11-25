@@ -8,19 +8,19 @@ const ZootecnicoContent = () => {
 
     useEffect(() => {
         const fetchBufalos = async () => {
-          try {
-            const response = await axios.get("http://localhost:4000/bufalos");
-            setBufalos(response.data.bufalos); //'bubalinos' array de bubalinos
-            console.log(bufalos)
-          } catch (error) {
-            console.log(error);
-          }
+            try {
+                const response = await axios.get("http://localhost:4000/bufalos");
+                setBufalos(response.data.bufalos); //'bubalinos' array de bubalinos
+                console.log(bufalos)
+            } catch (error) {
+                console.log(error);
+            }
         };
         fetchBufalos(); // Chamando a função para executar a requisição
-      }, []); // '[]' dependência do useEffect
+    }, []); // '[]' dependência do useEffect
     return (
         <div className={styles.content}>
-            <HeaderZootecnico/>
+            <HeaderZootecnico />
             <div className={styles.divTabela}>
                 {/* TABELA DE BUBALINOS */}
                 <div className={styles.divCorpoTabela}>
@@ -37,7 +37,7 @@ const ZootecnicoContent = () => {
                             </tr>
                         </thead>
                         <tbody>
-                        {bufalos.map((bufalo) => (
+                            {bufalos.map((bufalo) => (
                                 <tr key={bufalo._id}>
                                     <td className="text-center">{bufalo.nome}</td>
                                     <td className="text-center">{bufalo.tagBufalo}</td>
@@ -47,7 +47,13 @@ const ZootecnicoContent = () => {
                                         {new Date(bufalo.dataNasc).toLocaleDateString("pt-BR", { year: "numeric", month: "2-digit", day: "2-digit" })}
                                     </td>
                                     <td className="text-center">{bufalo.peso}</td>
-                                    <td className="text-center">AA</td>
+                                    <td className="text-center">
+                                        <img
+                                            src="/images/prontuario.svg"
+                                            alt="Prontuários"
+                                            className={styles.icon}
+                                        />
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
