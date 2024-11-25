@@ -6,9 +6,8 @@ import ModalBubalinos from "../ModalBubalinos/ModalBubalinos";
 import ModalBubalinosZootecnicos from "../ModalBubalinosZootecnicos/ModalBubalinosZootecnicos.js";
 import ModalBubalinosSanitarios from "../ModalBubalinosSanitarios/ModalBubalinosSanitarios.js";
 import ModalBubalinosReproducao from "../ModalBubalinosReproducao/ModalBubalinosReproducao.js";
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const BubalinosContent = () => {
   const [bufalos, setBufalos] = useState([]); //Coleção Bufalos

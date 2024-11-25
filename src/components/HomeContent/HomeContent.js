@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
 import styles from "./HomeContent.module.css";
 import { Popover, PopoverTrigger, PopoverContent, Button, Card, CardBody } from "@nextui-org/react";
-
+import '@fortawesome/fontawesome-free/css/all.min.css';
 const HomeContent = () => {
   const [demandas, setDemandas] = useState([]);         // Coleção Demandas
   const [bufalos, setBufalos] = useState([]);           // Coleção Bufalos
@@ -263,14 +263,28 @@ const HomeContent = () => {
 
       <div className={styles.doughnutCharts}>
         <div className={styles.chartContainer}>
+          <Popover placement="right">
+            <PopoverTrigger style={{ marginLeft: "-60%" }}>
+              <span><i class="fa-solid fa-circle-info"></i></span>
+            </PopoverTrigger>
+            <PopoverContent>
+              <Card style={{ backgroundColor: "#f9f9f9", borderRadius: "8px", padding: "2px", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}>
+                <CardBody>
+                  <p style={{ fontSize: "14px", color: "#333", lineHeight: "0.3" }}>
+                    Indicativo da taxa de sucesso dos nascimentos no período.
+                  </p>
+                </CardBody>
+              </Card>
+            </PopoverContent>
+          </Popover>
           <canvas ref={natalidadeRef} className={styles.chart}></canvas>
           <h4>Taxa de natalidade</h4>
         </div>
 
         <div className={styles.chartContainer}>
           <Popover placement="right">
-            <PopoverTrigger>
-              <Button>(i)</Button>
+            <PopoverTrigger style={{ marginLeft: "-60%" }}>
+              <span><i class="fa-solid fa-circle-info"></i></span>
             </PopoverTrigger>
             <PopoverContent>
               <Card style={{ backgroundColor: "#f9f9f9", borderRadius: "8px", padding: "2px", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}>
@@ -280,7 +294,6 @@ const HomeContent = () => {
                   </p>
                 </CardBody>
               </Card>
-
             </PopoverContent>
           </Popover>
           <canvas ref={prenhezRef} className={styles.chart}></canvas>
@@ -288,6 +301,20 @@ const HomeContent = () => {
         </div>
 
         <div className={styles.chartContainer}>
+          <Popover placement="bottom">
+            <PopoverTrigger style={{ marginLeft: "-60%" }}>
+              <span><i class="fa-solid fa-circle-info"></i></span>
+            </PopoverTrigger>
+            <PopoverContent>
+              <Card style={{ backgroundColor: "#f9f9f9", borderRadius: "8px", padding: "2px", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}>
+                <CardBody>
+                  <p style={{ fontSize: "14px", color: "#333", lineHeight: "0.3" }}>
+                    Indicativo do sucesso da gestação em andamento.
+                  </p>
+                </CardBody>
+              </Card>
+            </PopoverContent>
+          </Popover>
           <canvas ref={gestacaoRef} className={styles.chart}></canvas>
           <h4>Em gestação</h4>
         </div>
