@@ -73,7 +73,14 @@ const BubalinosContent = () => {
                     })}
                   </td>
                   <td className="text-center">{bufalo.peso}</td>
-                  <td className="text-center">AA</td>
+                  <td className="text-center">
+                    <img
+                      src="/images/prontuario.svg"
+                      alt="Prontuários"
+                      style={{ width: "24px", height: "24px" }}
+                      onClick={openModal}
+                    />
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -83,44 +90,40 @@ const BubalinosContent = () => {
       <ModalBubalinos isOpen={isModalOpen} closeModal={closeModal}>
         <h2 style={{ textAlign: "center" }}>Dados Gerais</h2>
         <form>
-        
           <div className={styles.divContent}>
             <div className={styles.divLeftContent}>
-            <div className={styles.leftContent}>
-                  {/*  BACKGROUND IMAGE*/}
+              <div className={styles.leftContent}>{/*  BACKGROUND IMAGE*/}</div>
             </div>
-            </div>
-
 
             <div className={styles.divRightContent}>
-            <div className={styles.rightContent}>
-              <div className="form-group">
-                <label className={styles.label}>TAG</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="#0001"
-                />
-              </div>
+              <div className={styles.rightContent}>
+                <div className="form-group">
+                  <label className={styles.label}>TAG</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="#0001"
+                  />
+                </div>
 
-              <div className="form-group">
-                <label className={styles.label}>Nome</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Bella"
-                />
-              </div>
+                <div className="form-group">
+                  <label className={styles.label}>Nome</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Bella"
+                  />
+                </div>
 
-              <div className="form-group">
-                <label className={styles.label}>Criadouro</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Baia 2"
-                />
+                <div className="form-group">
+                  <label className={styles.label}>Criadouro</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Baia 2"
+                  />
+                </div>
               </div>
-            </div>
             </div>
           </div>
 
@@ -156,28 +159,58 @@ const BubalinosContent = () => {
 
             <div className="form-group">
               <label className={styles.label}>Sexo</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Fêmea"
-              />
+              <input type="text" className="form-control" placeholder="Fêmea" />
             </div>
           </div>
 
-          <div className={styles.divButton}> 
-          <button type="submit" style={{ backgroundColor: "#FFCF78", border: "2px #FFCF78", color : "black"}} className="btn btn-success">Zootécnico</button>
-          <button type="submit" style={{ backgroundColor: "#FFCF78", border: "2px #FFCF78", color : "black"  }} className="btn btn-success">Reprodução</button>
-          <button type="submit" style={{ backgroundColor: "#FFCF78", border: "2px #FFCF78", color : "black"  }} className="btn btn-success">Sanitário</button>
-          </div> 
+          <div className={styles.divButton}>
+            <button
+              type="submit"
+              style={{
+                backgroundColor: "#FFCF78",
+                border: "2px #FFCF78",
+                color: "black",
+              }}
+              className="btn btn-success"
+            >
+              Zootécnico
+            </button>
+            <button
+              type="submit"
+              style={{
+                backgroundColor: "#FFCF78",
+                border: "2px #FFCF78",
+                color: "black",
+              }}
+              className="btn btn-success"
+            >
+              Reprodução
+            </button>
+            <button
+              type="submit"
+              style={{
+                backgroundColor: "#FFCF78",
+                border: "2px #FFCF78",
+                color: "black",
+              }}
+              className="btn btn-success"
+            >
+              Sanitário
+            </button>
+          </div>
 
-          <div className={styles.divButton}> 
-          <button type="submit" style={{ backgroundColor: "#CE7D0A", border: "2px #CE7D0A"   }} className="btn btn-success">Fechar</button>
-          </div> 
-
+          <div className={styles.divButton}>
+            <button
+              type="submit"
+              style={{ backgroundColor: "#CE7D0A", border: "2px #CE7D0A" }}
+              className="btn btn-success"
+            >
+              Fechar
+            </button>
+          </div>
         </form>
       </ModalBubalinos>
     </div>
-    
   );
 };
 

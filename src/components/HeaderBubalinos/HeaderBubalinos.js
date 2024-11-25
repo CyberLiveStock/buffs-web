@@ -11,7 +11,7 @@ const HeaderBubalinos = ({ openModal }) => {
       <span className={`m-0 ${styles.title}`}>Bubalinos</span>
       <button 
         className={`btn ${styles.button}`} 
-        onClick={openModal} // Função para abrir o modal
+        // Função para abrir o modal
       >
         Exportar Dados
       </button>
