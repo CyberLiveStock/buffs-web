@@ -31,13 +31,33 @@
 }
 
 .barraPesquisa{
-  width: 90%;
+  width: 95.2%;
   margin-left: 40px;
 }
-.buttonPesquisar{
-  background-color: #2D220A;
-  margin-left: 8px;
+
+.buttonPesquisar {
+  display: flex; /* Garante alinhamento do ícone dentro do botão */
+  justify-content: center; /* Centraliza o ícone horizontalmente */
+  align-items: center; /* Centraliza o ícone verticalmente */
+  padding: 0.5rem 1rem; /* Ajusta o espaçamento interno do botão */
+  background-color: #b6babd; /* Cor de fundo do botão */
+  border: none; /* Remove bordas padrão */
+  color: #fff; /* Cor do ícone (branco) */
+  font-size: 1rem; /* Tamanho da fonte e ícone */
+  border-radius: 0 0.25rem 0.25rem 0; /* Ajusta os cantos arredondados apenas no lado direito */
+  transition: background-color 0.3s ease; /* Adiciona animação ao passar o mouse */
+  cursor: pointer; /* Muda o cursor para indicar clicável */
 }
+
+.buttonPesquisar:hover {
+  background-color: #5a6268; /* Cor ao passar o mouse */
+}
+
+.buttonPesquisar i {
+  margin-left: 0; /* Garante que o ícone fique centralizado */
+}
+
+
 
 .divInfosFunc{
   width: 95%;

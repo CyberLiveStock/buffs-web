@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./BubalinosContent.module.css";
 import HeaderBubalinos from "../HeaderBubalinos/HeaderBubalinos";
 import ModalBubalinos from "../ModalBubalinos/ModalBubalinos";
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const BubalinosContent = () => {
   const [bufalos, setBufalos] = useState([]);
@@ -29,6 +30,44 @@ const BubalinosContent = () => {
     <div className={styles.content}>
       <HeaderBubalinos openModal={openModal} />{" "}
       {/* Passa a função openModal para o HeaderBubalinos */}
+      <div className={`row mt-3 ${styles.barraPesquisa}`}>
+        <div className="col">
+          <form className="input-group" id="searchForm">
+            <input
+              className="form-control"
+              type="search"
+              placeholder="Pesquisar bubalino"
+              aria-label="Pesquisar"
+              id="searchInput"
+            />
+            <button
+              className={`btn btn-secondary ${styles.buttonPesquisar}`}
+              type="button"
+            >
+              <i className="fas fa-search"></i> {/* Ícone de lupa */}
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div className={styles.divContador}>
+        <div className={styles.divContainerContador}>
+          <div className={styles.divContainerLeftContador}>
+            <div className={styles.divLeftContador}>
+              <p>ok</p>
+            </div>
+          </div>
+
+          <div className={styles.divContainerRightContador}>
+            <div className={styles.divRightContador}>
+              <h5>Total de Búfalos</h5>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+
       <div className={styles.divTabela}>
         {/* TABELA DE BUBALINOS */}
         <div className={styles.divCorpoTabela}>
