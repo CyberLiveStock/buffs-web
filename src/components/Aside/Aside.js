@@ -35,6 +35,9 @@ const Aside = ({ isOpen }) => {
       case "/controle-reproducao":
         setActiveItem(menuItems[6]);
         break;
+        case "/financeiro":
+          setActiveItem(menuItems[7]);
+          break;
       default:
         setActiveItem(menuItems[0]);
     }
@@ -126,6 +129,17 @@ const Aside = ({ isOpen }) => {
               className={styles.icon}
             />{" "}
             Controle de Reprodução
+          </a>
+        </li>
+
+        <li>
+          <a href="/financeiro">
+            <img
+              src="/images/icons/statistics.svg"
+              alt="Controle de Reprodução"
+              className={styles.icon}
+            />{" "}
+            Financeiro
           </a>
         </li>
       </ul>

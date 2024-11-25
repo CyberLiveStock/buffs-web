@@ -6,6 +6,104 @@
   overflow-y: auto;
 }
 
+/* CSS BARRA DE PESQUISA */
+.barraPesquisa{
+  width: 95.2%;
+  margin-left: 40px;
+}
+
+.buttonPesquisar {
+  display: flex; /* Garante alinhamento do ícone dentro do botão */
+  justify-content: center; /* Centraliza o ícone horizontalmente */
+  align-items: center; /* Centraliza o ícone verticalmente */
+  padding: 0.5rem 1rem; /* Ajusta o espaçamento interno do botão */
+  background-color: #b6babd; /* Cor de fundo do botão */
+  border: none; /* Remove bordas padrão */
+  color: #fff; /* Cor do ícone (branco) */
+  font-size: 1rem; /* Tamanho da fonte e ícone */
+  border-radius: 0 0.25rem 0.25rem 0; /* Ajusta os cantos arredondados apenas no lado direito */
+  transition: background-color 0.3s ease; /* Adiciona animação ao passar o mouse */
+  cursor: pointer; /* Muda o cursor para indicar clicável */
+}
+
+.buttonPesquisar:hover {
+  background-color: #5a6268; /* Cor ao passar o mouse */
+}
+
+.buttonPesquisar i {
+  margin-left: 0; /* Garante que o ícone fique centralizado */
+}
+
+/* CSS CONTADOR BUBALINOS */
+.divContador{
+  background-color: aqua;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100px;
+  margin-top: 30px;
+}
+
+.divContainerContador{
+  display: flex;
+  background-color: brown;
+  width: 300px;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+}
+
+.divContainerLeftContador{
+  display: flex;
+  width: 150px;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+  background-color: greenyellow;
+}
+.divLeftContador{
+  display: flex;
+  background-color: #FFCF78;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.divContainerRightContador{
+  display: flex;
+  width: 150px;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(206, 25, 161);
+}
+
+.divRightContador{
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  background-color: #5a6268;
+  width: 200px;
+  height: 50px;
+  margin-top: -50px;
+}
+
+.divRightContador2{
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  background-color: #5a6268;
+  width: 200px;
+  height: 50px;
+  margin-top: -50px;
+}
+
+
+
+/* CSS TABELA */
 .divTabela{
     margin-top: 110px;
   }
@@ -19,7 +117,7 @@
       padding-right: 10px;
       padding-top: 20px;
       margin-bottom: 20px;
-      margin-top: 0px;
+      margin-top: -80px;
       border-radius: 10px; 
       display: flex;
       justify-content: space-evenly;
