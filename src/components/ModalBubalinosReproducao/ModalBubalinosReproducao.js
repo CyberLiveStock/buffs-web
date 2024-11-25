@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./ModalBabalinosReproducao.module.css";
+import styles from "./ModalBubalinosReproducao.module.css";
 
 const ModalBabalinosReproducao = ({ isOpen, closeModal, children }) => {
   if (!isOpen) return null; // Não renderiza o modal se não estiver aberto.

@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import styles from "./BubalinosContent.module.css";
 import HeaderBubalinos from "../HeaderBubalinos/HeaderBubalinos";
 import ModalBubalinos from "../ModalBubalinos/ModalBubalinos";
-import ModalBubalinosZootecnicos from "../ModalBabalinosZootecnicos/ModalBubalinosZootecnicos.js";
-import ModalBubalinosSanitarios from "../ModalBabalinosSanitarios/ModalBabalinosSanitarios.js";
-import ModalBabalinosReproducao from "../ModalBabalinosReproducao/ModalBabalinosReproducao";
+import ModalBubalinosZootecnicos from "../ModalBubalinosZootecnicos/ModalBubalinosZootecnicos.js";
+import ModalBubalinosSanitarios from "../ModalBubalinosSanitarios/ModalBubalinosSanitarios.js";
+import ModalBubalinosReproducao from "../ModalBubalinosReproducao/ModalBubalinosReproducao";
 
 
 const BubalinosContent = () => {
@@ -438,7 +438,7 @@ const BubalinosContent = () => {
         </form>
       </ModalBubalinosSanitarios>
       {/* Modal de Sanitários */}
-      <ModalBabalinosReproducao
+      <ModalBubalinosReproducao
         isOpen={isModalReproducaoOpen}
         closeModal={closeModalReproducao}
       >
@@ -532,7 +532,7 @@ const BubalinosContent = () => {
             </button>
           </div>
         </form>
-      </ModalBabalinosReproducao>
+      </ModalBubalinosReproducao>
     </div>
   );
 };

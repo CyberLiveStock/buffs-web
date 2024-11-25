@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./ModalBabalinosSanitarios.module.css";
+import styles from "./ModalBubalinosSanitarios.module.css";
 
 const ModalBabalinosSanitarios = ({ isOpen, closeModal, children }) => {
   if (!isOpen) return null; // Não renderiza o modal se não estiver aberto.
