@@ -11,7 +11,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const BubalinosContent = () => {
-  const [bufalos, setBufalos] = useState([]);
+  const [bufalos, setBufalos] = useState([]); //Coleção Bufalos
   const [selectedBufalo, setSelectedBufalo] = useState(null);
 
   // Estados para controlar os modais
@@ -21,7 +21,7 @@ const BubalinosContent = () => {
   const [isModalReproducaoOpen, setModalReproducaoOpen] = useState(false);
 
   // Funções para controlar o modal de Bubalinos
- const openModal = (bufalo) => {
+  const openModal = (bufalo) => {
     setSelectedBufalo(bufalo);
     setModalOpen(true);
   } // Função para abrir o modal
@@ -64,6 +64,12 @@ const BubalinosContent = () => {
     fetchBufalos();
   }, []);
 
+  // Barra de Pesquisa
+  const [searchTerm, setSearchTerm] = useState(''); // Parametro de pesquisa
+  const filteredBufalos = bufalos.filter((bufalo) =>
+    bufalo.tagBufalo.toString().includes(searchTerm)
+  );
+
   return (
     <div className={styles.content}>
       <HeaderBubalinos openModal={openModal} />{" "}
@@ -77,6 +83,8 @@ const BubalinosContent = () => {
               placeholder="Pesquisar bubalino"
               aria-label="Pesquisar"
               id="searchInput"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
             <button
               className={`btn btn-secondary ${styles.buttonPesquisar}`}
@@ -100,7 +108,7 @@ const BubalinosContent = () => {
             <div className={styles.divRightContador}>
               <h5>Total de Búfalos</h5>
             </div>
-            
+
           </div>
         </div>
       </div>
@@ -135,7 +143,7 @@ const BubalinosContent = () => {
               </tr>
             </thead>
             <tbody>
-              {bufalos.map((bufalo) => (
+            {filteredBufalos.map((bufalo) => (
                 <tr key={bufalo._id}>
                   <td className="text-center">{bufalo.nome}</td>
                   <td className="text-center">{bufalo.tagBufalo}</td>
@@ -224,10 +232,10 @@ const BubalinosContent = () => {
                 className="form-control"
                 value={selectedBufalo
                   ? new Date(selectedBufalo.dataNasc).toLocaleDateString("pt-BR", {
-                      year: "numeric",
-                      month: "2-digit",
-                      day: "2-digit",
-                    })
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                  })
                   : ""}
                 readOnly
               />
@@ -247,11 +255,11 @@ const BubalinosContent = () => {
 
             <div className="form-group">
               <label className={styles.label}>Sexo</label>
-              <input 
-                type="text" 
-                className="form-control" 
+              <input
+                type="text"
+                className="form-control"
                 value={selectedBufalo?.sexo || ""}
-                readOnly/>
+                readOnly />
             </div>
           </div>
 
