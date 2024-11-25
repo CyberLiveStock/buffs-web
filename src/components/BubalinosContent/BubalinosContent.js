@@ -8,9 +8,16 @@ const BubalinosContent = () => {
   const [bufalos, setBufalos] = useState([]);
 
   const [isModalOpen, setModalOpen] = useState(false); // Estado para controlar a visibilidade do modal
+  const [selectedBufalo, setSelectedBufalo] = useState(null);
 
-  const openModal = () => setModalOpen(true); // Função para abrir o modal
-  const closeModal = () => setModalOpen(false); // Função para fechar o modal
+  const openModal = (bufalo) => {
+    setSelectedBufalo(bufalo);
+    setModalOpen(true);
+  } // Função para abrir o modal
+  const closeModal = () => {
+    setSelectedBufalo(null); // Limpa o búfalo selecionado
+    setModalOpen(false); // Fecha o modal
+  };
 
   useEffect(() => {
     const fetchBufalos = async () => {
@@ -72,13 +79,13 @@ const BubalinosContent = () => {
                       day: "2-digit",
                     })}
                   </td>
-                  <td className="text-center">{bufalo.peso}</td>
+                  <td className="text-center">{bufalo.peso} Kg</td>
                   <td className="text-center">
                     <img
                       src="/images/prontuario.svg"
                       alt="Prontuários"
                       style={{ width: "24px", height: "24px" }}
-                      onClick={openModal}
+                      onClick={() => openModal(bufalo)}
                     />
                   </td>
                 </tr>
@@ -102,7 +109,8 @@ const BubalinosContent = () => {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="#0001"
+                    value={selectedBufalo?.tagBufalo || ""}
+                    readOnly
                   />
                 </div>
 
@@ -111,7 +119,8 @@ const BubalinosContent = () => {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Bella"
+                    value={selectedBufalo?.nome || ""}
+                    readOnly
                   />
                 </div>
 
@@ -133,7 +142,8 @@ const BubalinosContent = () => {
               <input
                 type="text"
                 className="form-control"
-                placeholder="1 ano e 4 meses"
+                value={selectedBufalo?.idade || ""}
+                readOnly
               />
             </div>
 
@@ -142,7 +152,14 @@ const BubalinosContent = () => {
               <input
                 type="text"
                 className="form-control"
-                placeholder="01/07/2022"
+                value={selectedBufalo
+                  ? new Date(selectedBufalo.dataNasc).toLocaleDateString("pt-BR", {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                    })
+                  : ""}
+                readOnly
               />
             </div>
           </div>
@@ -153,13 +170,18 @@ const BubalinosContent = () => {
               <input
                 type="text"
                 className="form-control"
-                placeholder="Murrah"
+                value={selectedBufalo?.raca || ""}
+                readOnly
               />
             </div>
 
             <div className="form-group">
               <label className={styles.label}>Sexo</label>
-              <input type="text" className="form-control" placeholder="Fêmea" />
+              <input 
+                type="text" 
+                className="form-control" 
+                value={selectedBufalo?.sexo || ""}
+                readOnly/>
             </div>
           </div>
 
