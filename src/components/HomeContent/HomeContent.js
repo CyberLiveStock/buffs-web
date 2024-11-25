@@ -2,9 +2,9 @@ import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
 import styles from "./HomeContent.module.css";
-import { Popover, PopoverTrigger, PopoverContent, Button, Card, CardBody } from "@nextui-org/react";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import InfoGraf from "../InfoGraf/InfoGraf";
+
 const HomeContent = () => {
   const [demandas, setDemandas] = useState([]);         // Coleção Demandas
   const [bufalos, setBufalos] = useState([]);           // Coleção Bufalos
@@ -322,7 +322,7 @@ const HomeContent = () => {
                   <td className="text-center">{demanda.idFuncionario?.nome || "Sem nome"}</td>
                   <td className="text-center">{demanda.categoria}</td>
                   <td className="text-center">{demanda.status}</td>
-                  <td className="text-center">AAAAA</td>
+                  <td className="text-center"><a href="/demandas"><i class="fa-solid fa-arrow-up-right-from-square"/></a></td>
                 </tr>
               ))}
             </tbody>
