@@ -1,5 +1,5 @@
 // components/ModalFuncionario/ModalFuncionario.js
-import React from "react";
+import React, { useState } from "react";
 import styles from "./ModalFuncionario.module.css"; // Importando os estilos do CSS Modules
 
 const ModalFuncionario = ({ isOpen, closeModal, children }) => {
@@ -13,6 +13,7 @@ const ModalFuncionario = ({ isOpen, closeModal, children }) => {
         </button>
         <div className={styles.content}>{children}</div>
       </div>
+      
     </div>
   );
 };

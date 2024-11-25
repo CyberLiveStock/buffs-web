@@ -5,10 +5,10 @@ import HeaderFuncionarios from '../HeaderFuncionarios/HeaderFuncionarios';
 import ModalFuncionario from '../ModalFuncionario/ModalFuncionario'; // Importe o ModalFuncionario
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
-
 const FuncionariosContent = () => {
-  const [funcionarios, setFuncionarios] = useState([]);
+  const [funcionarios, setFuncionarios] = useState([]); // Coleção Funcionarios
   const [isModalOpen, setModalOpen] = useState(false); // Estado para controlar a visibilidade do modal
+
 
   const openModal = () => setModalOpen(true); // Função para abrir o modal
   const closeModal = () => setModalOpen(false); // Função para fechar o modal
@@ -25,6 +25,41 @@ const FuncionariosContent = () => {
     };
     fetchFuncionarios(); // Chamando a função para executar a requisição
   }, []); // '[]' dependência do useEffect
+
+
+  // Para Cadastrar um Novo Funcionario:
+  const [nome, setNome] = useState("")
+  const [salario, setSalario] = useState("")
+  const [dataNasc, setDataNasc] = useState("")
+  const [cpf, setCpf] = useState("")
+  const [email, setEmail] = useState("")
+  const [telefone, setTelefone] = useState("")
+  const [genero, setGenero] = useState("")
+  const [rua, setRua] = useState("")
+  const [bairro, setBairro] = useState("")
+  const [estado, setEstado] = useState("")
+  const [numero, setNumero] = useState("")
+  const [cidade, setCidade] = useState("")
+  const [descCargo, setDescCargo] = useState("")
+  const [status] = useState("Ativo")
+
+  const handleSubmit = async (event) => {
+    if (nome && salario && dataNasc && email && telefone && genero && rua && bairro && estado && numero && cidade && descCargo && status !== "") {
+      const funcionario = {
+        nome, salario, dataNasc, email, telefone, genero, rua, bairro, estado, numero, cidade, descCargo, status
+      };
+      try {
+        const response = await axios.post("http://localhost:4000/funcionario", funcionario)
+        if (response.status === 201) {
+          router.push("/")
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      alert("Por favor, preencha todos os campos.")
+    }
+  }
 
   return (
     <div className={styles.content}>
@@ -77,90 +112,88 @@ const FuncionariosContent = () => {
 
         <h2 style={{ marginLeft: "14px" }}>Cadastrar Funcionário</h2>
 
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className={styles.divModal}>
             <div className="form-group">
               <label className={styles.label}>Nome</label>
-              <input type="text" className="form-control" placeholder="Digite o nome" />
+              <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} className="form-control" placeholder="Digite o nome" />
             </div>
 
             <div className="form-group">
               <label className={styles.label}>Salário</label>
-              <input type="text" className="form-control" placeholder="Digite o salário" />
+              <input type="text" value={salario} onChange={(e) => setSalario(e.target.value)} className="form-control" placeholder="Digite o salário" />
             </div>
           </div>
 
           <div className={styles.divModal}>
-
-
             <div className="form-group">
-              <label className={styles.label}>Data de Nascimento</label>
-              <input type="text" className="form-control" placeholder="   /  /   " />
+              <label className={styles.label}>Data Nascimento:  </label>
+              <input type="date" value={dataNasc} onChange={(e) => setDataNasc(e.target.value)} className="form-control" placeholder="Digite o CPF" />
             </div>
           </div>
-
-
+          
           <div className={styles.divModal}>
             <div className="form-group">
               <label className={styles.label}>Email</label>
-              <input type="text" className="form-control" placeholder="Digite o Email" />
+              <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} className="form-control" placeholder="Digite o Email" />
             </div>
 
             <div className="form-group">
               <label className={styles.label}>Telefone</label>
-              <input type="text" className="form-control" placeholder="(xx) XXXXX-XXXX " />
+              <input type="text" value={telefone} onChange={(e) => setTelefone(e.target.value)} className="form-control" placeholder="(xx) XXXXX-XXXX " />
             </div>
           </div>
 
           <div className={styles.divModal}>
             <div className="form-group">
               <label className={styles.label}>Gênero</label>
-              <input type="text" className="form-control" placeholder="Digite o gênero" />
+              <input type="text" value={genero} onChange={(e) => setGenero(e.target.value)} className="form-control" placeholder="Digite o gênero" />
             </div>
 
             <div className="form-group">
               <label className={styles.label}>Rua</label>
-              <input type="text" className="form-control" placeholder="Digite a rua" />
+              <input type="text" value={rua} onChange={(e) => setRua(e.target.value)} className="form-control" placeholder="Digite a rua" />
             </div>
           </div>
 
           <div className={styles.divModal}>
             <div className="form-group">
               <label className={styles.label}>Bairro</label>
-              <input type="text" className="form-control" placeholder="Digite o bairro" />
+              <input type="text" value={bairro} onChange={(e) => setBairro(e.target.value)} className="form-control" placeholder="Digite o bairro" />
             </div>
 
             <div className="form-group">
               <label className={styles.label}>Estado</label>
-              <input type="text" className="form-control" placeholder="Digite o estado" />
+              <input type="text" value={estado} onChange={(e) => setEstado(e.target.value)} className="form-control" placeholder="Digite o estado" />
             </div>
           </div>
 
           <div className={styles.divModal}>
             <div className="form-group">
               <label className={styles.label}>Número</label>
-              <input type="text" className="form-control" placeholder="Digite o número" />
+              <input type="text" value={numero} onChange={(e) => setNumero(e.target.value)} className="form-control" placeholder="Digite o número" />
             </div>
 
             <div className="form-group">
               <label className={styles.label}>Cidade</label>
-              <input type="text" className="form-control" placeholder="Digite a cidade" />
+              <input type="text" value={cidade} onChange={(e) => setCidade(e.target.value)} className="form-control" placeholder="Digite a cidade" />
             </div>
           </div>
 
           <div className={styles.divModal}>
             <div className="form-group">
               <label className={styles.labelCustom}>Descrição do Cargo</label>
-              <input type="text" className="form-control" placeholder="Digite a descrição do cargo" />
+              <input type="text" value={descCargo} onChange={(e) => setDescCargo(e.target.value)} className="form-control" placeholder="Digite a descrição do cargo" />
             </div>
           </div>
 
           <div className={styles.divModal}>
-            <button type="submit" style={{ backgroundColor: "#CE7D0A", border: "2px #CE7D0A" }} className="btn btn-success">Cadastrar</button>
+            <button type="submit" value="Cadastrar" style={{ backgroundColor: "#CE7D0A", border: "2px #CE7D0A" }} className="btn btn-success">Cadastrar</button>
 
-            <button type="submit" style={{ backgroundColor: "#FFCF78", border: "2px #FFCF78", color: "black" }} className="btn btn-success">Cancelar</button>
+            <button style={{ backgroundColor: "#FFCF78", border: "2px #FFCF78", color: "black" }} className="btn btn-success">Cancelar</button>
           </div>
         </form>
+
       </ModalFuncionario>
     </div>
   );
