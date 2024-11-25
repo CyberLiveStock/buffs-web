@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import styles from './FuncionariosContent.module.css';
 import HeaderFuncionarios from '../HeaderFuncionarios/HeaderFuncionarios';
 import ModalFuncionario from '../ModalFuncionario/ModalFuncionario'; // Importe o ModalFuncionario
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 const FuncionariosContent = () => {
   const [funcionarios, setFuncionarios] = useState([]);
@@ -28,22 +30,21 @@ const FuncionariosContent = () => {
     <div className={styles.content}>
       <HeaderFuncionarios openModal={openModal} /> {/* Passa a função openModal para o HeaderFuncionarios */}
 
-      {/* BARRA DE PESQUISA */}
       <div className={`row mt-3 ${styles.barraPesquisa}`}>
-        <div className='col'>
-          <form className='d-flex' id='searchForm'>
+        <div className="col">
+          <form className="input-group" id="searchForm">
             <input
-              className='form-control mr-2'
+              className="form-control"
               type="search"
               placeholder="Pesquisar funcionário"
               aria-label="Pesquisar"
               id="searchInput"
             />
             <button
-              className={`btn btn-secondary ml-2 ${styles.buttonPesquisar}`}
-              type="button" // Mudei de "submit" para "button"
+              className={`btn btn-secondary ${styles.buttonPesquisar}`}
+              type="button"
             >
-              Pesquisar
+              <i className="fas fa-search"></i> {/* Ícone de lupa */}
             </button>
           </form>
         </div>
@@ -73,8 +74,8 @@ const FuncionariosContent = () => {
 
       {/* Modal de Adicionar Funcionário */}
       <ModalFuncionario isOpen={isModalOpen} closeModal={closeModal}>
-      
-      <h2 style={{ marginLeft: "14px" }}>Cadastrar Funcionário</h2>
+
+        <h2 style={{ marginLeft: "14px" }}>Cadastrar Funcionário</h2>
 
         <form>
           <div className={styles.divModal}>
@@ -90,7 +91,7 @@ const FuncionariosContent = () => {
           </div>
 
           <div className={styles.divModal}>
-            
+
 
             <div className="form-group">
               <label className={styles.label}>Data de Nascimento</label>
@@ -98,9 +99,9 @@ const FuncionariosContent = () => {
             </div>
           </div>
 
-          
+
           <div className={styles.divModal}>
-          <div className="form-group">
+            <div className="form-group">
               <label className={styles.label}>Email</label>
               <input type="text" className="form-control" placeholder="Digite o Email" />
             </div>
@@ -112,7 +113,7 @@ const FuncionariosContent = () => {
           </div>
 
           <div className={styles.divModal}>
-          <div className="form-group">
+            <div className="form-group">
               <label className={styles.label}>Gênero</label>
               <input type="text" className="form-control" placeholder="Digite o gênero" />
             </div>
@@ -124,7 +125,7 @@ const FuncionariosContent = () => {
           </div>
 
           <div className={styles.divModal}>
-          <div className="form-group">
+            <div className="form-group">
               <label className={styles.label}>Bairro</label>
               <input type="text" className="form-control" placeholder="Digite o bairro" />
             </div>
@@ -136,7 +137,7 @@ const FuncionariosContent = () => {
           </div>
 
           <div className={styles.divModal}>
-          <div className="form-group">
+            <div className="form-group">
               <label className={styles.label}>Número</label>
               <input type="text" className="form-control" placeholder="Digite o número" />
             </div>
@@ -148,17 +149,17 @@ const FuncionariosContent = () => {
           </div>
 
           <div className={styles.divModal}>
-          <div className="form-group">
+            <div className="form-group">
               <label className={styles.labelCustom}>Descrição do Cargo</label>
               <input type="text" className="form-control" placeholder="Digite a descrição do cargo" />
             </div>
           </div>
 
-          <div className={styles.divModal}> 
-          <button type="submit" style={{ backgroundColor: "#CE7D0A", border: "2px #CE7D0A"  }} className="btn btn-success">Cadastrar</button>
+          <div className={styles.divModal}>
+            <button type="submit" style={{ backgroundColor: "#CE7D0A", border: "2px #CE7D0A" }} className="btn btn-success">Cadastrar</button>
 
-          <button type="submit" style={{ backgroundColor: "#FFCF78", border: "2px #FFCF78", color : "black"  }} className="btn btn-success">Cancelar</button>
-          </div> 
+            <button type="submit" style={{ backgroundColor: "#FFCF78", border: "2px #FFCF78", color: "black" }} className="btn btn-success">Cancelar</button>
+          </div>
         </form>
       </ModalFuncionario>
     </div>
