@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ModalBubalinosReproducao.module.css";
 
-const ModalBabalinosReproducao = ({ isOpen, closeModal, children }) => {
+const ModalBubalinosReproducao = ({ isOpen, closeModal, children }) => {
   if (!isOpen) return null; // Não renderiza o modal se não estiver aberto.
 
   return (
@@ -16,4 +16,4 @@ const ModalBabalinosReproducao = ({ isOpen, closeModal, children }) => {
   );
 };
 
-export default ModalBabalinosReproducao;
+export default ModalBubalinosReproducao;

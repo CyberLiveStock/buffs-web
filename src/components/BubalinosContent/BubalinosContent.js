@@ -105,10 +105,6 @@ const BubalinosContent = () => {
         </div>
       </div>
 
-
-      
-
-
       <div className={styles.divTabela}>
         {/* TABELA DE BUBALINOS */}
         <div className={styles.divCorpoTabela}>
@@ -285,7 +281,7 @@ const BubalinosContent = () => {
               Reprodução
             </button>
             <button
-              type="button"
+              type="submit"
               style={{
                 backgroundColor: "#FFCF78",
                 border: "2px #FFCF78",
