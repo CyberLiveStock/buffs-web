@@ -7,11 +7,6 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const FuncionariosContent = () => {
   const [funcionarios, setFuncionarios] = useState([]); // Coleção Funcionarios
-  const [isModalOpen, setModalOpen] = useState(false); // Estado para controlar a visibilidade do modal
-
-
-  const openModal = () => setModalOpen(true); // Função para abrir o modal
-  const closeModal = () => setModalOpen(false); // Função para fechar o modal
 
   useEffect(() => {
     const fetchFuncionarios = async () => {
@@ -26,12 +21,15 @@ const FuncionariosContent = () => {
     fetchFuncionarios(); // Chamando a função para executar a requisição
   }, []); // '[]' dependência do useEffect
 
+  // Modal
+  const [isModalOpen, setModalOpen] = useState(false); // Estado para controlar a visibilidade do modal
+  const openModal = () => setModalOpen(true); // Função para abrir o modal
+  const closeModal = () => setModalOpen(false); // Função para fechar o modal
 
   // Para Cadastrar um Novo Funcionario:
   const [nome, setNome] = useState("")
   const [salario, setSalario] = useState("")
   const [dataNasc, setDataNasc] = useState("")
-  const [cpf, setCpf] = useState("")
   const [email, setEmail] = useState("")
   const [telefone, setTelefone] = useState("")
   const [genero, setGenero] = useState("")
@@ -61,10 +59,16 @@ const FuncionariosContent = () => {
     }
   }
 
+  // Barra de Pesquisa
+  const [searchTerm, setSearchTerm] = useState(''); // Parametro de pesquisa
+  const filteredFuncionarios = funcionarios.filter((funcionario) =>
+    funcionario.nome.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className={styles.content}>
       <HeaderFuncionarios openModal={openModal} /> {/* Passa a função openModal para o HeaderFuncionarios */}
-
+      {/* Barra de Pesquisa */}
       <div className={`row mt-3 ${styles.barraPesquisa}`}>
         <div className="col">
           <form className="input-group" id="searchForm">
@@ -74,6 +78,8 @@ const FuncionariosContent = () => {
               placeholder="Pesquisar funcionário"
               aria-label="Pesquisar"
               id="searchInput"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
             <button
               className={`btn btn-secondary ${styles.buttonPesquisar}`}
@@ -96,7 +102,7 @@ const FuncionariosContent = () => {
             </tr>
           </thead>
           <tbody>
-            {funcionarios.map((funcionario) => (
+            {filteredFuncionarios.map((funcionario) => (
               <tr key={funcionario._id}>
                 <td className="text-center">{funcionario.nome}</td>
                 <td className="text-center">{funcionario.descCargo}</td>
@@ -131,7 +137,7 @@ const FuncionariosContent = () => {
               <input type="date" value={dataNasc} onChange={(e) => setDataNasc(e.target.value)} className="form-control" placeholder="Digite o CPF" />
             </div>
           </div>
-          
+
           <div className={styles.divModal}>
             <div className="form-group">
               <label className={styles.label}>Email</label>
