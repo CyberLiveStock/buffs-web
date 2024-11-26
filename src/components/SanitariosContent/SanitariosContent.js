@@ -6,6 +6,9 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const SanitariosContent = () => {
     const [bufalos, setBufalos] = useState([]);
+    const [quantidadeTratamentosAtivos, setQuantidadeTratamentosAtivos] = useState(0);
+    const [quantidadeSaudaveis, setQuantidadeSaudaveis] = useState(0);
+    const [quantidadeBufalos, setQuantidadeBufalos] = useState(0);
 
     useEffect(() => {
         const fetchBufalos = async () => {
@@ -20,6 +23,20 @@ const SanitariosContent = () => {
         fetchBufalos(); // Chamando a função para executar a requisição
     }, []); // '[]' dependência do useEffect
 
+    // Contadores = QtdBufalos, Tratamento, Saudaveis
+    
+    useEffect(() => {
+        const dataAtual = new Date();
+        const bufalosEmTratamento = bufalos.filter((bufalo) =>
+            bufalo.sanitario.some((tratamento) =>
+                new Date(tratamento.dataAplicacao) <= dataAtual &&
+                dataAtual <= new Date(tratamento.dataRetorno)
+            )
+        );
+        setQuantidadeTratamentosAtivos(bufalosEmTratamento.length); 
+        setQuantidadeBufalos(bufalos.length)
+        setQuantidadeSaudaveis(quantidadeBufalos - quantidadeTratamentosAtivos);
+    }, [bufalos]);
     return (
         <div className={styles.content}>
             <HeaderSanitarios />
@@ -62,7 +79,7 @@ const SanitariosContent = () => {
                             <h5>Total de Búfalos</h5>
                         </div>
                         <div className={styles.divRightContador}>
-                            <h2>100</h2>
+                            <h2>{quantidadeBufalos}</h2>
                         </div>
                     </div>
                 </div>
@@ -83,7 +100,7 @@ const SanitariosContent = () => {
                             <h5>Em Tratamento</h5>
                         </div>
                         <div className={styles.divRightContador}>
-                            <h2>10</h2>
+                            <h2>{quantidadeTratamentosAtivos}</h2>
                         </div>
                     </div>
                 </div>
@@ -104,7 +121,7 @@ const SanitariosContent = () => {
                             <h5>Saudáveis</h5>
                         </div>
                         <div className={styles.divRightContador}>
-                            <h2>90</h2>
+                            <h2>{quantidadeSaudaveis}</h2>
                         </div>
                     </div>
                 </div>

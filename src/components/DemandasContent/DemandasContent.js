@@ -65,6 +65,38 @@ const config = {
 };
 
 const DemandasContent = () => {
+  const [demandas, setDemandas] = useState([]);
+  const [funcionarios, setFuncionarios] = useState([])
+
+  // Fetch para coleção Demandas
+  useEffect(() => {
+    const fetchDemandas = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/demandas");
+        setDemandas(response.data.demandas); //'demandas' array de demandas
+        console.log(demandas)
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchDemandas(); // Chamando a função para executar a requisição
+  }, []); // '[]' dependência do useEffect
+
+  // Fetch para coleção Funcionarios
+  useEffect(() => {
+    const fetchFuncionarios = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/funcionarios");
+        setFuncionarios(response.data.funcionarios); //'funcionarios' array de funcionarios
+        console.log(funcionarios)
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchFuncionarios(); // Chamando a função para executar a requisição
+  }, []); // '[]' dependência do useEffect
+
+
   return (
     <div className={styles.content}>
       <HeaderDemandas />

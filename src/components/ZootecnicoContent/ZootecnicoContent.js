@@ -19,6 +19,9 @@ const ZootecnicoContent = () => {
         };
         fetchBufalos(); // Chamando a função para executar a requisição
     }, []); // '[]' dependência do useEffect
+
+    const quantidadeBufalos = bufalos.length
+      
     return (
         <div className={styles.content}>
             <HeaderZootecnico />
@@ -61,7 +64,7 @@ const ZootecnicoContent = () => {
                             <h5>Total de Búfalos</h5>
                         </div>
                         <div className={styles.divRightContador}>
-                            <h2>100</h2>
+                            <h2>{quantidadeBufalos}</h2>
                         </div>
                     </div>
                 </div>

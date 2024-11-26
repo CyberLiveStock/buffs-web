@@ -67,6 +67,9 @@ const BubalinosContent = () => {
     bufalo.tagBufalo.toString().includes(searchTerm)
   );
 
+  // Calcular qunatidade de Bufalos
+  const quantidadeBufalos = bufalos.length;
+
   return (
     <div className={styles.content}>
       <HeaderBubalinos openModal={openModal} />{" "}
@@ -111,13 +114,13 @@ const BubalinosContent = () => {
               <h5>Total de Búfalos</h5>
             </div>
             <div className={styles.divRightContador}>
-              <h2>100</h2>
+              <h2>{quantidadeBufalos}</h2>
             </div>
           </div>
         </div>
       </div>
 
-      
+
 
 
       <div className={styles.divTabela}>
@@ -240,13 +243,13 @@ const BubalinosContent = () => {
                 value={
                   selectedBufalo
                     ? new Date(selectedBufalo.dataNasc).toLocaleDateString(
-                        "pt-BR",
-                        {
-                          year: "numeric",
-                          month: "2-digit",
-                          day: "2-digit",
-                        }
-                      )
+                      "pt-BR",
+                      {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      }
+                    )
                     : ""
                 }
                 readOnly
