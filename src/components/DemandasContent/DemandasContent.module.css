@@ -1,7 +1,27 @@
 .content {
-    flex: 1; 
-    background-color: #ffffff; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-    height: 92vh; 
-    overflow-y: auto;
-  }
+  flex: 1;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: 90vh;
+  overflow-y: auto;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Alinha ao topo do container */
+  height: 80vh; /* Reduz a altura do container */
+  gap: 20px;
+  margin-top: 90px; /* Opcional: adiciona espaço acima */
+}
+
+
+.chartBox {
+  width: 300px;
+  height: 300px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #FEF5E4; /* Cor alterada */
+}
+
+
