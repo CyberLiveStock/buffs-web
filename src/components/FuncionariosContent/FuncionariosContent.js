@@ -98,7 +98,7 @@ const FuncionariosContent = () => {
             <tr>
               <th scope="col" className={styles.headerCell}>Nome</th>
               <th scope="col" className={styles.headerCell}>Cargo</th>
-              <th scope="col" className={styles.headerCell}>Funções</th>
+              <th scope="col" className={styles.headerCell}>Editar / Desativar</th>
             </tr>
           </thead>
           <tbody>

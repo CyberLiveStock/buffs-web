@@ -10,6 +10,11 @@
 .barraPesquisa{
   width: 95.2%;
   margin-left: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 20px;
 }
 
 .buttonPesquisar {
@@ -36,35 +41,35 @@
 
 /* CSS CONTADOR BUBALINOS */
 .divContador{
-  background-color: aqua;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100px;
-  margin-top: 30px;
+  height: 130px;
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 .divContainerContador{
   display: flex;
-  background-color: brown;
-  width: 300px;
-  height: 100px;
+  width: 270px;
+  height: 110px;
   align-items: center;
   justify-content: center;
+  border-radius: 8px;
+  border: 2px solid rgba(177, 169, 169, 0.707);
 }
 
 .divContainerLeftContador{
   display: flex;
-  width: 150px;
+  width: 100px;
   height: 100px;
   align-items: center;
   justify-content: center;
-  background-color: greenyellow;
 }
 .divLeftContador{
   display: flex;
-  background-color: #FFCF78;
+  background-color: #f4f4f4;
   align-items: center;
   justify-content: center;
   width: 80px;
@@ -72,40 +77,31 @@
   border-radius: 50%;
 }
 
-.divContainerRightContador{
+.divContainerRightContador {
   display: flex;
-  width: 150px;
-  height: 100px;
+  flex-direction: column; /* Isso empilha os itens verticalmente */
+  align-items: center;
+  justify-content: flex-start; /* Alinha os itens ao topo do contêiner */
+  width: 150px; /* Mantém a largura que você especificou */
+  height: auto; /* Deixa o tamanho do contêiner automático para acomodar os filhos */
+}
+
+.divRightContador {
+  display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(206, 25, 161);
-}
-
-.divRightContador{
-  display: flex;
-  align-items: center;
-  justify-items: center;
-  background-color: #5a6268;
-  width: 200px;
+  width: 100%; /* Garante que cada item ocupe a largura total disponível */
   height: 50px;
-  margin-top: -50px;
 }
 
-.divRightContador2{
-  display: flex;
-  align-items: center;
-  justify-items: center;
-  background-color: #5a6268;
-  width: 200px;
+.icon {
+  width: 50px;
   height: 50px;
-  margin-top: -50px;
 }
-
-
 
 /* CSS TABELA */
 .divTabela{
-    margin-top: 110px;
+    margin-top: 100px;
   }
   
   .divCorpoTabela{
@@ -138,6 +134,10 @@
     gap: 5px; /* Reduz o espaço entre os filhos */
   }
 
+  .iconFunction {
+    width: 25px;
+    height: 25px;
+  }
 
   /* MODAL */
   .divModal {
