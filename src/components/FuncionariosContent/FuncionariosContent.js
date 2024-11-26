@@ -107,11 +107,8 @@ const FuncionariosContent = () => {
                 <td className="text-center">{funcionario.nome}</td>
                 <td className="text-center">{funcionario.descCargo}</td>
                 <td className="text-center">
-                <img
-                      src="/images/prontuario.svg"
-                      alt="Prontuários"
-                      style={{ width: "24px", height: "24px" }}
-                    />
+                  <a><img src="/images/icons/pen.svg" className={styles.icon}/></a>
+                  <a><img src="/images/icons/box.svg" className={styles.icon}/></a>
                 </td>
               </tr>
             ))}
