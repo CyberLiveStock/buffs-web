@@ -6,31 +6,135 @@
     overflow-y: auto;
   }
 
-  .divTabela{
-    margin-top: 110px;
-  }
-  
-  .divCorpoTabela{
-      width: 95%;
-      height: auto; 
-      margin-left: auto;
-      margin-right: auto;
-      padding-left: 10px;
-      padding-right: 10px;
-      padding-top: 20px;
-      margin-bottom: 20px;
-      margin-top: 0px;
-      border-radius: 10px; 
-      display: flex;
-      justify-content: space-evenly;
-      flex-direction: row;
-      flex-wrap: wrap;
-      align-items: center;
-  }
-  
-  .headerCell {
-    background-color: #FFCF78 !important;
-    text-align: center;
-    font-size: 16px;
-    vertical-align: middle;
-  }
+  /* CSS BARRA DE PESQUISA */
+.barraPesquisa{
+  width: 95.2%;
+  margin-left: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 20px;
+}
+
+.buttonPesquisar {
+  display: flex; /* Garante alinhamento do ícone dentro do botão */
+  justify-content: center; /* Centraliza o ícone horizontalmente */
+  align-items: center; /* Centraliza o ícone verticalmente */
+  padding: 0.5rem 1rem; /* Ajusta o espaçamento interno do botão */
+  background-color: #b6babd; /* Cor de fundo do botão */
+  border: none; /* Remove bordas padrão */
+  color: #fff; /* Cor do ícone (branco) */
+  font-size: 1rem; /* Tamanho da fonte e ícone */
+  border-radius: 0 0.25rem 0.25rem 0; /* Ajusta os cantos arredondados apenas no lado direito */
+  transition: background-color 0.3s ease; /* Adiciona animação ao passar o mouse */
+  cursor: pointer; /* Muda o cursor para indicar clicável */
+}
+
+.buttonPesquisar:hover {
+  background-color: #5a6268; /* Cor ao passar o mouse */
+}
+
+.buttonPesquisar i {
+  margin-left: 0; /* Garante que o ícone fique centralizado */
+}
+
+
+/* CSS CONTADOR BUBALINOS */
+.divContador{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 130px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  flex-direction: row; /* Alinha os contadores lado a lado */
+  gap: 20px; /* Adiciona um espaçamento entre os dois contadores */
+  justify-content: center;
+}
+
+
+.divContainerContador{
+  display: flex;
+  width: 270px;
+  height: 110px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 2px solid rgba(177, 169, 169, 0.707);
+}
+
+.divContainerLeftContador{
+  display: flex;
+  width: 100px;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+}
+.divLeftContador{
+  display: flex;
+  background-color: #f4f4f4;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.divContainerRightContador {
+  display: flex;
+  flex-direction: column; /* Isso empilha os itens verticalmente */
+  align-items: center;
+  justify-content: flex-start; /* Alinha os itens ao topo do contêiner */
+  width: 150px; /* Mantém a largura que você especificou */
+  height: auto; /* Deixa o tamanho do contêiner automático para acomodar os filhos */
+}
+
+.divRightContador {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%; /* Garante que cada item ocupe a largura total disponível */
+  height: 50px;
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
+}
+
+
+ /* CSS TABELA */
+.divTabela{
+  margin-top: 100px;
+}
+
+.divCorpoTabela{
+    width: 95%;
+    height: auto; 
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 20px;
+    margin-bottom: 20px;
+    margin-top: -80px;
+    border-radius: 10px; 
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.headerCell {
+  background-color: #FFCF78 !important;
+  text-align: center;
+  font-size: 16px;
+  vertical-align: middle;
+}
+.parentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* Reduz o espaço entre os filhos */
+}

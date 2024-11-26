@@ -4,9 +4,7 @@ import styles from "./BubalinosContent.module.css";
 import HeaderBubalinos from "../HeaderBubalinos/HeaderBubalinos";
 import ModalBubalinos from "../ModalBubalinos/ModalBubalinos";
 
-
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 
 const BubalinosContent = () => {
@@ -23,7 +21,7 @@ const BubalinosContent = () => {
   const openModal = (bufalo) => {
     setSelectedBufalo(bufalo);
     setModalOpen(true);
-  } // Função para abrir o modal
+  }; // Função para abrir o modal
   const closeModal = () => {
     setSelectedBufalo(null); // Limpa o búfalo selecionado
     setModalOpen(false); // Fecha o modal
@@ -64,7 +62,7 @@ const BubalinosContent = () => {
   }, []);
 
   // Barra de Pesquisa
-  const [searchTerm, setSearchTerm] = useState(''); // Parametro de pesquisa
+  const [searchTerm, setSearchTerm] = useState(""); // Parametro de pesquisa
   const filteredBufalos = bufalos.filter((bufalo) =>
     bufalo.tagBufalo.toString().includes(searchTerm)
   );
@@ -95,11 +93,16 @@ const BubalinosContent = () => {
         </div>
       </div>
 
+      {/* CONTADOR DE BUBALINOS */}
       <div className={styles.divContador}>
         <div className={styles.divContainerContador}>
           <div className={styles.divContainerLeftContador}>
             <div className={styles.divLeftContador}>
-              <p>ok</p>
+              <img
+                src="/images/icons/bubalinos.svg"
+                alt="Ícone de Búfalo"
+                className={styles.icon}
+              />
             </div>
           </div>
 
@@ -107,10 +110,15 @@ const BubalinosContent = () => {
             <div className={styles.divRightContador}>
               <h5>Total de Búfalos</h5>
             </div>
-
+            <div className={styles.divRightContador}>
+              <h2>100</h2>
+            </div>
           </div>
         </div>
       </div>
+
+      
+
 
       <div className={styles.divTabela}>
         {/* TABELA DE BUBALINOS */}
@@ -142,7 +150,7 @@ const BubalinosContent = () => {
               </tr>
             </thead>
             <tbody>
-            {filteredBufalos.map((bufalo) => (
+              {filteredBufalos.map((bufalo) => (
                 <tr key={bufalo._id}>
                   <td className="text-center">{bufalo.nome}</td>
                   <td className="text-center">{bufalo.tagBufalo}</td>
@@ -229,13 +237,18 @@ const BubalinosContent = () => {
               <input
                 type="text"
                 className="form-control"
-                value={selectedBufalo
-                  ? new Date(selectedBufalo.dataNasc).toLocaleDateString("pt-BR", {
-                    year: "numeric",
-                    month: "2-digit",
-                    day: "2-digit",
-                  })
-                  : ""}
+                value={
+                  selectedBufalo
+                    ? new Date(selectedBufalo.dataNasc).toLocaleDateString(
+                        "pt-BR",
+                        {
+                          year: "numeric",
+                          month: "2-digit",
+                          day: "2-digit",
+                        }
+                      )
+                    : ""
+                }
                 readOnly
               />
             </div>
@@ -258,7 +271,8 @@ const BubalinosContent = () => {
                 type="text"
                 className="form-control"
                 value={selectedBufalo?.sexo || ""}
-                readOnly />
+                readOnly
+              />
             </div>
           </div>
 
@@ -398,8 +412,6 @@ const BubalinosContent = () => {
               type="button"
               className="btn btn-danger"
               onClick={closeModalZootecnico}
-              
-              
               style={{
                 backgroundColor: "#FFCF78",
                 color: "black",
