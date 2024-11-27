@@ -349,25 +349,28 @@ const BubalinosContent = () => {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="#0001"
+                    value={selectedBufalo?.tagBufalo || ""}
+                    readOnly
                   />
                 </div>
 
                 <div className="form-group">
-                  <label className={styles.label}>Nome</label>
+                  <label className={styles.label}>Comprimento Corporal</label>
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Bella"
+                    value={selectedBufalo?.zootecnico?.[0]?.comprimentoCorporal || ""}
+                    readOnly
                   />
                 </div>
 
                 <div className="form-group">
-                  <label className={styles.label}>Criadouro</label>
+                  <label className={styles.label}>Altura Cernelha</label>
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Baia 2"
+                    value={selectedBufalo?.zootecnico?.[0]?.alturaCernelha || ""}
+                    readOnly
                   />
                 </div>
               </div>
@@ -376,37 +379,44 @@ const BubalinosContent = () => {
 
           <div className={styles.divModal}>
             <div className="form-group">
-              <label className={styles.label}>Idade</label>
+              <label className={styles.label}>Circuferencia Corporal</label>
               <input
                 type="text"
                 className="form-control"
-                placeholder="1 ano e 4 meses"
+                value={selectedBufalo?.zootecnico?.[0]?.circuferenciaCorporal || ""}
+                readOnly
               />
             </div>
 
             <div className="form-group">
-              <label className={styles.label}>Data de Nascimento</label>
+              <label className={styles.label}>Suplementação</label>
               <input
                 type="text"
                 className="form-control"
-                placeholder="01/07/2022"
+                value={selectedBufalo?.zootecnico?.[0]?.suplementacao || ""}
+                readOnly
               />
             </div>
           </div>
 
           <div className={styles.divModal2}>
             <div className="form-group">
-              <label className={styles.label}>Raça</label>
+              <label className={styles.label}>Tipo Ração</label>
               <input
                 type="text"
                 className="form-control"
-                placeholder="Murrah"
+                value={selectedBufalo?.zootecnico?.[0]?.tipoRacao || ""}
+                readOnly
               />
             </div>
 
             <div className="form-group">
-              <label className={styles.label}>Sexo</label>
-              <input type="text" className="form-control" placeholder="Fêmea" />
+              <label className={styles.label}>Pastagem</label>
+              <input type="text" 
+              className="form-control" 
+              value={selectedBufalo?.zootecnico?.[0]?.tipoPastagem || ""}
+              readOnly
+            />
             </div>
           </div>
 
@@ -445,25 +455,28 @@ const BubalinosContent = () => {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="#0001"
+                    value={selectedBufalo?.tagBufalo || ""}
+                    readOnly
                   />
                 </div>
 
                 <div className="form-group">
-                  <label className={styles.label}>Nome</label>
+                  <label className={styles.label}>Tipo Sanitario</label>
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Bella"
+                    value={selectedBufalo?.sanitario?.[0]?.tipoSanitario || ""}
+                    readOnly
                   />
                 </div>
 
                 <div className="form-group">
-                  <label className={styles.label}>Criadouro</label>
+                  <label className={styles.label}>Tratamentos</label>
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Baia 2"
+                    value={selectedBufalo?.sanitario?.[0]?.nomeTratamento || ""}
+                    readOnly
                   />
                 </div>
               </div>
@@ -472,37 +485,66 @@ const BubalinosContent = () => {
 
           <div className={styles.divModal}>
             <div className="form-group">
-              <label className={styles.label}>Idade</label>
+              <label className={styles.label}>Medicamentos</label>
               <input
                 type="text"
                 className="form-control"
-                placeholder="1 ano e 4 meses"
+                value={selectedBufalo?.sanitario?.[0]?.loteMedicamento || ""}
+                readOnly
               />
             </div>
 
             <div className="form-group">
-              <label className={styles.label}>Data de Nascimento</label>
+              <label className={styles.label}>Data de aplicação</label>
               <input
                 type="text"
                 className="form-control"
-                placeholder="01/07/2022"
+                value={
+                  selectedBufalo
+                    ? new Date(selectedBufalo?.sanitario?.[0]?.dataAplicacao).toLocaleDateString(
+                      "pt-BR",
+                      {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      }
+                    )
+                    : ""
+                }
+                readOnly
               />
             </div>
           </div>
 
           <div className={styles.divModal2}>
             <div className="form-group">
-              <label className={styles.label}>Raça</label>
+              <label className={styles.label}>Data Retorno</label>
               <input
                 type="text"
                 className="form-control"
-                placeholder="Murrah"
+                value={
+                  selectedBufalo
+                    ? new Date(selectedBufalo?.sanitario?.[0]?.dataRetorno).toLocaleDateString(
+                      "pt-BR",
+                      {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      }
+                    )
+                    : ""
+                }
+                readOnly
               />
             </div>
 
             <div className="form-group">
-              <label className={styles.label}>Sexo</label>
-              <input type="text" className="form-control" placeholder="Fêmea" />
+              <label className={styles.label}>Funcionario Responsavel</label>
+              <input type="text" 
+              className="form-control" 
+              value={selectedBufalo?.sanitario?.[0]?.tipoSanitario || ""}
+              readOnly
+            />
             </div>
           </div>
 
