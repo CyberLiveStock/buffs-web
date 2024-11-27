@@ -96,6 +96,13 @@ const DemandasContent = () => {
     fetchFuncionarios(); // Chamando a função para executar a requisição
   }, []); // '[]' dependência do useEffect
 
+  // useEffect(() => {
+  //   if (demandas.length > 0) {
+  //     const quantidadeFuncionarios = funcionario.filter((dado) => dado.sexo === "Macho").length;
+
+
+  //   },} [demandas]);
+
 
   return (
     <div className={styles.content}>

@@ -28,20 +28,19 @@ const ReproducaoContent = () => {
                     <table className="table table-striped" id="funcionariosTable">
                         <thead>
                             <tr>
-                                <th scope="col" className={styles.headerCell}>Id Reprodução</th>
+                                <th scope="col" className={styles.headerCell}>Status</th>
                                 <th scope="col" className={styles.headerCell}>Tag Mãe</th>
                                 <th scope="col" className={styles.headerCell}>Raça Mãe</th>
                                 <th scope="col" className={styles.headerCell}>Tag Pai</th>
                                 <th scope="col" className={styles.headerCell}>Raça Pai</th>
                                 <th scope="col" className={styles.headerCell}>Data Inseminação</th>
                                 <th scope="col" className={styles.headerCell}>Data Parto</th>
-                                <th scope="col" className={styles.headerCell}>Status</th>
                             </tr>
                         </thead>
                         <tbody>
                         {reproducoes.map((reproducao) => (
                                 <tr key={reproducao._id}>
-                                    <td className="text-center"></td>
+                                    <td className="text-center">{reproducao.status || "Nada" }</td>
                                     <td className="text-center">{reproducao.tagMae}</td>
                                     <td className="text-center">{reproducao.mae?.raca || "Não Informada"}</td>
                                     <td className="text-center">{reproducao.tagPai}</td>
@@ -51,8 +50,7 @@ const ReproducaoContent = () => {
                                     </td>
                                     <td className="text-center">
                                         {new Date(reproducao.dataParto).toLocaleDateString("pt-BR")}
-                                    </td>
-                                    <td className="text-center">{reproducao.status}</td>                                
+                                    </td>                                
                                 </tr>
                         ))}
                         </tbody>
