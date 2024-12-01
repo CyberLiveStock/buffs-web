@@ -70,12 +70,6 @@ const BubalinosContent = () => {
 
   // Calcular qunatidade de Bufalos
   const quantidadeBufalos = bufalos.length;
-
-
-
-
-
-
   return (
     <div className={styles.content}>
       <HeaderBubalinos openModal={openModal} />{" "}
@@ -130,56 +124,41 @@ const BubalinosContent = () => {
           <table className="table table-striped" id="funcionariosTable">
             <thead>
               <tr>
-                <th scope="col" className={styles.headerCell}>
-                  Nome
-                </th>
-                <th scope="col" className={styles.headerCell}>
-                  Tag
-                </th>
-                <th scope="col" className={styles.headerCell}>
-                  Raça
-                </th>
-                <th scope="col" className={styles.headerCell}>
-                  Sexo
-                </th>
-                <th scope="col" className={styles.headerCell}>
-                  Data Nasc
-                </th>
-                <th scope="col" className={styles.headerCell}>
-                  Peso
-                </th>
-                <th scope="col" className={styles.headerCell}>
-                  Funções
-                </th>
+                <th scope="col" className={styles.headerCell}>Nome</th>
+                <th scope="col" className={styles.headerCell}>Tag</th>
+                <th scope="col" className={styles.headerCell}>Raça</th>
+                <th scope="col" className={styles.headerCell}>Sexo</th>
+                <th scope="col" className={styles.headerCell}>Data Nasc</th>
+                <th scope="col" className={styles.headerCell}>Peso</th>
+                <th scope="col" className={styles.headerCell}>Funções</th>
               </tr>
             </thead>
             <tbody>
-  {filteredBufalos.map((bufalo) => (
-    <tr key={bufalo._id}>
-      <td className="text-center">{bufalo.nome}</td>
-      <td className="text-center">{bufalo.tagBufalo}</td>
-      <td className="text-center">{bufalo.raca}</td>
-      <td className="text-center">{bufalo.sexo}</td>
-      <td className="text-center">
-        {new Date(bufalo.dataNasc).toLocaleDateString("pt-BR", {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-        })}
-      </td>
-      <td className="text-center">{bufalo.peso} Kg</td>
-      <td className="text-center">
-        <img
-          src="/images/prontuario.svg"
-          alt="Prontuários"
-          className={styles.iconFunction}
-          onClick={() => openModal(bufalo)}
-        />
-      </td>
-    </tr>
-  ))}
-</tbody>
-
+              {filteredBufalos.map((bufalo) => (
+                <tr key={bufalo._id}>
+                  <td className="text-center">{bufalo.nome}</td>
+                  <td className="text-center">{bufalo.tagBufalo}</td>
+                  <td className="text-center">{bufalo.raca}</td>
+                  <td className="text-center">{bufalo.sexo}</td>
+                  <td className="text-center">
+                    {new Date(bufalo.dataNasc).toLocaleDateString("pt-BR", {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                    })}
+                  </td>
+                  <td className="text-center">{bufalo.peso} Kg</td>
+                  <td className="text-center">
+                    <img
+                      src="/images/prontuario.svg"
+                      alt="Prontuários"
+                      className={styles.iconFunction}
+                      onClick={() => openModal(bufalo)}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
       </div>
@@ -245,13 +224,13 @@ const BubalinosContent = () => {
                 value={
                   selectedBufalo
                     ? new Date(selectedBufalo.dataNasc).toLocaleDateString(
-                        "pt-BR",
-                        {
-                          year: "numeric",
-                          month: "2-digit",
-                          day: "2-digit",
-                        }
-                      )
+                      "pt-BR",
+                      {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      }
+                    )
                     : ""
                 }
                 readOnly
@@ -511,12 +490,12 @@ const BubalinosContent = () => {
                 value={
                   selectedBufalo
                     ? new Date(
-                        selectedBufalo?.sanitario?.[0]?.dataAplicacao
-                      ).toLocaleDateString("pt-BR", {
-                        year: "numeric",
-                        month: "2-digit",
-                        day: "2-digit",
-                      })
+                      selectedBufalo?.sanitario?.[0]?.dataAplicacao
+                    ).toLocaleDateString("pt-BR", {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                    })
                     : ""
                 }
                 readOnly
@@ -533,12 +512,12 @@ const BubalinosContent = () => {
                 value={
                   selectedBufalo
                     ? new Date(
-                        selectedBufalo?.sanitario?.[0]?.dataRetorno
-                      ).toLocaleDateString("pt-BR", {
-                        year: "numeric",
-                        month: "2-digit",
-                        day: "2-digit",
-                      })
+                      selectedBufalo?.sanitario?.[0]?.dataRetorno
+                    ).toLocaleDateString("pt-BR", {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                    })
                     : ""
                 }
                 readOnly

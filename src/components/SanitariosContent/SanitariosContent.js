@@ -5,13 +5,15 @@ import "jspdf-autotable"; // Plugin para tabelas no PDF
 import styles from "./SanitariosContent.module.css";
 import HeaderSanitarios from "../HeaderSanitarios/HeaderSanitarios";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import ModalBubalinos from "../ModalBubalinos/ModalBubalinos";
+import DesenGraf from "../DesenGraf/DesenGraf.js";
 
 const SanitariosContent = () => {
   const [bufalos, setBufalos] = useState([]);
-  const [quantidadeTratamentosAtivos, setQuantidadeTratamentosAtivos] =
-    useState(0);
+  const [quantidadeTratamentosAtivos, setQuantidadeTratamentosAtivos] = useState(0);
   const [quantidadeSaudaveis, setQuantidadeSaudaveis] = useState(0);
   const [quantidadeBufalos, setQuantidadeBufalos] = useState(0);
+  const [selectedBufalo, setSelectedBufalo] = useState(null);
 
   useEffect(() => {
     const fetchBufalos = async () => {
@@ -40,6 +42,19 @@ const SanitariosContent = () => {
     setQuantidadeSaudaveis(quantidadeBufalos - quantidadeTratamentosAtivos);
   }, [bufalos, quantidadeBufalos]);
 
+
+  // Estados para controlar os modais
+  const [isModalOpen, setModalOpen] = useState(false);
+  // Funções para controlar o modal de Bubalinos
+  const openModal = (bufalo) => {
+    setSelectedBufalo(bufalo);
+    setModalOpen(true);
+  }; // Função para abrir o modal
+  const closeModal = () => {
+    setSelectedBufalo(null); // Limpa o búfalo selecionado
+    setModalOpen(false); // Fecha o modal
+  };
+
   // Função para exportar os dados em PDF
   const exportarPDF = () => {
     if (bufalos.length === 0) {
@@ -59,7 +74,7 @@ const SanitariosContent = () => {
     ];
 
     // Dados da tabela
-    const rows = bufalos.map((bufalo) => {
+    const rows = filteredBufalos.map((bufalo) => {
       const sanitario = bufalo.sanitario?.[0] || {}; // Seleciona o primeiro tratamento ou vazio
       return [
         bufalo.tagBufalo || "N/A",
@@ -85,19 +100,28 @@ const SanitariosContent = () => {
     doc.save("relatorio_dados_sanitarios.pdf");
   };
 
+  // Barra de Pesquisa
+  const [searchTerm, setSearchTerm] = useState("");
+  const filteredBufalos = bufalos.filter(
+    (bufalo) =>
+      bufalo.tagBufalo.toString().includes(searchTerm) ||
+      bufalo.nome.toLowerCase().includes(searchTerm.toLowerCase()) // Pesquisa por nome
+  );
+
   return (
     <div className={styles.content}>
       <HeaderSanitarios onExportarDados={exportarPDF} />
-
       <div className={`row mt-3 ${styles.barraPesquisa}`}>
         <div className="col">
           <form className="input-group" id="searchForm">
             <input
               className="form-control"
               type="search"
-              placeholder="Pesquisar dados sanitários"
+              placeholder="Pesquisar bubalino"
               aria-label="Pesquisar"
               id="searchInput"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
             <button
               className={`btn btn-secondary ${styles.buttonPesquisar}`}
@@ -158,25 +182,26 @@ const SanitariosContent = () => {
         </div>
       </div>
 
+      {/* TABELA DE BUBALINOS */}
       <div className={styles.divTabela}>
         <div className={styles.divCorpoTabela}>
-          <table className="table table-striped" id="funcionariosTable">
+          <table className="table table-striped">
             <thead>
               <tr>
-                <th>Tag</th>
-                <th>Nome Tratamento</th>
-                <th>Descrição</th>
-                <th>Data</th>
-                <th>Visualizar</th>
+                <th scope="col" className={styles.headerCell}>Tag</th>
+                <th scope="col" className={styles.headerCell}>Nome Tratamento</th>
+                <th scope="col" className={styles.headerCell}>Descrição</th>
+                <th scope="col" className={styles.headerCell}>Data</th>
+                <th scope="col" className={styles.headerCell}>Visualizar</th>
               </tr>
             </thead>
             <tbody>
-              {bufalos.map((bufalo) => (
+              {filteredBufalos.map((bufalo) => (
                 <tr key={bufalo._id}>
-                  <td>{bufalo.tagBufalo || "N/A"}</td>
-                  <td>{bufalo.sanitario?.[0]?.nomeTratamento || "N/A"}</td>
-                  <td>{bufalo.sanitario?.[0]?.tipoSanitario || "N/A"}</td>
-                  <td>
+                  <td className="text-center">{bufalo.tagBufalo || "N/A"}</td>
+                  <td className="text-center">{bufalo.sanitario?.[0]?.nomeTratamento || "N/A"}</td>
+                  <td className="text-center">{bufalo.sanitario?.[0]?.tipoSanitario || "N/A"}</td>
+                  <td className="text-center">
                     {new Date(
                       bufalo.sanitario?.[0]?.dataAplicacao || "N/A"
                     ).toLocaleDateString("pt-BR", {
@@ -185,11 +210,12 @@ const SanitariosContent = () => {
                       day: "2-digit",
                     })}
                   </td>
-                  <td>
+                  <td className="text-center">
                     <img
                       src="/images/prontuario.svg"
                       alt="Prontuários"
                       className={styles.iconFunction}
+                      onClick={() => openModal(bufalo)}
                     />
                   </td>
                 </tr>
@@ -198,6 +224,130 @@ const SanitariosContent = () => {
           </table>
         </div>
       </div>
+      {/* Modal de Bubalinos */}
+      <ModalBubalinos isOpen={isModalOpen} closeModal={closeModal}>
+        <h2 style={{ textAlign: "center" }}>Dados Sanitarios</h2>
+        <form>
+          <div className={styles.divContent}>
+            <div className={styles.divLeftContent}>
+              <div className={styles.leftContent} /> {/*  BACKGROUND IMAGE */}
+            </div>
+
+            <div className={styles.divRightContent}>
+              <div className={styles.rightContent}>
+                <div className="form-group">
+                  <label className={styles.label}>TAG</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={selectedBufalo?.tagBufalo || ""}
+                    readOnly
+                  />
+                </div>
+
+                <div className="form-group" style={{ position: "relative" }}>
+                  <label className={styles.label}>Tipo Sanitario</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={selectedBufalo?.sanitario?.[0]?.tipoSanitario || ""}
+                    readOnly
+                  />
+                  <DesenGraf />
+                </div>
+
+                <div className="form-group" style={{ position: "relative" }}>
+                  <label className={styles.label}>Tratamento</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={selectedBufalo?.sanitario?.[0]?.nomeTratamento || ""}
+                    readOnly
+                  />
+                  <DesenGraf />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.divModal} style={{ position: "relative" }}>
+            <div className="form-group">
+              <label className={styles.label}>Medicamento</label>
+              <input
+                type="text"
+                className="form-control"
+                value={selectedBufalo?.sanitario?.[0]?.loteMedicamento || ""}
+                readOnly
+              />
+              <DesenGraf/>
+            </div>
+
+            <div className="form-group" >
+              <label className={styles.label}>Data Aplicação</label>
+              <input
+                type="text"
+                className="form-control"
+                value={
+                  selectedBufalo
+                    ? new Date(selectedBufalo?.sanitario?.[0]?.dataAplicacao).toLocaleDateString(
+                      "pt-BR",
+                      {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      }
+                    )
+                    : ""
+                }
+                readOnly
+              />
+            </div>
+          </div>
+
+          <div className={styles.divModal2}>
+            <div className="form-group">
+              <label className={styles.label}>Data Retorno</label>
+              <input
+                type="text"
+                className="form-control"
+                value={
+                  selectedBufalo
+                    ? new Date(selectedBufalo?.sanitario?.[0]?.dataRetorno).toLocaleDateString(
+                      "pt-BR",
+                      {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      }
+                    )
+                    : ""
+                }
+                readOnly
+              />
+            </div>
+
+            <div className="form-group">
+              <label className={styles.label}>Funcionario Responsavel</label>
+              <input
+                type="text"
+                className="form-control"
+                value={selectedBufalo?.peso || ""}
+                readOnly
+              />
+            </div>
+          </div>
+          <div className={styles.divButton}>
+            <button
+              type="submit"
+              style={{ backgroundColor: "#CE7D0A", border: "2px #CE7D0A" }}
+              className="btn btn-success"
+              onClick={closeModal}
+            >
+              Fechar
+            </button>
+          </div>
+        </form>
+      </ModalBubalinos>
     </div>
   );
 };
