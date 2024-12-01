@@ -29,18 +29,20 @@ const FinanceiroContent = () => {
                     <table className="table table-striped" id="financeiroTable">
                         <thead>
                             <tr>
+                                <th scope="col" className={styles.headerCell}>Status</th>
+                                <th scope="col" className={styles.headerCell}>Valor</th>
                                 <th scope="col" className={styles.headerCell}>Data</th>
                                 <th scope="col" className={styles.headerCell}>Categoria</th>
-                                <th scope="col" className={styles.headerCell}>Valor</th>
                                 <th scope="col" className={styles.headerCell}>Tipo</th>
                                 <th scope="col" className={styles.headerCell}>Beneficiário</th>
-                                <th scope="col" className={styles.headerCell}>Status</th>
                                 <th scope="col" className={styles.headerCell}>Descrição</th>
                             </tr>
                         </thead>
                         <tbody>
                             {financeiros.map((financeiro) => (
                                 <tr key={financeiro._id}>
+                                    <td className="text-center">{financeiro.status}</td>
+                                    <td className="text-center">{financeiro.valor}</td>
                                     <td className="text-center">
                                         {new Date(financeiro.data).toLocaleDateString("pt-BR", {
                                             year: "numeric",
@@ -49,10 +51,8 @@ const FinanceiroContent = () => {
                                         })}
                                     </td>
                                     <td className="text-center">{financeiro.categoria}</td>
-                                    <td className="text-center">R$ {financeiro.valor}</td>
                                     <td className="text-center">{financeiro.tipo}</td>
                                     <td className="text-center">{financeiro.beneficiario}</td>
-                                    <td className="text-center">{financeiro.status}</td>
                                     <td className="text-center">{financeiro.descricao}</td>
                                 </tr>
                             ))}
