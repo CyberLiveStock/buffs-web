@@ -6,7 +6,7 @@ import styles from "./SanitariosContent.module.css";
 import HeaderSanitarios from "../HeaderSanitarios/HeaderSanitarios";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import ModalBubalinos from "../ModalBubalinos/ModalBubalinos";
-import DesenGraf from "../DesenGraf/DesenGraf.js";
+import DenTable from "../DenTableSanitario/DenTableSanitario.js"
 
 const SanitariosContent = () => {
   const [bufalos, setBufalos] = useState([]);
@@ -253,7 +253,8 @@ const SanitariosContent = () => {
                     value={selectedBufalo?.sanitario?.[0]?.tipoSanitario || ""}
                     readOnly
                   />
-                  <DesenGraf />
+                  {/* 'infoTag' = informa a tag do bufalo selecionado, 'infoEspec' = Qual campo quero consultar */}
+                  <DenTable infoTag={selectedBufalo?.tagBufalo} infoEspec={"tipoSanitario"} />
                 </div>
 
                 <div className="form-group" style={{ position: "relative" }}>
@@ -264,7 +265,8 @@ const SanitariosContent = () => {
                     value={selectedBufalo?.sanitario?.[0]?.nomeTratamento || ""}
                     readOnly
                   />
-                  <DesenGraf />
+                  {/* 'infoTag' = informa a tag do bufalo selecionado, 'infoEspec' = Qual campo quero consultar */}
+                  <DenTable infoTag={selectedBufalo?.tagBufalo} infoEspec={"nomeTratamento"} />
                 </div>
               </div>
             </div>
@@ -279,7 +281,8 @@ const SanitariosContent = () => {
                 value={selectedBufalo?.sanitario?.[0]?.loteMedicamento || ""}
                 readOnly
               />
-              <DesenGraf/>
+              {/* 'infoTag' = informa a tag do bufalo selecionado, 'infoEspec' = Qual campo quero consultar */}
+              <DenTable infoTag={selectedBufalo?.tagBufalo} infoEspec={"loteMedicamento"} />
             </div>
 
             <div className="form-group" >

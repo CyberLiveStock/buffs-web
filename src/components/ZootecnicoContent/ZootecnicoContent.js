@@ -4,7 +4,7 @@ import styles from "./ZootecnicoContent.module.css";
 import HeaderZootecnico from "../HeaderZootecnico/HeaderZootecnico";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import ModalBubalinos from "../ModalBubalinos/ModalBubalinos";
-import DesenGraf from "../DesenGraf/DesenGraf.js";
+import DenTable from "../DenTableZootecnico/DenTableZootecnico.js";
 
 const ZootecnicoContent = () => {
   const [bufalos, setBufalos] = useState([]);
@@ -189,7 +189,7 @@ const ZootecnicoContent = () => {
                     value={selectedBufalo?.zootecnico?.[0]?.comprimentoCorporal || ""}
                     readOnly
                   />
-                  <DesenGraf/>
+                  <DenTable/>
                 </div>
 
                 <div className="form-group" style={{position:"relative"}}>
@@ -200,7 +200,7 @@ const ZootecnicoContent = () => {
                     value={selectedBufalo?.zootecnico?.[0]?.alturaCernelha || ""}
                     readOnly
                   />
-                  <DesenGraf/>
+                  <DenTable/> 
                 </div>
               </div>
             </div>
@@ -215,10 +215,10 @@ const ZootecnicoContent = () => {
                 value={selectedBufalo?.zootecnico?.[0]?.circuferenciaCorporal || ""}
                 readOnly
               />
-              <DesenGraf/>
+              <DenTable/>
             </div>
 
-            <div className="form-group" >
+            <div className="form-group" style={{position:"relative"}}>
               <label className={styles.label}>Suplementação</label>
               <input
                 type="text"
@@ -226,6 +226,8 @@ const ZootecnicoContent = () => {
                 value={selectedBufalo?.zootecnico?.[0]?.suplementacao || ""}
                 readOnly
               />
+              {/* 'infoTag' = informa a tag do bufalo selecionado, 'infoEspec' = Qual campo quero consultar */}
+              <DenTable infoTag={selectedBufalo?.tagBufalo} infoEspec={"suplementacao"} />
             </div>
           </div>
 
@@ -248,7 +250,7 @@ const ZootecnicoContent = () => {
                 value={selectedBufalo?.peso || ""}
                 readOnly
               />
-              <DesenGraf/>
+              <DenTable/>
             </div>
           </div>
           
