@@ -1,68 +1,176 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import HeaderFinanceiro from "../HeaderFinanceiro/HeaderFinanceiro";
-import styles from './FinanceiroContent.module.css'
+import { Line } from "react-chartjs-2";
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
+import styles from './FinanceiroContent.module.css';
 
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const FinanceiroContent = () => {
-    const [financeiros, setFinanceiros] = useState([]); // Coleção Financeiro
+  const [financeiros, setFinanceiros] = useState([]); // Coleção Financeiro
+  const [chartDataBubalino, setChartDataBubalino] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: 'Suplementação',
+        data: [],
+        borderColor: 'rgba(75,192,192,1)',
+        fill: false,
+      },
+      {
+        label: 'Ração',
+        data: [],
+        borderColor: 'rgba(255,99,132,1)',
+        fill: false,
+      },
+      {
+        label: 'Vacinas',
+        data: [],
+        borderColor: 'rgba(255,159,64,1)',
+        fill: false,
+      },
+    ],
+  });
 
-    useEffect(() => {
-        const fetchFinanceiros = async () => {
-            try {
-                const response = await axios.get("http://localhost:4000/financeiros");
-                setFinanceiros(response.data.financeiros); //'financeiros' array de financeiros
-                console.log(financeiros)
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        fetchFinanceiros(); // Chamando a função para executar a requisição
-    }, []); // '[]' dependência do useEffect
+  const [chartDataFuncionario, setChartDataFuncionario] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: 'Folha de Pagamento',
+        data: [],
+        borderColor: 'rgba(153, 102, 255, 1)',
+        fill: false,
+      },
+    ],
+  });
 
-    return (
-        <div className={styles.content}>
-            <HeaderFinanceiro />
-            <div className={styles.divTabela}>
-                {/* TABELA FINANCEIRO */}
-                <div className={styles.divCorpoTabela}>
-                    <table className="table table-striped" id="financeiroTable">
-                        <thead>
-                            <tr>
-                                <th scope="col" className={styles.headerCell}>Status</th>
-                                <th scope="col" className={styles.headerCell}>Valor</th>
-                                <th scope="col" className={styles.headerCell}>Data</th>
-                                <th scope="col" className={styles.headerCell}>Categoria</th>
-                                <th scope="col" className={styles.headerCell}>Tipo</th>
-                                <th scope="col" className={styles.headerCell}>Beneficiário</th>
-                                <th scope="col" className={styles.headerCell}>Descrição</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {financeiros.map((financeiro) => (
-                                <tr key={financeiro._id}>
-                                    <td className="text-center">{financeiro.status}</td>
-                                    <td className="text-center">{financeiro.valor}</td>
-                                    <td className="text-center">
-                                        {new Date(financeiro.data).toLocaleDateString("pt-BR", {
-                                            year: "numeric",
-                                            month: "2-digit",
-                                            day: "2-digit",
-                                        })}
-                                    </td>
-                                    <td className="text-center">{financeiro.categoria}</td>
-                                    <td className="text-center">{financeiro.tipo}</td>
-                                    <td className="text-center">{financeiro.beneficiario}</td>
-                                    <td className="text-center">{financeiro.descricao}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+  useEffect(() => {
+    const fetchFinanceiros = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/financeiros");
+        const data = response.data.financeiros; // 'financeiros' array de financeiros
+        setFinanceiros(data);
+
+        // Organizar os dados para os gráficos
+        const receitasBubalino = { suplementacao: [], racao: [], vacinas: [] };
+        const receitasFuncionario = { folhaDePagamento: [] };
+        const labels = [];
+
+        data.forEach((item) => {
+          const date = new Date(item.data);
+          const label = `${date.getDate()}/${date.getMonth() + 1}`;
+          if (!labels.includes(label)) {
+            labels.push(label);
+          }
+
+          // Custos Bubalinos
+          if (item.categoria === 'Suplementação') {
+            receitasBubalino.suplementacao.push(item.valor);
+            receitasBubalino.racao.push(0);
+            receitasBubalino.vacinas.push(0);
+          } else if (item.categoria === 'Ração') {
+            receitasBubalino.racao.push(item.valor);
+            receitasBubalino.suplementacao.push(0);
+            receitasBubalino.vacinas.push(0);
+          } else if (item.categoria === 'Vacinas') {
+            receitasBubalino.vacinas.push(item.valor);
+            receitasBubalino.suplementacao.push(0);
+            receitasBubalino.racao.push(0);
+          } else {
+            receitasBubalino.suplementacao.push(0);
+            receitasBubalino.racao.push(0);
+            receitasBubalino.vacinas.push(0);
+          }
+
+          // Custos Funcionários
+          if (item.categoria === 'Folha de Pagamento') {
+            receitasFuncionario.folhaDePagamento.push(item.valor);
+          }
+        });
+
+        // Atualizando os gráficos
+        setChartDataBubalino((prevData) => ({
+          ...prevData,
+          labels: labels,
+          datasets: [
+            { ...prevData.datasets[0], data: receitasBubalino.suplementacao },
+            { ...prevData.datasets[1], data: receitasBubalino.racao },
+            { ...prevData.datasets[2], data: receitasBubalino.vacinas },
+          ],
+        }));
+
+        setChartDataFuncionario((prevData) => ({
+          ...prevData,
+          labels: labels,
+          datasets: [
+            { ...prevData.datasets[0], data: receitasFuncionario.folhaDePagamento },
+          ],
+        }));
+
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchFinanceiros(); // Chamando a função para executar a requisição
+  }, []); // '[]' dependência do useEffect
+
+  return (
+    <div className={styles.content}>
+      <HeaderFinanceiro />
+      
+      {/* Gráficos Lado a Lado */}
+      <div className={styles.chartContainer}>
+        <div className={styles.chartWrapper}>
+          <h3 className={styles.chartTitle}>Custos Bubalinos</h3>
+          <Line data={chartDataBubalino} options={{ responsive: true, maintainAspectRatio: true }} />
         </div>
-    )
 
-}
+        <div className={styles.chartWrapper}>
+          <h3 className={styles.chartTitle}>Custos Funcionários</h3>
+          <Line data={chartDataFuncionario} options={{ responsive: true, maintainAspectRatio: true }} />
+        </div>
+      </div>
+
+      {/* TABELA FINANCEIRO */}
+      <div className={styles.divTabela}>
+        <div className={styles.divCorpoTabela}>
+          <table className="table table-striped" id="financeiroTable">
+            <thead>
+              <tr>
+                <th scope="col" className={styles.headerCell}>Status</th>
+                <th scope="col" className={styles.headerCell}>Valor</th>
+                <th scope="col" className={styles.headerCell}>Data</th>
+                <th scope="col" className={styles.headerCell}>Categoria</th>
+                <th scope="col" className={styles.headerCell}>Tipo</th>
+                <th scope="col" className={styles.headerCell}>Beneficiário</th>
+                <th scope="col" className={styles.headerCell}>Descrição</th>
+              </tr>
+            </thead>
+            <tbody>
+              {financeiros.map((financeiro) => (
+                <tr key={financeiro._id}>
+                  <td className="text-center">{financeiro.status}</td>
+                  <td className="text-center">{financeiro.valor}</td>
+                  <td className="text-center">
+                    {new Date(financeiro.data).toLocaleDateString("pt-BR", {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                    })}
+                  </td>
+                  <td className="text-center">{financeiro.categoria}</td>
+                  <td className="text-center">{financeiro.tipo}</td>
+                  <td className="text-center">{financeiro.beneficiario}</td>
+                  <td className="text-center">{financeiro.descricao}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default FinanceiroContent;

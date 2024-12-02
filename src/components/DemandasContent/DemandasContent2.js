@@ -15,11 +15,10 @@ import {
 } from "chart.js";
 import axios from "axios";
 
-// Registrar os componentes do Chart.js necessários
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  BarElement,
+  BarElement, 
   PointElement,
   LineElement,
   Title,
@@ -28,52 +27,44 @@ ChartJS.register(
 );
 
 const DemandasContent = () => {
-
-  // Dados estáticos para o gráfico de barras
   const statusData = {
-    labels: ["A Fazer", "Fazendo", "Finalizado"],
+    labels: ["A Fazer", "Fazendo", "Finalizado"], 
     datasets: [
       {
         label: "Status das Atividades",
-        data: [10, 5, 20],
+        data: [10, 5, 20], 
         backgroundColor: ["#FF6384", "#36A2EB", "#4BC0C0"],
         borderWidth: 1,
       },
     ],
   };
 
- 
-
+  const statusOptions = {
+    plugins: {
+      legend: {
+        display: false,
+        position: "bottom",
+      },
+    },
+    responsive: true,
+    maintainAspectRatio: false,
+  };
 
   return (
     <div className={styles.content}>
       <HeaderDemandas />
       <div className={styles.container}>
-        {/* Indicador de Demandas */}
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper}> {/* Div embrulho */}
           <h2 className={styles.chartTitle}>Indicador de Demandas</h2>
           <div className={styles.chartBox}>
             <Bar
               data={statusData}
-              options={{
-                plugins: {
-                  legend: {
-                    display: false,
-                    position: "bottom",
-                  },
-                },
-                responsive: true,
-                maintainAspectRatio: false,
-              }}
-              width={300}
-              height={300}
+              options={statusOptions}
+              width={500}
+              height={400}
             />
           </div>
         </div>
-
-        
-
-        
       </div>
     </div>
   );
