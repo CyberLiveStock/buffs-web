@@ -17,20 +17,24 @@
 }
 
 .button {
-  background-color: #007bff; 
+  background-color: #FFCF78; /* Cor amarela clara para os botões */
   color: white; 
   border: none; 
   padding: 0.5rem 1rem; 
   border-radius: 0.25rem; 
   cursor: pointer; 
-  transition: background-color 0.3s; 
+  transition: background-color 0.3s ease-in-out; /* Animação ao passar o mouse */
 }
 
 .button:hover {
-  background-color: #0056b3; 
+  background-color: rgb(206, 125, 10); /* Cor laranja escuro ao passar o mouse */
 }
 
-.barraPesquisa{
+.button:active {
+  background-color: rgb(206, 125, 10); /* Cor laranja escuro ao pressionar o botão */
+}
+
+.barraPesquisa {
   width: 95.2%;
   margin-left: 40px;
 }
@@ -57,9 +61,7 @@
   margin-left: 0; /* Garante que o ícone fique centralizado */
 }
 
-
-
-.divInfosFunc{
+.divInfosFunc {
   width: 95%;
   height: auto; 
   margin-left: auto;
@@ -93,7 +95,7 @@
   margin-right: 14px;
 }
 
-.label{
+.label {
   font-weight: bold;
 }
 
@@ -102,3 +104,4 @@
   width: 460px; /* Ajuste o valor para o tamanho desejado */
   font-weight: bold;
 }
+
