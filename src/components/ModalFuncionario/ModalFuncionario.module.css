@@ -20,6 +20,8 @@
   position: relative;
   align-items: center;
   margin-left: 0px;
+  max-height: 80vh;  /* Limita a altura máxima do modal para 80% da altura da tela */
+  overflow-y: auto; /* Rolagem da sobreposição se necessário */
 }
 
 .closeButton {

@@ -147,7 +147,7 @@ const BubalinosContent = () => {
                       day: "2-digit",
                     })}
                   </td>
-                  <td className="text-center">{bufalo.peso} Kg</td>
+                  <td className="text-center">{bufalo?.zootecnico?.[0]?.peso} Kg</td>
                   <td className="text-center">
                     <img
                       src="/images/prontuario.svg"

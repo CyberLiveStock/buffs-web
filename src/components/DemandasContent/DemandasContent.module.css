@@ -1,27 +1,188 @@
 .content {
-  flex: 1;
+  width: 100vw; /* Ocupa 100% da largura da viewport */
+  height: 92vh; /* Ocupa 92% da altura da viewport */
   background-color: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  height: 90vh;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column; /* Alinha filhos verticalmente */
 }
 
 .container {
   display: flex;
   justify-content: center;
   align-items: flex-start; /* Alinha ao topo do container */
-  height: 80vh; /* Reduz a altura do container */
+  height: calc(100vh - 80px); /* Ajusta altura do container, subtraindo a altura da header */
   gap: 20px;
-  margin-top: 90px; /* Opcional: adiciona espaço acima */
+  padding: 20px;
+  box-sizing: border-box;
+  flex-wrap: wrap; /* Permite que os elementos se ajustem ao espaço */
 }
 
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  margin: 20px auto;
+  width: 100%; /* Faz o wrapper ocupar a largura do container */
+  max-width: 600px; /* Limita a largura máxima */
+  box-sizing: border-box;
+}
+
+.chartTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+  text-align: center;
+}
 
 .chartBox {
-  width: 300px;
-  height: 300px;
-  border-radius: 10px;
-  overflow: hidden;
-  background-color: #FEF5E4; /* Cor alterada */
+  width: 100%; /* Ajusta a largura do gráfico para ocupar toda a largura do wrapper */
+  height: 300px; /* Altura ajustada para os gráficos */
+  max-width: 500px; /* Limita o tamanho máximo do gráfico */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; /* Alinha os gráficos verticalmente em telas menores */
+    height: auto;
+  }
+
+  .chartBox {
+    width: 100%; /* Ajusta o gráfico para ocupar toda a largura disponível */
+    height: 250px; /* Ajusta a altura do gráfico em telas menores */
+  }
+
+  .wrapper {
+    width: 100%; /* Garante que o wrapper ocupe toda a largura da tela em dispositivos pequenos */
+  }
+
+  .chartTitle {
+    font-size: 1.2rem; /* Diminui o tamanho do título em telas pequenas */
+  }
+}
+
+/* CSS CARD DEMANDAS */
+.containerCard{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 130px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  flex-direction: row; /* Alinha os contadores lado a lado */
+  gap: 20px; /* Adiciona um espaçamento entre os dois contadores */
+  justify-content: center;
 }
 
 
+.rowCard{
+  display: flex;
+  width: 350px;
+  height: 120px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 2px solid rgba(223, 218, 218, 0.707);
+  background-color: #f8f8f8;
+}
+
+.cardPhoto{
+  display: flex;
+  width: 100px;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+}
+.photo{
+  display: flex;
+  background-color: #f4f4f4;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.cardDescription { /* divContainerRightContador  */
+  display: flex;
+  flex-direction: column; /* Isso empilha os itens verticalmente */
+  align-items: left;
+  justify-content: flex-start; /* Alinha os itens ao topo do contêiner */
+  width: 230px; /* Mantém a largura que você especificou */
+  height: auto; /* Deixa o tamanho do contêiner automático para acomodar os filhos */
+  line-height: 0.6;
+  text-align: justify;
+  margin-left: 10px;
+}
+
+.name{
+  margin-bottom: 6px;
+  margin-top: 6px;
+  text-align: justify;
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
+}
+
+.photoSize {
+  width: 80px;
+  height: 80px;
+}
+
+.statusLabel {
+  color: black; /* Cor para o texto "Status:" */
+  font-weight: bold; /* Opcional: deixa "Status" em negrito */
+  text-align: justify;
+}
+
+.statusValue {
+  color: orange; /* Cor para o texto "Em andamento" */
+  font-weight: bold; /* Opcional */
+  text-align: justify;
+}
+.statusLabel, .statusValue {
+  display: inline-block;
+}
+
+/* Estilização para os parágrafos de status */
+.statusContainer p {
+  display: flex;
+  justify-content: space-between; /* Espaça o label e o valor de status */
+  align-items: center; /* Alinha verticalmente os itens */
+  width: 100%; /* Ocupa toda a largura disponível */
+  margin: 5px 0; /* Espaçamento entre os parágrafos */
+}
+
+/* Label do status (parte esquerda) */
+.statusLabel {
+  color: black; /* Cor para o texto "Status:" */
+  font-weight: bold; /* Deixa "Status" em negrito */
+  flex: 1; /* Garante que o label ocupe espaço suficiente */
+  text-align: left; /* Alinha o texto à esquerda */
+}
+
+/* Valor do status (parte direita) */
+.statusValue {
+  color: orange; /* Cor para o texto "Em andamento" */
+  font-weight: bold; /* Deixa "Em andamento" em negrito */
+  flex: 1; /* Garante que o valor ocupe espaço suficiente */
+  text-align: right; /* Alinha o texto à direita */
+  margin-left: 5px;
+}
+
+.iconStatus {
+  color: orange;  /* Cor da seta */
+  font-size: 15px;  /* Tamanho do ícone */
+  margin-left: 5px;  /* Espaçamento ao lado do texto */
+}

@@ -1,14 +1,22 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Popover, PopoverTrigger, PopoverContent, Button, Card, CardBody } from "@nextui-org/react";
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import styles from './DenTableSanitario.module.css';
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  Button,
+  Card,
+  CardBody,
+} from "@nextui-org/react";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import styles from "./DenTableSanitario.module.css";
 
 const DenTable = ({ infoTag, infoEspec }) => {
-    const [bufalos, setBufalos] = useState([]);
+  const [bufalos, setBufalos] = useState([]);
 
-    const filteredBufalos = bufalos.filter((bufalo) => bufalo.tagBufalo.toString().includes(infoTag));
-
+  const filteredBufalos = bufalos.filter((bufalo) =>
+    bufalo.tagBufalo.toString().includes(infoTag)
+  );
 
     useEffect(() => {
         const fetchBufalos = async () => {

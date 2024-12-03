@@ -1,36 +1,72 @@
 .content {
-    flex: 1; 
-    background-color: #ffffff; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-    height: 92vh; 
-    overflow-y: auto;
+  flex: 1;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: 92vh;
+  overflow-y: auto;
+}
+
+.divTabela {
+  margin-top: 50px;
+}
+
+.divCorpoTabela {
+  width: 95%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 20px;
+  margin-bottom: 20px;
+  margin-top: 0px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.headerCell {
+  background-color: #FFCF78 !important;
+  text-align: center;
+  font-size: 16px;
+  vertical-align: middle;
+}
+
+/* Container para os gráficos */
+.chartContainer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+/* Wrapper para cada gráfico */
+.chartWrapper {
+  width: 40%; /* Ajustado para diminuir a largura dos gráficos */
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+/* Título dos gráficos */
+.chartTitle {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: black;
+}
+
+@media (max-width: 768px) {
+  .chartContainer {
+    flex-direction: column;
   }
 
-  .divTabela{
-    margin-top: 110px;
+  .chartWrapper {
+    width: 100%; /* Gráficos ocupam a largura total em dispositivos menores */
+    margin-bottom: 20px;
   }
-  
-  .divCorpoTabela{
-      width: 95%;
-      height: auto; 
-      margin-left: auto;
-      margin-right: auto;
-      padding-left: 10px;
-      padding-right: 10px;
-      padding-top: 20px;
-      margin-bottom: 20px;
-      margin-top: 0px;
-      border-radius: 10px; 
-      display: flex;
-      justify-content: space-evenly;
-      flex-direction: row;
-      flex-wrap: wrap;
-      align-items: center;
-  }
-  
-  .headerCell {
-    background-color: #FFCF78 !important;
-    text-align: center;
-    font-size: 16px;
-    vertical-align: middle;
-  }
+}
