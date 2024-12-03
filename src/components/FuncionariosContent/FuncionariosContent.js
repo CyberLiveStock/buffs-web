@@ -38,67 +38,22 @@ const FuncionariosContent = () => {
   }, []);
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    if (
-      nome &&
-      salario &&
-      dataNasc &&
-      email &&
-      telefone &&
-      genero &&
-      rua &&
-      bairro &&
-      estado &&
-      numero &&
-      cidade &&
-      descCargo
-    ) {
+    if (nome && salario && dataNasc && email && telefone && genero && rua && bairro && estado && numero && cidade && descCargo && status !== "") {
       const funcionario = {
-        nome,
-        salario,
-        dataNasc,
-        email,
-        telefone,
-        genero,
-        rua,
-        bairro,
-        estado,
-        numero,
-        cidade,
-        descCargo,
-        status, // Usando o status atualizado
+        nome, salario, dataNasc, email, telefone, genero, rua, bairro, estado, numero, cidade, descCargo, status
       };
-
       try {
-        if (isEdit) {
-          // Editar funcionário
-          const response = await axios.put(
-            `http://localhost:4000/funcionarios/${funcionarioId}`,
-            funcionario
-          );
-          if (response.status === 200) {
-            alert("Funcionário atualizado com sucesso!");
-          }
-        } else {
-          // Cadastrar novo funcionário
-          const response = await axios.post(
-            "http://localhost:4000/funcionarios",
-            funcionario
-          );
-          if (response.status === 201) {
-            alert("Funcionário cadastrado com sucesso!");
-          }
+        const response = await axios.post("http://localhost:4000/funcionario", funcionario)
+        if (response.status === 201) {
+          router.push("/")
         }
-        setModalOpen(false);
       } catch (error) {
         console.log(error);
-        alert("Ocorreu um erro. Tente novamente.");
       }
     } else {
-      alert("Por favor, preencha todos os campos.");
+      alert("Por favor, preencha todos os campos.")
     }
-  };
+  }
 
   // Para Barra de Pesquisa
   const [searchTerm, setSearchTerm] = useState("");
@@ -214,206 +169,230 @@ const FuncionariosContent = () => {
         </table>
       </div>
 
-{/* Modal de Cadastro e Edição */}
-<ModalFuncionario isOpen={isModalOpen} closeModal={closeModal}>
-  <h2>{isEdit ? "Editar Funcionário" : "Cadastrar Funcionário"}</h2>
-  <form onSubmit={handleSubmit}>
-    <div className={styles.divModal}>
-      <div className="form-group">
-        <label>Nome</label>
-        <input
-          type="text"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
-          className="form-control"
-          placeholder="Digite o nome"
-        />
-      </div>
-      <div className="form-group">
-        <label>Salário</label>
-        <input
-          type="text"
-          value={salario}
-          onChange={(e) => setSalario(e.target.value)}
-          className="form-control"
-          placeholder="Digite o salário"
-        />
-      </div>
-    </div>
+      {/* Modal de Cadastro e Edição */}
+      <ModalFuncionario isOpen={isModalOpen} closeModal={closeModal}>
+        <h2 style={{ marginLeft: "14px" }}>{isEdit ? "Editar Funcionário" : "Cadastrar Funcionário"}</h2>
+        <form onSubmit={handleSubmit}>
+          <div className={styles.divModal}>
+            <div className="form-group">
+              <label label className={styles.label}>Nome</label>
+              <input
+                type="text"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+                className="form-control"
+                placeholder="Digite o nome"
+              />
+            </div>
+            <div className="form-group">
+              <label label className={styles.label}>Salário</label>
+              <input
+                type="text"
+                value={salario}
+                onChange={(e) => setSalario(e.target.value)}
+                className="form-control"
+                placeholder="Digite o salário"
+              />
+            </div>
+          </div>
 
-    <div className={styles.divModal}>
-      <div className="form-group">
-        <label>Data Nascimento</label>
-        <input
-          type="date"
-          value={dataNasc}
-          onChange={(e) => setDataNasc(e.target.value)}
-          className="form-control"
-        />
-      </div>
-    </div>
+          <div className={styles.divModal}>
+            <div className="form-group">
+              <label label className={styles.label} >Data Nascimento</label>
+              <input
+                type="date"
+                value={dataNasc}
+                onChange={(e) => setDataNasc(e.target.value)}
+                className="form-control"
+              />
+            </div>
+          </div>
 
-    <div className={styles.divModal}>
-      <div className="form-group">
-        <label>Email</label>
-        <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="form-control"
-          placeholder="Digite o Email"
-        />
-      </div>
+          <div className={styles.divModal}>
+            <div className="form-group">
+              <label className={styles.labelCustom}>Email</label>
+              <input
 
-      <div className="form-group">
-        <label>Telefone</label>
-        <input
-          type="text"
-          value={telefone}
-          onChange={(e) => setTelefone(e.target.value)}
-          className="form-control"
-          placeholder="(xx) XXXXX-XXXX"
-        />
-      </div>
-    </div>
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="form-control"
+                placeholder="Digite o Email"
+              />
+            </div>
+          </div>
 
-    <div className={styles.divModal}>
-      <div className="form-group">
-        <label>Gênero</label>
-        <input
-          type="text"
-          value={genero}
-          onChange={(e) => setGenero(e.target.value)}
-          className="form-control"
-          placeholder="Gênero"
-        />
-      </div>
-    </div>
+          <div className={styles.divModal}>
 
-    <div className={styles.divModal}>
-      <div className="form-group">
-        <label>Rua</label>
-        <input
-          type="text"
-          value={rua}
-          onChange={(e) => setRua(e.target.value)}
-          className="form-control"
-          placeholder="Rua"
-        />
-      </div>
 
-      <div className="form-group">
-        <label>Bairro</label>
-        <input
-          type="text"
-          value={bairro}
-          onChange={(e) => setBairro(e.target.value)}
-          className="form-control"
-          placeholder="Bairro"
-        />
-      </div>
-    </div>
+            <div className="form-group">
+              <label label className={styles.label}>Telefone</label>
+              <input
+                type="text"
+                value={telefone}
+                onChange={(e) => setTelefone(e.target.value)}
+                className="form-control"
+                placeholder="(xx) XXXXX-XXXX"
+              />
+            </div>
 
-    <div className={styles.divModal}>
-      <div className="form-group">
-        <label>Estado</label>
-        <input
-          type="text"
-          value={estado}
-          onChange={(e) => setEstado(e.target.value)}
-          className="form-control"
-          placeholder="Estado"
-        />
-      </div>
 
-      <div className="form-group">
-        <label>Cidade</label>
-        <input
-          type="text"
-          value={cidade}
-          onChange={(e) => setCidade(e.target.value)}
-          className="form-control"
-          placeholder="Cidade"
-        />
-      </div>
-    </div>
 
-    <div className={styles.divModal}>
-      <div className="form-group">
-        <label>Descrição Cargo</label>
-        <input
-          type="text"
-          value={descCargo}
-          onChange={(e) => setDescCargo(e.target.value)}
-          className="form-control"
-          placeholder="Descrição Cargo"
-        />
-      </div>
-    </div>
+            <div className="form-group">
+              <label label className={styles.label}>Gênero</label>
+              <input
+                type="text"
+                value={genero}
+                onChange={(e) => setGenero(e.target.value)}
+                className="form-control"
+                placeholder="Gênero"
+              />
+            </div>
+          </div>
 
-    <div className={styles.divModal}>
-      <div className="form-group">
-        <label>Status</label>
-        <button
-          type="button"
-          className={`btn ${status === "Ativo" ? "btn-success" : "btn-danger"}`}
-          style={{
-            backgroundColor: "#FFCF78",
-            border: "2px #FFCF78",
-            color: "black",
-          }}
-          onClick={toggleStatus}
-        >
-          {status}
-        </button>
-      </div>
-    </div>
 
-    <button
-      type="submit"
-      className="btn btn-primary"
-      style={{
-        backgroundColor: "#FFCF78",
-        border: "2px #FFCF78",
-        color: "black",
-      }}
-    >
-      {isEdit ? "Atualizar" : "Cadastrar"}
-    </button>
+          <div className={styles.divModal}>
+            <div className="form-group">
+              <label className={styles.labelCustom}>Rua</label>
+              <input
+                type="text"
+                value={rua}
+                onChange={(e) => setRua(e.target.value)}
+                className="form-control"
+                placeholder="Rua"
+              />
+            </div>
+          </div>
 
-    {isEdit && (
-      <button
-        type="button"
-        className="btn btn-warning ms-2"
-        style={{
-          backgroundColor: "#f39c12",
-          border: "2px #f39c12",
-          color: "black",
-        }}
-        onClick={() => {
-          // Lógica para arquivar o funcionário
-          alert("Funcionário arquivado!");
-          // Adicionar aqui a lógica de arquivamento, como atualizar o status para arquivado no banco de dados
-        }}
-      >
-        Arquivar
-      </button>
-    )}
+          <div className={styles.divModal}>
+            <div className="form-group">
+              <label className={styles.label}>Bairro</label>
+              <input
+                type="text"
+                value={bairro}
+                onChange={(e) => setBairro(e.target.value)}
+                className="form-control"
+                placeholder="Bairro"
+              />
+            </div>
 
-    <button
-      type="button"
-      className="btn btn-secondary ms-2"
-      style={{
-        backgroundColor: "#ccc",
-        border: "2px #ccc",
-        color: "black",
-      }}
-      onClick={closeModal}
-    >
-      Fechar
-    </button>
-  </form>
-</ModalFuncionario>
+            <div className="form-group">
+              <label className={styles.label} >Número</label>
+              <input
+                type="text"
+                value={numero}
+                onChange={(e) => setNumero(e.target.value)}
+                className="form-control"
+                placeholder="Número"
+              />
+            </div>
+          </div>
+
+          <div className={styles.divModal}>
+
+            <div className="form-group">
+              <label className={styles.label} >Cidade</label>
+              <input
+                type="text"
+                value={cidade}
+                onChange={(e) => setCidade(e.target.value)}
+                className="form-control"
+                placeholder="Cidade"
+              />
+            </div>
+
+            <div className="form-group">
+              <label className={styles.label} >Estado</label>
+              <input
+                type="text"
+                value={estado}
+                onChange={(e) => setEstado(e.target.value)}
+                className="form-control"
+                placeholder="Estado"
+              />
+            </div>
+          </div>
+
+
+          <div className={styles.divModal}>
+            <div className="form-group">
+              <label className={styles.labelCustom} >Descrição Cargo</label>
+              <input
+                type="text"
+                value={descCargo}
+                onChange={(e) => setDescCargo(e.target.value)}
+                className="form-control"
+                placeholder="Descrição Cargo"
+              />
+            </div>
+          </div>
+
+          <div className={styles.divModal}>
+          <label className={styles.label}>Status</label>
+            <div className="form-group">
+              
+              <button
+                type="button"
+                className={`btn ${status === "Ativo" ? "btn-success" : "btn-danger"}`}
+                style={{
+                  backgroundColor: "#FFCF78",
+                  border: "2px #FFCF78",
+                  color: "black",
+                }}
+                onClick={toggleStatus}
+              >
+                {status}
+              </button>
+            </div>
+          </div>
+
+          <div className={styles.divModal}>
+            <button
+              type="submit"
+              className="btn btn-primary"
+              style={{
+                backgroundColor: "#FFCF78",
+                border: "2px #FFCF78",
+                color: "black",
+              }}
+            >
+              {isEdit ? "Atualizar" : "Cadastrar"}
+            </button>
+
+            {isEdit && (
+              <button
+                type="button"
+                className="btn btn-warning ms-2"
+                style={{
+                  backgroundColor: "#f39c12",
+                  border: "2px #f39c12",
+                  color: "black",
+                }}
+                onClick={() => {
+                  // Lógica para arquivar o funcionário
+                  alert("Funcionário arquivado!");
+                  // Adicionar aqui a lógica de arquivamento, como atualizar o status para arquivado no banco de dados
+                }}
+              >
+                Arquivar
+              </button>
+            )}
+
+            <button
+              type="button"
+              className="btn btn-secondary ms-2"
+              style={{
+                backgroundColor: "#ccc",
+                border: "2px #ccc",
+                color: "black",
+              }}
+              onClick={closeModal}
+            >
+              Fechar
+            </button>
+          </div>
+        </form>
+      </ModalFuncionario>
 
     </div>
   );

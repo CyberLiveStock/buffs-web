@@ -105,3 +105,42 @@
   font-weight: bold;
 }
 
+.custom-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.custom-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 100%;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  padding-right: 30px; /* Espaço para a seta */
+}
+
+.custom-select-wrapper::after {
+  content: "\f107"; /* Código do ícone Font Awesome para seta para baixo */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  position: absolute;
+  top: 50%;
+  right: 10px;  /* Ajuste o posicionamento da seta */
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 18px;
+  color: #999; /* Cor da seta */
+}
+
+.custom-select:focus {
+  outline: none;
+  border-color: #666;
+}
+
+
+
