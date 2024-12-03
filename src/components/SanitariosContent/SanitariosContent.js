@@ -57,48 +57,190 @@ const SanitariosContent = () => {
 
   // Função para exportar os dados em PDF
   const exportarPDF = () => {
-    if (bufalos.length === 0) {
-      alert("Não há dados para exportar.");
+    
+    // Verifica se o termo de pesquisa está vazio
+    const filteredBufalosForPDF = searchTerm.trim() !== ""
+      ? filteredBufalos // Se o searchTerm não está vazio, usa o filteredBufalos
+      : []; // Se o searchTerm está vazio, passa um array vazio
+
+    // Se filteredBufalosForPDF estiver vazio, não gera o PDF
+    if (filteredBufalosForPDF.length === 0) {
+      alert("Pesquise a Tag de um Bufalo, o qual deseja exportar seu dado.");
       return;
     }
 
     const doc = new jsPDF();
 
-    // Adiciona título ao PDF
-    doc.setFontSize(18);
-    doc.text("Relatório de Dados Sanitários", 10, 10);
+    // Para Formatação de Data
+    const formatDate = (dateString) => {
+      if (!dateString) return "Data não disponível"; // Caso a data seja nula ou indefinida
+      const date = new Date(dateString); // Converte a string em um objeto Date
+      return date.toLocaleDateString("pt-BR", { // Formata para o padrão brasileiro
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      });
+    };
 
-    // Cabeçalhos da tabela
-    const headers = [
-      ["Tag", "Nome Tratamento", "Descrição", "Data Aplicação", "Data Retorno"],
-    ];
+    //Imagem Fundo
+    const imgFundo = '/images/bubalinos.png';  // Caminho para a imagem PNG
+    // Arrumar Escala da imagem
+    const Fundoscale = 0.1;
+    const Fundowidth = 761 * Fundoscale;
+    const Fundoheight = 790 * Fundoscale;
+    doc.addImage(imgFundo, 'PNG', 70, 110, Fundowidth, Fundoheight);
 
-    // Dados da tabela
-    const rows = filteredBufalos.map((bufalo) => {
-      const sanitario = bufalo.sanitario?.[0] || {}; // Seleciona o primeiro tratamento ou vazio
-      return [
-        bufalo.tagBufalo || "N/A",
-        sanitario.nomeTratamento || "N/A",
-        sanitario.tipoSanitario || "N/A",
-        sanitario.dataAplicacao
-          ? new Date(sanitario.dataAplicacao).toLocaleDateString("pt-BR")
-          : "N/A",
-        sanitario.dataRetorno
-          ? new Date(sanitario.dataRetorno).toLocaleDateString("pt-BR")
-          : "N/A",
-      ];
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(26);
+    doc.setTextColor(0, 0, 0);        // Cor do texto (Preto)
+    doc.setFillColor(255, 207, 120);  // Cor de fundo (amarelo)
+    doc.rect(10, 20, 190.5, 20, 'F'); // Retângulo de fundo (Y, X, Largura, Altura)
+    doc.text('Relatório Sanitário', 105, 35, null, null, 'center');
+    doc.setDrawColor(143, 143, 143); // Define a cor da linha como cinza
+    doc.rect(9.5, 10, 191, 270);     // Margen da Folha
+
+    // Imagem Logo
+    const imgLogo = '/images/logo.png';  
+    // Arrumar Escala da imagem
+    const Logoscale = 0.06;
+    const Logowidth = 511 * Logoscale;
+    const Logoheight = 192 * Logoscale;
+    doc.addImage(imgLogo, 'PNG', 165, 25, Logowidth, Logoheight);
+
+
+    //Inicio: Sessão 01
+    doc.setFont("helvetica", "italic");
+    doc.setFontSize(14);
+    let yPositionn = 50; // Posição inicial no eixo Y
+
+    filteredBufalos.map((bufalo) => {
+      doc.text(
+        `${bufalo.nome} | TAG: ${bufalo.tagBufalo}`,
+        80,  // Posição X
+        yPositionn // Posição Y
+      );
+      yPositionn += 10; // Ajuste a posição Y para a próxima linha
     });
+    //Fim: Sessão 01
 
-    // Gera a tabela no PDF
-    doc.autoTable({
-      head: headers,
-      body: rows,
-      startY: 20,
+    //Inicio: Sessão 02 - Infos Atuais
+    doc.setFont("helvetica", "bolditalic");
+    doc.setFontSize(16);                    //Texto
+    doc.text('Infos Atuais', 15, 70);       //Texto
+    doc.setDrawColor(0, 0, 0);              //Texto
+    doc.rect(50, 69, 140, 0.2, 'F');        //Linha
+
+    // Adicionando informações do búfalo
+    doc.setFont("helvetica", "regular");
+    doc.setFontSize(12);
+    let yPosition = 80; // Posição inicial no eixo Y
+
+    filteredBufalos.map((bufalo) => {
+      const idadeTexto = bufalo.idade === 1 ? 'ano' : 'anos';
+      doc.text(`Idade: ${bufalo.idade} ${idadeTexto}`, 15, yPosition);
+      yPosition += 10; // Ajusta a posição Y para a próxima linha
+
+      doc.text(`Peso: ${bufalo.peso}  kg`, 15, yPosition);
+      yPosition += 10; // Ajusta a posição Y para a próxima linha
+
+      doc.text(`Raça: ${bufalo.raca}`, 15, yPosition);
+      yPosition += 10; // Ajusta a posição Y para a próxima linha
+
+      doc.text(`Sexo: ${bufalo.sexo}`, 15, yPosition);
+      yPosition += 15; // Ajusta a posição Y para a próxima linha (um pouco mais espaçada)
+
     });
+    //Fim: Sessão 02 - Infos Atuais
+
+    //Inicio: Sessão 03 - Sanitario Atual
+    doc.setFont("helvetica", "bolditalic");
+    doc.setFontSize(16);                     //Texto
+    doc.text('Atual Dados Sanitario', 15, 130); //Texto
+    doc.setDrawColor(0, 0, 0);               //Texto
+    doc.rect(75, 130, 117, 0.2, 'F');           //Linha
+
+    // Adicionando informações do búfalo
+    doc.setFont("helvetica", "regular");
+    doc.setFontSize(12);
+    let Positiony = 140; // Posição inicial no eixo Y
+
+    filteredBufalos.map((bufalo) => {
+
+      doc.text(`Tipo Sanitario: ${bufalo?.sanitario?.[0]?.tipoSanitario}`, 15, Positiony);
+      Positiony += 10; // Ajusta a posição Y para a próxima linha
+
+      doc.text(`Nome Tratamento: ${bufalo?.sanitario?.[0]?.nomeTratamento}`, 15, Positiony);
+      Positiony += 10; // Ajusta a posição Y para a próxima linha
+
+      doc.text(`Medicamento: ${bufalo?.sanitario?.[0]?.loteMedicamento}`, 15, Positiony);
+      Positiony += 10; // Ajusta a posição Y para a próxima linha
+
+      doc.text(`Data Aplicação: ${formatDate(bufalo?.sanitario?.[0]?.dataAplicacao)}`, 15, Positiony);
+      Positiony += 10; // Ajusta a posição Y para a próxima linha (um pouco mais espaçada)
+
+      doc.text(`Data Retorno: ${formatDate(bufalo?.sanitario?.[0]?.dataRetorno)}`, 15, Positiony);
+      Positiony += 15; // Ajusta a posição Y para a próxima linha (um pouco mais espaçada)
+    });
+    //Fim: Sessão 03 - Sanitario Atuais
+
+    //Inicio: Sessão 04 - Sanitario Historico
+    doc.setFont("helvetica", "bolditalic");
+    doc.setFontSize(16);                     //Texto
+    doc.text('Historico Dados Sanitario', 15, 200); //Texto
+    doc.setDrawColor(0, 0, 0);               //Texto
+    doc.rect(85, 200, 109, 0.2, 'F');           //Linha
+
+    // Adicionando informações do búfalo
+    doc.setFont("helvetica", "regular");
+    doc.setFontSize(12);
+    let PositionY = 210; // Posição inicial no eixo Y
+
+    filteredBufalos.map((bufalo) => {
+      PositionY += 10; // Espaçamento após o título
+
+      // Verifica se há dados no histórico sanitário
+      if (bufalo.historicoSanitario && bufalo.historicoSanitario.length > 0) {
+        bufalo.historicoSanitario.forEach((sanitario, index) => {
+          // Adiciona um título para cada registro do histórico sanitário
+          doc.text(`Histórico Sanitário ${index + 1}`, 15, PositionY);
+          PositionY += 10;
+
+          // Adiciona os detalhes do histórico sanitário
+          doc.text(`Tipo Sanitário: ${sanitario.tipoSanitario || "Não informado"}`, 15, PositionY);
+          PositionY += 10;
+
+          doc.text(`Nome Tratamento: ${sanitario.nomeTratamento || "Não informado"}`, 15, PositionY);
+          PositionY += 10;
+
+          doc.text(`Medicamento: ${sanitario.loteMedicamento || "Não informado"}`, 15, PositionY);
+          PositionY += 10;
+
+          doc.text(`Data Aplicação: ${formatDate(sanitario.dataAplicacao)}`, 15, PositionY);
+          PositionY += 10;
+
+          doc.text(`Data Retorno: ${formatDate(sanitario.dataRetorno)}`, 15, PositionY);
+          PositionY += 15;
+
+          // Verifica se a posição Y ultrapassou o limite da página
+          if (PositionY > 280) { // Ajuste baseado no tamanho da página (A4 geralmente tem limite de ~280 para conteúdo)
+            doc.addPage(); // Adiciona uma nova página
+            doc.setDrawColor(143, 143, 143); // Define a cor da linha como vermelho
+            doc.rect(9.5, 10, 191, 270);    // Margen
+            doc.addImage(imgFundo, 'PNG', 70, 110, Fundowidth, Fundoheight); // Marca da agua
+            PositionY = 15; // Reseta a posição Y para o início da nova página
+          }
+        });
+      } else {
+        doc.text("Sem dados de histórico sanitário disponíveis.", 15, PositionY);
+        PositionY += 15;
+      }
+    });
+    //Fim: Sessão 04 - Sanitario Historico
 
     // Salva o PDF
     doc.save("relatorio_dados_sanitarios.pdf");
   };
+  //Fim da Função para exportar os dados em PDF
 
   // Barra de Pesquisa
   const [searchTerm, setSearchTerm] = useState("");
