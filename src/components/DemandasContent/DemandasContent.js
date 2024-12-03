@@ -66,7 +66,7 @@ const DemandasContent = () => {
 
             <div className={styles.cardDescription}>
               <div className={styles.name}>
-              <h5>João Lima</h5>
+                <h5>João Lima</h5>
               </div>
               <p>
                 <span className={styles.statusLabel}>Status:</span>
@@ -79,7 +79,7 @@ const DemandasContent = () => {
             </div>
           </div>
 
-          
+
           <div className={styles.rowCard}>
             <div className={styles.cardPhoto}>
               <div className={styles.photo}>
@@ -92,7 +92,7 @@ const DemandasContent = () => {
             </div>
             <div className={styles.cardDescription}>
               <div className={styles.name}>
-                  <h5>Vinicius Souza</h5>
+                <h5>Vinicius Souza</h5>
               </div>
               <p>
                 <span className={styles.statusLabel}>Status:</span>
@@ -118,7 +118,7 @@ const DemandasContent = () => {
             </div>
             <div className={styles.cardDescription}>
               <div className={styles.name}>
-                 <h5>Paulo Candiani</h5>
+                <h5>Paulo Candiani</h5>
               </div>
               <p>
                 <span className={styles.statusLabel}>Status:</span>
@@ -153,6 +153,33 @@ const DemandasContent = () => {
               height={300}
             />
           </div>
+        </div>
+      </div>
+
+      {/* TABELA DE FUNCIONÁRIOS */}
+      <div className={styles.divTabela}>
+        <div>
+          <h2 style={{ textAlign: "center", fontWeight: "bold", fontSize: "24px", marginBottom: "30px" }}>Últimas Tarefas</h2>
+        </div>
+        <div className={styles.divCorpoTabela}>
+          <table className="table table-striped" id="funcionariosTable">
+            <thead>
+              <tr>
+                <th scope="col" className={styles.headerCell}>Status</th>
+                <th scope="col" className={styles.headerCell}>Nome</th>
+                <th scope="col" className={styles.headerCell}>Tipo</th>
+                <th scope="col" className={styles.headerCell}>Descrição</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="text-center"></td>
+                <td className="text-center"></td>
+                <td className="text-center"></td>
+                <td className="text-center"></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
