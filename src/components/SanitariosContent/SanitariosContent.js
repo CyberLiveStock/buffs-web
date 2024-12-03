@@ -140,7 +140,7 @@ const SanitariosContent = () => {
       doc.text(`Idade: ${bufalo.idade} ${idadeTexto}`, 15, yPosition);
       yPosition += 10; // Ajusta a posição Y para a próxima linha
 
-      doc.text(`Peso: ${bufalo.peso}  kg`, 15, yPosition);
+      doc.text(`Peso: ${bufalo.zootecnico?.[0]?.peso}  kg`, 15, yPosition);
       yPosition += 10; // Ajusta a posição Y para a próxima linha
 
       doc.text(`Raça: ${bufalo.raca}`, 15, yPosition);

@@ -45,7 +45,29 @@ const DenTable = ({ infoTag, infoEspec }) => {
                                     <tbody>
                                         {filteredBufalos.map((bufalo) => (
                                             <>
-                                                {/* Iterando sobre os dados do histórico Zootécnico */}
+                                                {/* Exibindo o dado atual */}
+                                                <tr key={`${bufalo._id}-atual`}>
+                                                    <td className="text-center">{bufalo?.sanitario?.[0]?.[infoEspec] || "Sem dados atuais"}</td>
+                                                    <td className="text-center">
+                                                        {bufalo?.sanitario?.[0]?.dataAplicacao
+                                                            ? new Date(bufalo.sanitario[0].dataAplicacao).toLocaleDateString("pt-BR", {
+                                                                day: "2-digit",
+                                                                month: "2-digit",
+                                                                year: "numeric",
+                                                            })
+                                                            : "Sem dados atuais"}
+                                                    </td>
+                                                    <td className="text-center">
+                                                        {bufalo?.sanitario?.[0]?.dataRetorno
+                                                            ? new Date(bufalo.sanitario[0].dataRetorno).toLocaleDateString("pt-BR", {
+                                                                day: "2-digit",
+                                                                month: "2-digit",
+                                                                year: "numeric",
+                                                            })
+                                                            : "Sem dados atuais"}
+                                                    </td>
+                                                </tr>
+                                                {/* Iterando sobre os dados do histórico Sanitario */}
                                                 {bufalo.historicoSanitario?.length > 0 ? (
                                                     bufalo.historicoSanitario.map((historico, index) => (
                                                         <tr key={`${bufalo._id}-historico-${index}`}>
@@ -75,29 +97,6 @@ const DenTable = ({ infoTag, infoEspec }) => {
                                                         <td className="text-center" colSpan={2}>Sem histórico</td>
                                                     </tr>
                                                 )}
-
-                                                {/* Exibindo o dado atual */}
-                                                <tr key={`${bufalo._id}-atual`}>
-                                                    <td className="text-center">{bufalo?.sanitario?.[0]?.[infoEspec] || "Sem dados atuais"}</td>
-                                                    <td className="text-center">
-                                                        {bufalo?.sanitario?.[0]?.dataAplicacao
-                                                            ? new Date(bufalo.sanitario[0].dataAplicacao).toLocaleDateString("pt-BR", {
-                                                                day: "2-digit",
-                                                                month: "2-digit",
-                                                                year: "numeric",
-                                                            })
-                                                            : "Sem dados atuais"}
-                                                    </td>
-                                                    <td className="text-center">
-                                                        {bufalo?.sanitario?.[0]?.dataRetorno
-                                                            ? new Date(bufalo.sanitario[0].dataRetorno).toLocaleDateString("pt-BR", {
-                                                                day: "2-digit",
-                                                                month: "2-digit",
-                                                                year: "numeric",
-                                                            })
-                                                            : "Sem dados atuais"}
-                                                    </td>
-                                                </tr>
                                             </>
                                         ))}
                                     </tbody>
