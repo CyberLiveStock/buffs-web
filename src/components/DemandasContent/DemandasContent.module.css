@@ -186,3 +186,34 @@
   font-size: 15px;  /* Tamanho do ícone */
   margin-left: 5px;  /* Espaçamento ao lado do texto */
 }
+
+
+/* TABELA DEMANDAS */
+.divTabela{
+  margin-top: 110px;
+}
+
+.divCorpoTabela{
+    width: 95%;
+    height: auto; 
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 20px;
+    margin-bottom: 20px;
+    margin-top: 0px;
+    border-radius: 10px; 
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.headerCell {
+  background-color: #FFCF78 !important;
+  text-align: center;
+  font-size: 16px;
+  vertical-align: middle;
+}
