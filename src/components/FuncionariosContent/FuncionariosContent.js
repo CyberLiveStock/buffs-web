@@ -329,12 +329,14 @@ const FuncionariosContent = () => {
 
           <div className={styles.divModal}>
           <label className={styles.label}>Status</label>
-            <div className="form-group">
+          <div className="form-group">
               
               <button
                 type="button"
                 className={`btn ${status === "Ativo" ? "btn-success" : "btn-danger"}`}
                 style={{
+                  alignItems: 'center',
+                  justifyContent: 'right',
                   backgroundColor: "#FFCF78",
                   border: "2px #FFCF78",
                   color: "black",
@@ -345,6 +347,9 @@ const FuncionariosContent = () => {
               </button>
             </div>
           </div>
+          
+
+
 
           <div className={styles.divModal}>
             <button
@@ -388,7 +393,7 @@ const FuncionariosContent = () => {
               }}
               onClick={closeModal}
             >
-              Fechar
+              Cancelar
             </button>
           </div>
         </form>
