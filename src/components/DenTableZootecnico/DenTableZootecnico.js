@@ -31,14 +31,14 @@ const DenTable = ({ infoTag, infoEspec }) => {
                     <span><i class="fa-solid fa-circle-info"></i></span>
                 </PopoverTrigger>
                 <PopoverContent>
-                    <Card style={{ backgroundColor: "#f9f9f9", borderRadius: "8px", width: "250px", minHeight: "150px", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", marginLeft: "420px" }}>
+                    <Card style={{ backgroundColor: "#f9f9f9", borderRadius: "8px", width: "450px", minHeight: "150px", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", marginLeft: "420px" }}>
                         <CardBody>
                             <div className={styles.divInfosFunc}>
                                 <table className="table table-striped" id="funcionariosTable">
                                     <thead>
                                         <tr>
-                                            <th scope="col" className={styles.headerCell}>Nome</th>
-                                            <th scope="col" className={styles.headerCell}>Cargo</th>
+                                            <th scope="col" className={styles.headerCell}>{infoEspec}</th>
+                                            <th scope="col" className={styles.headerCell}>Data Atualização</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -48,7 +48,16 @@ const DenTable = ({ infoTag, infoEspec }) => {
                                                 {bufalo.historicoZootecnico?.length > 0 ? (
                                                     bufalo.historicoZootecnico.map((historico, index) => (
                                                         <tr key={`${bufalo._id}-historico-${index}`}>
-                                                            <td className="text-center">{historico?.[infoEspec] || "Sem dados"}</td>
+                                                            <td className="text-center">
+                                                                {historico?.[infoEspec]
+                                                                    ? `${historico[infoEspec]} ${infoEspec === 'peso'
+                                                                        ? 'Kg'
+                                                                        : infoEspec === 'suplementacao'
+                                                                            ? ''
+                                                                            : 'Cm'
+                                                                    }`
+                                                                    : "Sem dados"}
+                                                            </td>
                                                             <td className="text-center">
                                                                 {historico?.dataAtual
                                                                     ? new Date(historico.dataAtual).toLocaleDateString("pt-BR", {
@@ -68,7 +77,15 @@ const DenTable = ({ infoTag, infoEspec }) => {
 
                                                 {/* Exibindo o dado atual */}
                                                 <tr key={`${bufalo._id}-atual`}>
-                                                    <td className="text-center">{bufalo?.zootecnico?.[0]?.[infoEspec] || "Sem dados atuais"}</td>
+                                                    <td className="text-center">  {bufalo?.zootecnico?.[0]?.[infoEspec]
+                                                        ? `${bufalo.zootecnico[0][infoEspec]} ${infoEspec === 'peso'
+                                                            ? 'Kg'
+                                                            : infoEspec === 'suplementacao'
+                                                                ? ''
+                                                                : 'Cm'
+                                                        }`
+                                                        : "Sem dados atuais"}
+                                                    </td>
                                                     <td className="text-center">
                                                         {bufalo?.zootecnico?.[0]?.dataAtual
                                                             ? new Date(bufalo.zootecnico[0].dataAtual).toLocaleDateString("pt-BR", {

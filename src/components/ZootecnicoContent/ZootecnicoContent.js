@@ -383,7 +383,7 @@ const ZootecnicoContent = () => {
                     value={selectedBufalo?.zootecnico?.[0]?.comprimentoCorporal + ' Cm' || ""}
                     readOnly
                   />
-                  <DenTable />
+                  <DenTable infoTag={selectedBufalo?.tagBufalo} infoEspec={"comprimentoCorporal"} />
                 </div>
 
                 <div className="form-group" style={{ position: "relative" }}>
@@ -394,7 +394,7 @@ const ZootecnicoContent = () => {
                     value={selectedBufalo?.zootecnico?.[0]?.alturaCernelha + ' Cm' || ""}
                     readOnly
                   />
-                  <DenTable />
+                  <DenTable infoTag={selectedBufalo?.tagBufalo} infoEspec={"alturaCernelha"} />
                 </div>
               </div>
             </div>
@@ -409,7 +409,7 @@ const ZootecnicoContent = () => {
                 value={selectedBufalo?.zootecnico?.[0]?.circuferenciaCorporal + ' Cm' || ""}
                 readOnly
               />
-              <DenTable />
+              <DenTable infoTag={selectedBufalo?.tagBufalo} infoEspec={"circuferenciaCorporal"} />
             </div>
 
             <div className="form-group" style={{ position: "relative" }}>
@@ -444,7 +444,7 @@ const ZootecnicoContent = () => {
                 value={selectedBufalo?.zootecnico?.[0]?.peso + ' Kg' || ""}
                 readOnly
               />
-              <DenTable />
+              <DenTable infoTag={selectedBufalo?.tagBufalo} infoEspec={"peso"} />
             </div>
           </div>
 
