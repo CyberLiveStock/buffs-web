@@ -1,9 +1,12 @@
 import axios from "axios";
-import { useEffect, useState, useRef } from "react";
+import react, { useEffect, useState } from "react";
 import HeaderDemandas from "../HeaderDemandas/HeaderDemandas";
 import styles from "./DemandasContent.module.css";
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { Bar } from "react-chartjs-2";
+import ModalDemandas from "../ModalDemandas/ModalDemandas";
+
+
+import { Line, Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -15,6 +18,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+
 
 
 // Registrar os componentes do Chart.js necessários
@@ -30,6 +34,17 @@ ChartJS.register(
 );
 
 const DemandasContent = () => {
+  const [isModalOpen, setModalOpen] = useState(false); // Estado do Modal
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  const openModal = () => {
+    setModalOpen(true);
+
+  };
+
 
   const [demandas, setDemandas] = useState([]);         // Coleção Demandas
   const [funcionarios, setFuncionarios] = useState({}); // Coleção Funcionarios
@@ -97,10 +112,37 @@ const DemandasContent = () => {
     }
   }, [demandas]);
 
+  // Cadastro de uma nova demanda
+  const [nome, setNome] = useState("");
+  const [dataInicio, setDataInicio] = useState("");
+  const [dataFim, setDataFim] = useState("");
+  const [categoria, setCategoria] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [status, setStatus] = useState("A Fazer");
+  
+  const handleSubmit = async (e) => {
+      const demanda = {
+      nome,
+      dataInicio,
+      dataFim,
+      categoria,
+      descricao,
+    };
+
+    try {
+      const response = await axios.post("http://localhost:4000/demandas", demanda);
+      console.log("Demanda criada com sucesso:", response.data);
+      alert("Demanda atribuída com sucesso!");
+      closeModal(); // Fecha o modal após o sucesso
+    } catch (error) {
+      console.error("Erro ao criar a demanda:", error);
+      alert("Erro ao criar a demanda. Tente novamente.");
+    }
+  };
 
   return (
     <div className={styles.content}>
-      <HeaderDemandas />
+      <HeaderDemandas openModal={openModal} />
       <div className={styles.container}>
         {/* Indicador de Demandas */}
         <div className={styles.wrapper}>
@@ -154,6 +196,90 @@ const DemandasContent = () => {
           </table>
         </div>
       </div>
+
+      {/* INICIO DO MODAL DEMANDAS */}
+      <ModalDemandas isOpen={isModalOpen} closeModal={closeModal}>
+        <h2 style={{ marginLeft: "14px" }}> Atribuir Demanda </h2>
+        <form>
+          <div className={styles.divModal}>
+            <div className="form-group">
+              <label label className={styles.labelCustom}>Nome</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Digite o nome"
+              />
+            </div>
+          </div>
+
+          <div className={styles.divModal}>
+            <div className="form-group">
+              <label label className={styles.label} >Data de Início</label>
+              <input
+                type="date"
+                className="form-control"
+              />
+            </div>
+            <div className="form-group">
+              <label label className={styles.label} >Data de Finalização</label>
+              <input
+                type="date"
+                className="form-control"
+              />
+            </div>
+          </div>
+          {/* SELECT BOX - CATEGORIA */}
+          <div className={styles.divModal}>
+            <div className="form-group">
+              <label className={styles.label}>Categoria</label>
+              <select className="form-control">
+              <option value="placeholder">Selecione a Categoria</option>
+                <option value="zootecnico">Zootécnico</option>
+                <option value="sanitario">Sanitário</option>
+                <option value="reproducao">Reprodução</option>
+              </select>
+            </div>
+          </div>
+
+
+          <div className={styles.divModal}>
+            <div className="form-group">
+              <label label className={styles.labelCustom}>Descrição da Demanda</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Digite a descrição"
+              />
+            </div>
+          </div>
+
+          <div className={styles.divModal}>
+            <button
+              type='submit'
+              className="btn btn-primary"
+              style={{
+                backgroundColor: "#CE7D0A",
+                border: "2px #CE7D0A",
+                color: "black",
+              }}
+            >
+              Atribuir
+            </button>
+
+            <button
+              type='submit'
+              className="btn btn-primary"
+              style={{
+                backgroundColor: "#FFCF78",
+                border: "2px #FFCF78",
+                color: "black",
+              }}
+            >
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </ModalDemandas>
     </div>
   );
 };

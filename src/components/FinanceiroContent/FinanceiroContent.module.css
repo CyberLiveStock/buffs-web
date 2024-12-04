@@ -70,3 +70,23 @@
     margin-bottom: 20px;
   }
 }
+
+/* CSS MODAL FINANCEIRO */
+.divModal {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-top: 15px;
+  margin-left: 14px;
+  margin-right: 14px;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.labelCustom {
+  display: inline-block; /* Mantém o layout adequado para controle de tamanho */
+  width: 460px; /* Ajuste o valor para o tamanho desejado */
+  font-weight: bold;
+}

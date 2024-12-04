@@ -13,7 +13,6 @@ const ModalFuncionario = ({ isOpen, closeModal, children }) => {
         </button>
         <div className={styles.content}>{children}</div>
       </div>
-      
     </div>
   );
 };
