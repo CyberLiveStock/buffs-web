@@ -47,7 +47,7 @@ const DemandasContent = () => {
 
 
   const [demandas, setDemandas] = useState([]);         // Coleção Demandas
-  const [funcionarios, setFuncionarios] = useState({}); // Coleção Funcionarios
+  const [funcionarios, setFuncionarios] = useState([]); // Coleção Funcionarios
 
   // Fetch para coleção Demandas
   useEffect(() => {
@@ -93,7 +93,7 @@ const DemandasContent = () => {
   useEffect(() => {
     if (demandas.length > 0) {
       // Calculando a quantidade de cada Status
-      const quantidadeAFazer = demandas.filter((dado) => dado.status === "AFazer").length;
+      const quantidadeAFazer = demandas.filter((dado) => dado.status === "A Fazer").length;
       const quantidadeEmProducao = demandas.filter((dado) => dado.status === "Em produção").length;
       const quantidadeFinalizada = demandas.filter((dado) => dado.status === "Finalizada").length;
 
@@ -113,24 +113,25 @@ const DemandasContent = () => {
   }, [demandas]);
 
   // Cadastro de uma nova demanda
-  const [nome, setNome] = useState("");
+  const [idFuncionario, setIdFuncionario] = useState("");
   const [dataInicio, setDataInicio] = useState("");
   const [dataFim, setDataFim] = useState("");
   const [categoria, setCategoria] = useState("");
   const [descricao, setDescricao] = useState("");
   const [status, setStatus] = useState("A Fazer");
-  
+
   const handleSubmit = async (e) => {
-      const demanda = {
-      nome,
+    const demanda = {
+      idFuncionario,
       dataInicio,
       dataFim,
       categoria,
       descricao,
+      status
     };
 
     try {
-      const response = await axios.post("http://localhost:4000/demandas", demanda);
+      const response = await axios.post("http://localhost:4000/demanda", demanda);
       console.log("Demanda criada com sucesso:", response.data);
       alert("Demanda atribuída com sucesso!");
       closeModal(); // Fecha o modal após o sucesso
@@ -184,14 +185,27 @@ const DemandasContent = () => {
               </tr>
             </thead>
             <tbody>
-              {demandas.map((demanda) => (
-                <tr key={demanda._id}>
-                  <td className="text-center">{demanda.status}</td>
-                  <td className="text-center">{demanda.idFuncionario?.nome || "Sem nome"}</td>
-                  <td className="text-center">{demanda.categoria}</td>
-                  <td className="text-center">{demanda.descricao}</td>
-                </tr>
-              ))}
+              {demandas.sort((a, b) => {
+                // Definindo a ordem desejada explicitamente
+                const ordemStatus = {
+                  "A Fazer": 1,
+                  "Em produção": 2,
+                  "Finalizada": 3,
+                };
+                // Comparando os status e usando os valores do objeto 'ordemStatus'
+                const statusA = ordemStatus[a.status];
+                const statusB = ordemStatus[b.status];
+
+                return statusA - statusB; // Ordenando
+              })
+                .map((demanda) => (
+                  <tr key={demanda._id}>
+                    <td className="text-center">{demanda.status}</td>
+                    <td className="text-center">{demanda.idFuncionario?.nome || "Sem nome"}</td>
+                    <td className="text-center">{demanda.categoria}</td>
+                    <td className="text-center">{demanda.descricao}</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
@@ -200,15 +214,23 @@ const DemandasContent = () => {
       {/* INICIO DO MODAL DEMANDAS */}
       <ModalDemandas isOpen={isModalOpen} closeModal={closeModal}>
         <h2 style={{ marginLeft: "14px" }}> Atribuir Demanda </h2>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className={styles.divModal}>
             <div className="form-group">
               <label label className={styles.labelCustom}>Nome</label>
-              <input
-                type="text"
+              <select
                 className="form-control"
-                placeholder="Digite o nome"
-              />
+                value={idFuncionario}
+                onChange={(e) => setIdFuncionario(e.target.value)} // Captura o _id do funcionário selecionado
+                required
+              >
+                <option value="">Selecione o Funcionário</option>
+                {funcionarios.map((funcionario) => (
+                  <option key={funcionario._id} value={funcionario._id}>
+                    {funcionario.nome}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 
@@ -218,6 +240,9 @@ const DemandasContent = () => {
               <input
                 type="date"
                 className="form-control"
+                value={dataInicio}
+                onChange={(e) => setDataInicio(e.target.value)} // Captura o valor do input
+                required
               />
             </div>
             <div className="form-group">
@@ -225,6 +250,9 @@ const DemandasContent = () => {
               <input
                 type="date"
                 className="form-control"
+                value={dataFim}
+                onChange={(e) => setDataFim(e.target.value)} // Captura o valor do input
+                required
               />
             </div>
           </div>
@@ -232,11 +260,14 @@ const DemandasContent = () => {
           <div className={styles.divModal}>
             <div className="form-group">
               <label className={styles.label}>Categoria</label>
-              <select className="form-control">
-              <option value="placeholder">Selecione a Categoria</option>
-                <option value="zootecnico">Zootécnico</option>
-                <option value="sanitario">Sanitário</option>
-                <option value="reproducao">Reprodução</option>
+              <select className="form-control"
+                value={categoria}
+                onChange={(e) => setCategoria(e.target.value)} // Captura o valor do select
+                required>
+                <option value="">Selecione a Categoria</option>
+                <option value="Zootecnico">Zootécnico</option>
+                <option value="Sanitario">Sanitário</option>
+                <option value="Rerprodução">Reprodução</option>
               </select>
             </div>
           </div>
@@ -249,6 +280,9 @@ const DemandasContent = () => {
                 type="text"
                 className="form-control"
                 placeholder="Digite a descrição"
+                value={descricao}
+                onChange={(e) => setDescricao(e.target.value)} // Captura o valor do input
+                required
               />
             </div>
           </div>
@@ -274,6 +308,7 @@ const DemandasContent = () => {
                 border: "2px #FFCF78",
                 color: "black",
               }}
+              onClick={closeModal}
             >
               Cancelar
             </button>

@@ -22,7 +22,7 @@ const FinanceiroContent = () => {
   };
 
   const [financeiros, setFinanceiros] = useState([]); // Coleção Financeiro
-  
+
   const fetchFinanceiros = async () => {
     try {
       const response = await axios.get("http://localhost:4000/financeiros");
@@ -30,7 +30,7 @@ const FinanceiroContent = () => {
     } catch (error) {
       console.log(error);
     }
-  };  
+  };
   useEffect(() => {
     fetchFinanceiros(); // Executar a função ao carregar o componente
   }, []);
@@ -85,11 +85,11 @@ const FinanceiroContent = () => {
             tension: 0.1,
           };
         });
-        
+
         setChartData1({
           labels,
           datasets,
-          
+
         });
       } catch (error) {
         console.log(error);
@@ -97,10 +97,44 @@ const FinanceiroContent = () => {
     };
     fetchDemandas();
   }, []);
-  
+
+  // Cadastrode uma Nova Financia
+  const [valor, setValor] = useState("");
+  const [status, setStatus] = useState("");
+  const [data, setData] = useState("");
+  const [categoria, setCategoria] = useState("");
+  const [tipo, setTipo] = useState("");
+  const [beneficiario, setBeneficiario] = useState("");
+  const [descricao, setDescricao] = useState("");
+
+  // Função para tratar o envio do formulário
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Evita o reload da página
+
+    const financeiroData = {
+      valor,
+      status,
+      data,
+      categoria,
+      tipo,
+      beneficiario,
+      descricao,
+    };
+
+    try {
+      const response = await axios.post("http://localhost:4000/financeiro", financeiroData);
+      console.log("Registro financeiro adicionado com sucesso:", response.data);
+      alert("Registro financeiro adicionado com sucesso!");
+      closeModal(); // Fecha o modal após o sucesso
+    } catch (error) {
+      console.error("Erro ao adicionar registro financeiro:", error);
+      alert("Erro ao adicionar registro financeiro. Tente novamente.");
+    }
+  };
+
   return (
     <div className={styles.content}>
-      <HeaderFinanceiro openModal={openModal}/>
+      <HeaderFinanceiro openModal={openModal} />
 
       {/* Gráficos Lado a Lado */}
       <div className={styles.chartContainer}>
@@ -124,7 +158,7 @@ const FinanceiroContent = () => {
 
         <div className={styles.chartWrapper}>
           <h3 className={styles.chartTitle}>Custos Funcionários</h3>
-          
+
         </div>
       </div>
 
@@ -168,33 +202,42 @@ const FinanceiroContent = () => {
 
       <ModalFinanceiro isOpen={isModalOpen} closeModal={closeModal}>
         <h2 style={{ marginLeft: "14px" }}> Financeiro </h2>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className={styles.divModal}>
             <div className="form-group">
-              <label label className={styles.label}>Valor</label>
+              <label className={styles.label}>Valor</label>
               <input
                 type="text"
                 className="form-control"
                 placeholder="Digite o valor"
+                value={valor}
+                onChange={(e) => setValor(e.target.value)}
+                required
               />
             </div>
 
             <div className="form-group">
-              <label label className={styles.label}>Status</label>
+              <label className={styles.label}>Status</label>
               <input
                 type="text"
                 className="form-control"
                 placeholder="Digite o status"
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+                required
               />
             </div>
           </div>
 
           <div className={styles.divModal}>
             <div className="form-group">
-              <label label className={styles.label} >Data</label>
+              <label className={styles.label}>Data</label>
               <input
                 type="date"
                 className="form-control"
+                value={data}
+                onChange={(e) => setData(e.target.value)}
+                required
               />
             </div>
           </div>
@@ -202,54 +245,69 @@ const FinanceiroContent = () => {
           <div className={styles.divModal}>
             <div className="form-group">
               <label className={styles.label}>Categoria</label>
-              <select className="form-control">
-                <option value="placeholder">Selecione a Categoria</option>
-                <option value="zootecnico">Zootécnico</option>
-                <option value="sanitario">Sanitário</option>
-                <option value="reproducao">Reprodução</option>
+              <select
+                className="form-control"
+                value={categoria}
+                onChange={(e) => setCategoria(e.target.value)}
+                required
+              >
+                <option value="">Selecione a Categoria</option>
+                <option value="Zootecnico">Zootécnico</option>
+                <option value="Sanitario">Sanitário</option>
+                <option value="Reprodução">Reprodução</option>
               </select>
             </div>
 
             <div className="form-group">
-              <label label className={styles.label}>Tipo</label>
-              <select className="form-control">
-                <option value="placeholder">Selecione o tipo</option>
-                <option value="zootecnico">Único</option>
-                <option value="sanitario">Diário</option>
-                <option value="reproducao">Semanal</option>
-                <option value="reproducao">Mensal</option>
-                <option value="reproducao">Semestral</option>
-                <option value="reproducao">Anual</option>
+              <label className={styles.label}>Tipo</label>
+              <select
+                className="form-control"
+                value={tipo}
+                onChange={(e) => setTipo(e.target.value)}
+                required
+              >
+                <option value="">Selecione o tipo</option>
+                <option value="unico">Único</option>
+                <option value="diario">Diário</option>
+                <option value="semanal">Semanal</option>
+                <option value="mensal">Mensal</option>
+                <option value="semestral">Semestral</option>
+                <option value="anual">Anual</option>
               </select>
             </div>
           </div>
 
-
           <div className={styles.divModal}>
             <div className="form-group">
-              <label label className={styles.labelCustom}>Beneficiário</label>
+              <label className={styles.labelCustom}>Beneficiário</label>
               <input
                 type="text"
                 className="form-control"
                 placeholder="Digite o beneficiário"
+                value={beneficiario}
+                onChange={(e) => setBeneficiario(e.target.value)}
+                required
               />
             </div>
           </div>
 
           <div className={styles.divModal}>
             <div className="form-group">
-              <label label className={styles.labelCustom}>Descrição</label>
+              <label className={styles.labelCustom}>Descrição</label>
               <input
                 type="text"
                 className="form-control"
                 placeholder="Digite a descrição"
+                value={descricao}
+                onChange={(e) => setDescricao(e.target.value)}
+                required
               />
             </div>
           </div>
 
           <div className={styles.divModal}>
             <button
-              type='submit'
+              type="submit"
               className="btn btn-primary"
               style={{
                 backgroundColor: "#CE7D0A",
@@ -261,13 +319,14 @@ const FinanceiroContent = () => {
             </button>
 
             <button
-              type='submit'
+              type="button"
               className="btn btn-primary"
               style={{
                 backgroundColor: "#FFCF78",
                 border: "2px #FFCF78",
                 color: "black",
               }}
+              onClick={closeModal}
             >
               Cancelar
             </button>
