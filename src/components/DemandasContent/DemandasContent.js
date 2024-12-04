@@ -104,7 +104,7 @@ const DemandasContent = () => {
           {
             label: "Status das Atividades",
             data: [quantidadeAFazer, quantidadeEmProducao, quantidadeFinalizada],
-            backgroundColor: ["#FF6384", "#36A2EB", "#4BC0C0"],
+            backgroundColor: ["#43310B", "#CE7D0A", "#FCA90F"],
             borderWidth: 1,
           },
         ],

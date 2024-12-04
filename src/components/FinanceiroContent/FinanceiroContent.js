@@ -156,10 +156,7 @@ const FinanceiroContent = () => {
           />
         </div>
 
-        <div className={styles.chartWrapper}>
-          <h3 className={styles.chartTitle}>Custos Funcionários</h3>
-
-        </div>
+        
       </div>
 
       {/* TABELA FINANCEIRO */}

@@ -2,17 +2,19 @@ import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
 import styles from "./HomeContent.module.css";
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import InfoGraf from "../InfoGraf/InfoGraf";
 
 const HomeContent = () => {
-  const [demandas, setDemandas] = useState([]);         // Coleção Demandas
-  const [bufalos, setBufalos] = useState([]);           // Coleção Bufalos
+  const [demandas, setDemandas] = useState([]); // Coleção Demandas
+  const [bufalos, setBufalos] = useState([]); // Coleção Bufalos
   const [funcionarios, setFuncionarios] = useState({}); // Coleção Funcionarios
-  const [reproducoes, setReproducoes] = useState({});   // Coleção Reproduções
+  const [reproducoes, setReproducoes] = useState({}); // Coleção Reproduções
 
-  const [quantidadeFuncionariosAtivo, setQuantidadeFuncionariosAtivo] = useState(0);
-  const [quantidadeFuncionariosInativo, setQuantidadeFuncionariosInativo] = useState(0);
+  const [quantidadeFuncionariosAtivo, setQuantidadeFuncionariosAtivo] =
+    useState(0);
+  const [quantidadeFuncionariosInativo, setQuantidadeFuncionariosInativo] =
+    useState(0);
 
   // Fetch para coleção Demandas
   useEffect(() => {
@@ -20,7 +22,7 @@ const HomeContent = () => {
       try {
         const response = await axios.get("http://localhost:4000/demandas");
         setDemandas(response.data.demandas); //'demandas' array de demandas
-        console.log(demandas)
+        console.log(demandas);
       } catch (error) {
         console.log(error);
       }
@@ -34,7 +36,7 @@ const HomeContent = () => {
       try {
         const response = await axios.get("http://localhost:4000/bufalos");
         setBufalos(response.data.bufalos); //'bufalos' array de bufalos
-        console.log(bufalos)
+        console.log(bufalos);
       } catch (error) {
         console.log(error);
       }
@@ -48,7 +50,7 @@ const HomeContent = () => {
       try {
         const response = await axios.get("http://localhost:4000/funcionarios");
         setFuncionarios(response.data.funcionarios); //'funcionarios' array de funcionarios
-        console.log(funcionarios)
+        console.log(funcionarios);
       } catch (error) {
         console.log(error);
       }
@@ -62,7 +64,7 @@ const HomeContent = () => {
       try {
         const response = await axios.get("http://localhost:4000/reproducoes");
         setReproducoes(response.data.reproducoes); //'reproducoes' array de reproducoes
-        console.log(reproducoes)
+        console.log(reproducoes);
       } catch (error) {
         console.log(error);
       }
@@ -77,14 +79,18 @@ const HomeContent = () => {
   const sexoRef = useRef(null);
 
   // Calculo quantidade de Animais Ativos
-  const quantidadeBufalos = bufalos.length
+  const quantidadeBufalos = bufalos.length;
 
   // Calculo quantidade de Funcionarios (Ativos e Inativos)
   useEffect(() => {
     if (funcionarios.length > 0) {
-      const ativos = funcionarios.filter((dado) => dado.status === "Ativo").length;
+      const ativos = funcionarios.filter(
+        (dado) => dado.status === "Ativo"
+      ).length;
       setQuantidadeFuncionariosAtivo(ativos);
-      const inativos = funcionarios.filter((dado) => dado.status === "Inativo").length;
+      const inativos = funcionarios.filter(
+        (dado) => dado.status === "Inativo"
+      ).length;
       setQuantidadeFuncionariosInativo(inativos);
     }
   }, [funcionarios]);
@@ -92,24 +98,44 @@ const HomeContent = () => {
   useEffect(() => {
     if (bufalos.length > 0 && reproducoes.length > 0) {
       // Calculando a quantidade de cada Sexo
-      const quantidadeMachos = bufalos.filter((dado) => dado.sexo === "Macho").length;
-      const quantidadeFemeas = bufalos.filter((dado) => dado.sexo === "Fêmea").length;
+      const quantidadeMachos = bufalos.filter(
+        (dado) => dado.sexo === "Macho"
+      ).length;
+      const quantidadeFemeas = bufalos.filter(
+        (dado) => dado.sexo === "Fêmea"
+      ).length;
 
       // Calculando a quantidade de cada Raças
-      const quantidadeMurrah = bufalos.filter((dado) => dado.raca === "Murrah").length;
-      const quantidadeJafarabadi = bufalos.filter((dado) => dado.raca === "Jafarabadi").length;
-      const quantidadeMediterrâneo = bufalos.filter((dado) => dado.raca === "Mediterrâneo").length;
+      const quantidadeMurrah = bufalos.filter(
+        (dado) => dado.raca === "Murrah"
+      ).length;
+      const quantidadeJafarabadi = bufalos.filter(
+        (dado) => dado.raca === "Jafarabadi"
+      ).length;
+      const quantidadeMediterrâneo = bufalos.filter(
+        (dado) => dado.raca === "Mediterrâneo"
+      ).length;
 
       // Calculo de Reproduções
-      const quantidadeGestantes = reproducoes.filter((dado) => dado.status === "Em andamento").length;
-      const quantidadeNaoGestantes = reproducoes.filter((dado) => dado.status !== "Em andamento").length;
-      const totalConcluidas = reproducoes.filter((dado) => dado.status === "Concluída").length;
+      const quantidadeGestantes = reproducoes.filter(
+        (dado) => dado.status === "Em andamento"
+      ).length;
+      const quantidadeNaoGestantes = reproducoes.filter(
+        (dado) => dado.status !== "Em andamento"
+      ).length;
+      const totalConcluidas = reproducoes.filter(
+        (dado) => dado.status === "Concluída"
+      ).length;
 
       const totalInseminadas = reproducoes.length;
-      const taxaPrenhez = totalInseminadas > 0 ? (quantidadeGestantes / totalInseminadas) * 100 : 0;
+      const taxaPrenhez =
+        totalInseminadas > 0
+          ? (quantidadeGestantes / totalInseminadas) * 100
+          : 0;
       const taxaNaoPrenhez = 100 - taxaPrenhez;
 
-      const taxaNatalidade = totalInseminadas > 0 ? (totalConcluidas / totalInseminadas) * 100 : 0;
+      const taxaNatalidade =
+        totalInseminadas > 0 ? (totalConcluidas / totalInseminadas) * 100 : 0;
       const taxaNaoNatalidade = 100 - taxaNatalidade;
 
       const charts = [];
@@ -119,13 +145,17 @@ const HomeContent = () => {
         charts.push(chart);
       };
 
-
       createChart(
         natalidadeRef,
         "doughnut",
         {
           labels: ["Nascimento (%)", "Sem nascimento (%)"],
-          datasets: [{ data: [taxaNatalidade, taxaNaoNatalidade], backgroundColor: ["#d68910", "#4d4032"] }],
+          datasets: [
+            {
+              data: [taxaNatalidade, taxaNaoNatalidade],
+              backgroundColor: ["#d68910", "#4d4032"],
+            },
+          ],
         },
         {
           responsive: true,
@@ -142,7 +172,12 @@ const HomeContent = () => {
         "doughnut",
         {
           labels: ["Prenhas (%)", "Não prenhas (%)"],
-          datasets: [{ data: [taxaPrenhez, taxaNaoPrenhez], backgroundColor: ["#d68910", "#4d4032"] }],
+          datasets: [
+            {
+              data: [taxaPrenhez, taxaNaoPrenhez],
+              backgroundColor: ["#d68910", "#4d4032"],
+            },
+          ],
         },
         {
           responsive: true,
@@ -159,7 +194,12 @@ const HomeContent = () => {
         "doughnut",
         {
           labels: ["Gestantes (%)", "Não gestantes (%)"],
-          datasets: [{ data: [quantidadeGestantes, quantidadeNaoGestantes], backgroundColor: ["#d68910", "#4d4032"] }],
+          datasets: [
+            {
+              data: [quantidadeGestantes, quantidadeNaoGestantes],
+              backgroundColor: ["#d68910", "#4d4032"],
+            },
+          ],
         },
         {
           responsive: true,
@@ -179,7 +219,11 @@ const HomeContent = () => {
           datasets: [
             {
               label: "Número de Animais",
-              data: [quantidadeMurrah, quantidadeJafarabadi, quantidadeMediterrâneo],
+              data: [
+                quantidadeMurrah,
+                quantidadeJafarabadi,
+                quantidadeMediterrâneo,
+              ],
               backgroundColor: ["#43310B", "#CE7D0A", "#FCA90F"],
               borderColor: ["#43310B", "#CE7D0A", "#FCA90F"],
               borderWidth: 1,
@@ -188,54 +232,89 @@ const HomeContent = () => {
         },
         {
           responsive: true,
+          maintainAspectRatio: false, // Permite maior flexibilidade no ajuste
           plugins: {
             legend: {
               display: false,
+            },
+            tooltip: {
+              enabled: true, // Exibe dicas sobre os dados
             },
           },
           scales: {
             x: {
               beginAtZero: true,
+              grid: {
+                display: false, // Remove grades verticais para maior clareza
+              },
+              ticks: {
+                color: "#333", // Cor para maior contraste
+              },
             },
             y: {
               beginAtZero: true,
+              grid: {
+                color: "rgba(0, 0, 0, 0.1)", // Define cor para grades horizontais
+              },
+              ticks: {
+                color: "#333",
+              },
             },
           },
         }
       );
 
+      
+
       createChart(
-        sexoRef,
-        "bar",
+        sexoRef, // Referência do gráfico
+        "bar", // Tipo de gráfico
         {
-          labels: ["Machos", "Fêmeas"],
+          labels: ["Masculino", "Feminino"], // Rótulos para os sexos
           datasets: [
             {
-              data: [quantidadeMachos, quantidadeFemeas],
-              backgroundColor: ["#43310B", "#FFCF78"],
-              borderColor: ["#43310B", "#FFCF78"],
-              borderWidth: 1,
-              label: null,
+              label: "Número de Animais", // Rótulo da barra
+              data: [quantidadeMachos, quantidadeFemeas], // Quantidades de animais
+              backgroundColor: ["#43310B", "#FFCF78"], // Cores para masculino e feminino
+              borderColor: ["#43310B", "#FFCF78"], // Cor da borda
+              borderWidth: 1, // Largura da borda
             },
           ],
         },
         {
-          responsive: true,
+          responsive: true, // Garante responsividade
+          maintainAspectRatio: false, // Permite flexibilidade na adaptação
           plugins: {
             legend: {
-              display: false,
+              display: false, // Oculta a legenda
+            },
+            tooltip: {
+              enabled: true, // Exibe dicas ao passar o mouse
             },
           },
           scales: {
             x: {
-              beginAtZero: true,
+              beginAtZero: true, // Começa o eixo X do gráfico do zero
+              grid: {
+                display: false, // Remove as linhas de grade verticais
+              },
+              ticks: {
+                color: "#333", // Cor dos rótulos no eixo X
+              },
             },
             y: {
-              beginAtZero: true,
+              beginAtZero: true, // Começa o eixo Y do gráfico do zero
+              grid: {
+                color: "rgba(0, 0, 0, 0.1)", // Cor das linhas de grade horizontais
+              },
+              ticks: {
+                color: "#333", // Cor dos rótulos no eixo Y
+              },
             },
           },
         }
       );
+      
 
       return () => {
         charts.forEach((chart) => chart.destroy());
@@ -300,37 +379,58 @@ const HomeContent = () => {
       {/* TABELA DE FUNCIONÁRIOS */}
       <div className={styles.divTabela}>
         <div>
-          <h2 style={{ textAlign: "center", fontWeight: "bold", fontSize: "24px", marginBottom: "30px" }}>Últimas Tarefas</h2>
+          <h2
+            style={{
+              textAlign: "center",
+              fontWeight: "bold",
+              fontSize: "24px",
+              marginBottom: "30px",
+            }}
+          >
+            Últimas Tarefas
+          </h2>
         </div>
         <div className={styles.divCorpoTabelaS}>
           <table className="table table-striped" id="funcionariosTable">
             <thead>
               <tr>
-                <th scope="col" className={styles.headerCell}>Nome</th>
-                <th scope="col" className={styles.headerCell}>Tipo de Serviço</th>
-                <th scope="col" className={styles.headerCell}>Status</th>
-                <th scope="col" className={styles.headerCell}>Funções</th>
-
+                <th scope="col" className={styles.headerCell}>
+                  Nome
+                </th>
+                <th scope="col" className={styles.headerCell}>
+                  Tipo de Serviço
+                </th>
+                <th scope="col" className={styles.headerCell}>
+                  Status
+                </th>
+                <th scope="col" className={styles.headerCell}>
+                  Funções
+                </th>
               </tr>
             </thead>
             <tbody>
               {/* Filtro para renderizar somente tarefas em produção no caso diferente de "Finalizado" */}
-              {demandas.filter((demanda) => demanda.status !== "Finalizada").map((demanda) => (
-                <tr key={demanda._id}>
-                  <td className="text-center">{demanda.idFuncionario?.nome || "Sem nome"}</td>
-                  <td className="text-center">{demanda.categoria}</td>
-                  <td className="text-center">{demanda.status}</td>
-                  <td className="text-center"><a href="/demandas"><i class="fa-solid fa-arrow-up-right-from-square"/></a></td>
-                </tr>
-              ))}
+              {demandas
+                .filter((demanda) => demanda.status !== "Finalizada")
+                .map((demanda) => (
+                  <tr key={demanda._id}>
+                    <td className="text-center">
+                      {demanda.idFuncionario?.nome || "Sem nome"}
+                    </td>
+                    <td className="text-center">{demanda.categoria}</td>
+                    <td className="text-center">{demanda.status}</td>
+                    <td className="text-center">
+                      <a href="/demandas">
+                        <i class="fa-solid fa-arrow-up-right-from-square" />
+                      </a>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
       </div>
-
-
     </div>
-
   );
 };
 
