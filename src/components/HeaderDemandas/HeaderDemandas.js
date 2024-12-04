@@ -1,10 +1,10 @@
 import styles from "./HeaderDemandas.module.css";
 
-const HeaderDemandas = ({}) => {
+const HeaderDemandas = ({openModal}) => {
   return (
     <div className={`d-flex justify-content-between align-items-center p-3 ${styles.header}`}>
       <span className={`m-0 ${styles.title}`}>Demandas</span>
-      <button className={`btn ${styles.button}`}>
+      <button className={`btn ${styles.button}`} onClick={openModal}>
         Atribuir demanda
       </button>
     </div>
@@ -12,3 +12,8 @@ const HeaderDemandas = ({}) => {
 };
 
 export default HeaderDemandas;
+
+
+
+
+

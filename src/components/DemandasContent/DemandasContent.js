@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
+import react, { useEffect, useState } from "react";
 import HeaderDemandas from "../HeaderDemandas/HeaderDemandas";
 import styles from "./DemandasContent.module.css";
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import ModalDemandas from "../ModalDemandas/ModalDemandas";
+
+
 import { Line, Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -16,6 +19,7 @@ import {
 } from "chart.js";
 import axios from "axios";
 
+
 // Registrar os componentes do Chart.js necessários
 ChartJS.register(
   CategoryScale,
@@ -29,6 +33,17 @@ ChartJS.register(
 );
 
 const DemandasContent = () => {
+  const [isModalOpen, setModalOpen] = useState(false); // Estado do Modal
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  const openModal = () => {
+    setModalOpen(true);
+
+  };
+
 
   // Dados estáticos para o gráfico de barras
   const statusData = {
@@ -48,7 +63,7 @@ const DemandasContent = () => {
 
   return (
     <div className={styles.content}>
-      <HeaderDemandas />
+      <HeaderDemandas openModal={openModal} />
       <div className={styles.container}>
 
         <div className={styles.containerCard}>
@@ -182,6 +197,90 @@ const DemandasContent = () => {
           </table>
         </div>
       </div>
+
+      {/* INICIO DO MODAL DEMANDAS */}
+      <ModalDemandas isOpen={isModalOpen} closeModal={closeModal}>
+        <h2 style={{ marginLeft: "14px" }}> Atribuir Demanda </h2>
+        <form>
+          <div className={styles.divModal}>
+            <div className="form-group">
+              <label label className={styles.labelCustom}>Nome</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Digite o nome"
+              />
+            </div>
+          </div>
+
+          <div className={styles.divModal}>
+            <div className="form-group">
+              <label label className={styles.label} >Data de Início</label>
+              <input
+                type="date"
+                className="form-control"
+              />
+            </div>
+            <div className="form-group">
+              <label label className={styles.label} >Data de Finalização</label>
+              <input
+                type="date"
+                className="form-control"
+              />
+            </div>
+          </div>
+          {/* SELECT BOX - CATEGORIA */}
+          <div className={styles.divModal}>
+            <div className="form-group">
+              <label className={styles.label}>Categoria</label>
+              <select className="form-control">
+              <option value="placeholder">Selecione a Categoria</option>
+                <option value="zootecnico">Zootécnico</option>
+                <option value="sanitario">Sanitário</option>
+                <option value="reproducao">Reprodução</option>
+              </select>
+            </div>
+          </div>
+
+
+          <div className={styles.divModal}>
+            <div className="form-group">
+              <label label className={styles.labelCustom}>Descrição da Demanda</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Digite a descrição"
+              />
+            </div>
+          </div>
+
+          <div className={styles.divModal}>
+            <button
+              type='submit'
+              className="btn btn-primary"
+              style={{
+                backgroundColor: "#CE7D0A",
+                border: "2px #CE7D0A",
+                color: "black",
+              }}
+            >
+              Atribuir
+            </button>
+
+            <button
+              type='submit'
+              className="btn btn-primary"
+              style={{
+                backgroundColor: "#FFCF78",
+                border: "2px #FFCF78",
+                color: "black",
+              }}
+            >
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </ModalDemandas>
     </div>
   );
 };

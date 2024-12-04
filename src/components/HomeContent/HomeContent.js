@@ -105,7 +105,7 @@ const HomeContent = () => {
       // Calculo de Reproduções
       const quantidadeGestantes = reproducoes.filter((dado) => dado.status === "Em andamento").length;
       const quantidadeNaoGestantes = reproducoes.filter((dado) => dado.status !== "Em andamento").length;
-      const totalConcluidas = reproducoes.filter((dado) => dado.status === "Concluido").length;
+      const totalConcluidas = reproducoes.filter((dado) => dado.status === "Concluída").length;
 
       const totalInseminadas = reproducoes.length;
       const taxaPrenhez = totalInseminadas > 0 ? (quantidadeGestantes / totalInseminadas) * 100 : 0;

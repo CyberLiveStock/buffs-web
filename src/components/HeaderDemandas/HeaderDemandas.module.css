@@ -15,7 +15,6 @@
 .title {
   color: #333; /* Cor do texto */
   font-size: 1.5rem; /* Tamanho da fonte */
-  font-weight: bold; /* Deixa o texto em negrito */
   margin: 0; /* Remove margens */
   text-align: left; /* Alinha o texto à esquerda */
 }

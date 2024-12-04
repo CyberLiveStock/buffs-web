@@ -4,10 +4,23 @@ import HeaderFinanceiro from "../HeaderFinanceiro/HeaderFinanceiro";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
 import styles from './FinanceiroContent.module.css';
+import ModalFinanceiro from "../ModalFinanceiro/ModalFinanceiro";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const FinanceiroContent = () => {
+
+  const [isModalOpen, setModalOpen] = useState(false); // Estado do Modal
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  const openModal = () => {
+    setModalOpen(true);
+
+  };
+
   const [financeiros, setFinanceiros] = useState([]); // Coleção Financeiro
   const [chartDataBubalino, setChartDataBubalino] = useState({
     labels: [],
@@ -117,8 +130,8 @@ const FinanceiroContent = () => {
 
   return (
     <div className={styles.content}>
-      <HeaderFinanceiro />
-      
+      <HeaderFinanceiro openModal={openModal}/>
+
       {/* Gráficos Lado a Lado */}
       <div className={styles.chartContainer}>
         <div className={styles.chartWrapper}>
@@ -169,6 +182,115 @@ const FinanceiroContent = () => {
           </table>
         </div>
       </div>
+
+      <ModalFinanceiro isOpen={isModalOpen} closeModal={closeModal}>
+        <h2 style={{ marginLeft: "14px" }}> Financeiro </h2>
+        <form>
+          <div className={styles.divModal}>
+            <div className="form-group">
+              <label label className={styles.label}>Valor</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Digite o valor"
+              />
+            </div>
+
+            <div className="form-group">
+              <label label className={styles.label}>Status</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Digite o status"
+              />
+            </div>
+          </div>
+
+          <div className={styles.divModal}>
+            <div className="form-group">
+              <label label className={styles.label} >Data</label>
+              <input
+                type="date"
+                className="form-control"
+              />
+            </div>
+          </div>
+
+          <div className={styles.divModal}>
+            <div className="form-group">
+              <label className={styles.label}>Categoria</label>
+              <select className="form-control">
+                <option value="placeholder">Selecione a Categoria</option>
+                <option value="zootecnico">Zootécnico</option>
+                <option value="sanitario">Sanitário</option>
+                <option value="reproducao">Reprodução</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label label className={styles.label}>Tipo</label>
+              <select className="form-control">
+                <option value="placeholder">Selecione o tipo</option>
+                <option value="zootecnico">Único</option>
+                <option value="sanitario">Diário</option>
+                <option value="reproducao">Semanal</option>
+                <option value="reproducao">Mensal</option>
+                <option value="reproducao">Semestral</option>
+                <option value="reproducao">Anual</option>
+              </select>
+            </div>
+          </div>
+
+
+          <div className={styles.divModal}>
+            <div className="form-group">
+              <label label className={styles.labelCustom}>Beneficiário</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Digite o beneficiário"
+              />
+            </div>
+          </div>
+
+          <div className={styles.divModal}>
+            <div className="form-group">
+              <label label className={styles.labelCustom}>Descrição</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Digite a descrição"
+              />
+            </div>
+          </div>
+
+          <div className={styles.divModal}>
+            <button
+              type='submit'
+              className="btn btn-primary"
+              style={{
+                backgroundColor: "#CE7D0A",
+                border: "2px #CE7D0A",
+                color: "black",
+              }}
+            >
+              Adicionar
+            </button>
+
+            <button
+              type='submit'
+              className="btn btn-primary"
+              style={{
+                backgroundColor: "#FFCF78",
+                border: "2px #FFCF78",
+                color: "black",
+              }}
+            >
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </ModalFinanceiro>
     </div>
   );
 };
