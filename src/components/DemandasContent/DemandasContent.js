@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import axios from "axios";
+import { useEffect, useState, useRef } from "react";
 import HeaderDemandas from "../HeaderDemandas/HeaderDemandas";
 import styles from "./DemandasContent.module.css";
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { Line, Bar } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -14,7 +15,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import axios from "axios";
+
 
 // Registrar os componentes do Chart.js necessários
 ChartJS.register(
@@ -30,109 +31,77 @@ ChartJS.register(
 
 const DemandasContent = () => {
 
-  // Dados estáticos para o gráfico de barras
-  const statusData = {
-    labels: ["A Fazer", "Fazendo", "Finalizado"],
+  const [demandas, setDemandas] = useState([]);         // Coleção Demandas
+  const [funcionarios, setFuncionarios] = useState({}); // Coleção Funcionarios
+
+  // Fetch para coleção Demandas
+  useEffect(() => {
+    const fetchDemandas = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/demandas");
+        setDemandas(response.data.demandas); //'demandas' array de demandas
+        console.log(demandas)
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchDemandas(); // Chamando a função para executar a requisição
+  }, []); // '[]' dependência do useEffect
+
+  // Fetch para coleção Funcionarios
+  useEffect(() => {
+    const fetchFuncionarios = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/funcionarios");
+        setFuncionarios(response.data.funcionarios); //'funcionarios' array de funcionarios
+        console.log(funcionarios)
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchFuncionarios(); // Chamando a função para executar a requisição
+  }, []); // '[]' dependência do useEffect
+
+  // Gráfico 
+  const [statusData, setStatusData] = useState({
+    labels: ["A Fazer", "Em produção", "Finalizado"],
     datasets: [
       {
         label: "Status das Atividades",
-        data: [10, 5, 20],
+        data: [0, 0, 0],
         backgroundColor: ["#FF6384", "#36A2EB", "#4BC0C0"],
         borderWidth: 1,
       },
     ],
-  };
+  });
 
+  useEffect(() => {
+    if (demandas.length > 0) {
+      // Calculando a quantidade de cada Status
+      const quantidadeAFazer = demandas.filter((dado) => dado.status === "AFazer").length;
+      const quantidadeEmProducao = demandas.filter((dado) => dado.status === "Em produção").length;
+      const quantidadeFinalizada = demandas.filter((dado) => dado.status === "Finalizada").length;
 
+      // Atualizando os dados do gráfico no estado
+      setStatusData({
+        labels: ["A Fazer", "Em produção", "Finalizado"],
+        datasets: [
+          {
+            label: "Status das Atividades",
+            data: [quantidadeAFazer, quantidadeEmProducao, quantidadeFinalizada],
+            backgroundColor: ["#FF6384", "#36A2EB", "#4BC0C0"],
+            borderWidth: 1,
+          },
+        ],
+      });
+    }
+  }, [demandas]);
 
 
   return (
     <div className={styles.content}>
       <HeaderDemandas />
       <div className={styles.container}>
-
-        <div className={styles.containerCard}>
-          <div className={styles.rowCard}>
-            <div className={styles.cardPhoto}>
-              <div className={styles.photo}>
-                <img
-                  src="/images/perfil-joao.png"
-                  alt="Perfil João Lima"
-                  className={styles.photoSize}
-                />
-              </div>
-            </div>
-
-
-            <div className={styles.cardDescription}>
-              <div className={styles.name}>
-                <h5>João Lima</h5>
-              </div>
-              <p>
-                <span className={styles.statusLabel}>Status:</span>
-                <span className={styles.statusValue}> Em andamento</span>
-              </p>
-              <p>
-                <span className={styles.statusLabel}>Categoria:</span>
-                <span className={styles.statusValue}>Sanitário</span>
-              </p>
-            </div>
-          </div>
-
-
-          <div className={styles.rowCard}>
-            <div className={styles.cardPhoto}>
-              <div className={styles.photo}>
-                <img
-                  src="/images/foto-vini.svg"
-                  alt="Perfil Vinicius Souza"
-                  className={styles.photoSize}
-                />
-              </div>
-            </div>
-            <div className={styles.cardDescription}>
-              <div className={styles.name}>
-                <h5>Vinicius Souza</h5>
-              </div>
-              <p>
-                <span className={styles.statusLabel}>Status:</span>
-                <span className={styles.statusValue}> Concluída</span>
-              </p>
-              <p>
-                <span className={styles.statusLabel}>Categoria:</span>
-                <span className={styles.statusValue}>Zootécnico</span>
-              </p>
-            </div>
-          </div>
-
-
-          <div className={styles.rowCard}>
-            <div className={styles.cardPhoto}>
-              <div className={styles.photo}>
-                <img
-                  src="/images/foto-pc.png"
-                  alt="Perfil Paulo Candiani"
-                  className={styles.photoSize}
-                />
-              </div>
-            </div>
-            <div className={styles.cardDescription}>
-              <div className={styles.name}>
-                <h5>Paulo Candiani</h5>
-              </div>
-              <p>
-                <span className={styles.statusLabel}>Status:</span>
-                <span className={styles.statusValue}> Não Iniciada</span>
-              </p>
-              <p>
-                <span className={styles.statusLabel}>Categoria:</span>
-                <span className={styles.statusValue}>Reprodução</span>
-              </p>
-            </div>
-          </div>
-        </div>
-
-
         {/* Indicador de Demandas */}
         <div className={styles.wrapper}>
           <h2 className={styles.chartTitle}>Indicador de Demandas</h2>
@@ -164,6 +133,7 @@ const DemandasContent = () => {
         <div className={styles.divCorpoTabela}>
           <table className="table table-striped" id="funcionariosTable">
             <thead>
+
               <tr>
                 <th scope="col" className={styles.headerCell}>Status</th>
                 <th scope="col" className={styles.headerCell}>Nome</th>
@@ -172,12 +142,14 @@ const DemandasContent = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="text-center"></td>
-                <td className="text-center"></td>
-                <td className="text-center"></td>
-                <td className="text-center"></td>
-              </tr>
+              {demandas.map((demanda) => (
+                <tr key={demanda._id}>
+                  <td className="text-center">{demanda.status}</td>
+                  <td className="text-center">{demanda.idFuncionario?.nome || "Sem nome"}</td>
+                  <td className="text-center">{demanda.categoria}</td>
+                  <td className="text-center">{demanda.descricao}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

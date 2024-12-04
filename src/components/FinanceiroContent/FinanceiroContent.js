@@ -9,112 +9,82 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 
 const FinanceiroContent = () => {
   const [financeiros, setFinanceiros] = useState([]); // Coleção Financeiro
-  const [chartDataBubalino, setChartDataBubalino] = useState({
-    labels: [],
-    datasets: [
-      {
-        label: 'Suplementação',
-        data: [],
-        borderColor: 'rgba(75,192,192,1)',
-        fill: false,
-      },
-      {
-        label: 'Ração',
-        data: [],
-        borderColor: 'rgba(255,99,132,1)',
-        fill: false,
-      },
-      {
-        label: 'Vacinas',
-        data: [],
-        borderColor: 'rgba(255,159,64,1)',
-        fill: false,
-      },
-    ],
-  });
-
-  const [chartDataFuncionario, setChartDataFuncionario] = useState({
-    labels: [],
-    datasets: [
-      {
-        label: 'Folha de Pagamento',
-        data: [],
-        borderColor: 'rgba(153, 102, 255, 1)',
-        fill: false,
-      },
-    ],
-  });
-
+  
+  const fetchFinanceiros = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/financeiros");
+      setFinanceiros(response.data.financeiros);
+    } catch (error) {
+      console.log(error);
+    }
+  };  
   useEffect(() => {
-    const fetchFinanceiros = async () => {
+    fetchFinanceiros(); // Executar a função ao carregar o componente
+  }, []);
+
+
+  const [demandas1, setDemandas1] = useState([]);
+  const [chartData1, setChartData1] = useState({
+    labels: [],
+    datasets: [],
+  });
+  useEffect(() => {
+    const fetchDemandas = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/financeiros");
-        const data = response.data.financeiros; // 'financeiros' array de financeiros
-        setFinanceiros(data);
-
-        // Organizar os dados para os gráficos
-        const receitasBubalino = { suplementacao: [], racao: [], vacinas: [] };
-        const receitasFuncionario = { folhaDePagamento: [] };
-        const labels = [];
-
-        data.forEach((item) => {
-          const date = new Date(item.data);
-          const label = `${date.getDate()}/${date.getMonth() + 1}`;
-          if (!labels.includes(label)) {
-            labels.push(label);
+        const response = await axios.get("http://localhost:4000/financeiroCat");
+        const demandas1 = response.data; // Array retornado da API
+        setDemandas1(demandas1);
+        // Grafico Rendimento categoria
+        // Processar os dados para o gráfico
+        const labels = [...new Set(demandas1.map((item) => `${item.mes}/${item.ano}`))]; // EixoX
+        // Organização dos dados - Ordenando Labels
+        labels.sort((a, b) => {
+          const [mesA, anoA] = a.split("/").map(Number); //Converte a String para Number
+          const [mesB, anoB] = b.split("/").map(Number); //Converte a String para Number
+          if (anoA === anoB) {
+            return mesA - mesB;  // Ordenar por mês se o ano for o mesmo
           }
-
-          // Custos Bubalinos
-          if (item.categoria === 'Suplementação') {
-            receitasBubalino.suplementacao.push(item.valor);
-            receitasBubalino.racao.push(0);
-            receitasBubalino.vacinas.push(0);
-          } else if (item.categoria === 'Ração') {
-            receitasBubalino.racao.push(item.valor);
-            receitasBubalino.suplementacao.push(0);
-            receitasBubalino.vacinas.push(0);
-          } else if (item.categoria === 'Vacinas') {
-            receitasBubalino.vacinas.push(item.valor);
-            receitasBubalino.suplementacao.push(0);
-            receitasBubalino.racao.push(0);
-          } else {
-            receitasBubalino.suplementacao.push(0);
-            receitasBubalino.racao.push(0);
-            receitasBubalino.vacinas.push(0);
-          }
-
-          // Custos Funcionários
-          if (item.categoria === 'Folha de Pagamento') {
-            receitasFuncionario.folhaDePagamento.push(item.valor);
-          }
+          return anoA - anoB;  // Caso contrário, ordenar por ano
         });
-
-        // Atualizando os gráficos
-        setChartDataBubalino((prevData) => ({
-          ...prevData,
-          labels: labels,
-          datasets: [
-            { ...prevData.datasets[0], data: receitasBubalino.suplementacao },
-            { ...prevData.datasets[1], data: receitasBubalino.racao },
-            { ...prevData.datasets[2], data: receitasBubalino.vacinas },
-          ],
-        }));
-
-        setChartDataFuncionario((prevData) => ({
-          ...prevData,
-          labels: labels,
-          datasets: [
-            { ...prevData.datasets[0], data: receitasFuncionario.folhaDePagamento },
-          ],
-        }));
-
+        const categorias = [...new Set(demandas1.map((item) => item.categoria))]; // EixoY
+        const datasets = categorias.map((categoria, index) => {
+          const data = labels.map((label) => {
+            const [mes, ano] = label.split("/");
+            const demanda = demandas1.find(
+              (item) =>
+                item.categoria === categoria &&
+                item.mes === parseInt(mes) &&
+                item.ano === parseInt(ano)
+            );
+            return demanda ? demanda.totalFinanceiros : 0;
+          });
+          // Paletas de cores para o datasets(Linha de categorias)
+          const colors = [
+            "#CE7D0A",
+            "#FFCF78",
+            "#43310B",
+          ];
+          return {
+            label: categoria,
+            data,
+            fill: false,
+            borderColor: colors[index % colors.length], // Atribui cor ciclicamente
+            tension: 0.1,
+          };
+        });
+        
+        setChartData1({
+          labels,
+          datasets,
+          
+        });
       } catch (error) {
         console.log(error);
       }
     };
-    fetchFinanceiros(); // Chamando a função para executar a requisição
-  }, []); // '[]' dependência do useEffect
-
+    fetchDemandas();
+  }, []);
+  
   return (
     <div className={styles.content}>
       <HeaderFinanceiro />
@@ -123,12 +93,25 @@ const FinanceiroContent = () => {
       <div className={styles.chartContainer}>
         <div className={styles.chartWrapper}>
           <h3 className={styles.chartTitle}>Custos Bubalinos</h3>
-          <Line data={chartDataBubalino} options={{ responsive: true, maintainAspectRatio: true }} />
+          <Line
+            data={chartData1}
+            options={{
+              plugins: {
+                legend: {
+                  position: "bottom",
+                },
+              },
+              responsive: true,
+              maintainAspectRatio: true, // Manter proporção
+            }}
+            width={500}
+            height={500}
+          />
         </div>
 
         <div className={styles.chartWrapper}>
           <h3 className={styles.chartTitle}>Custos Funcionários</h3>
-          <Line data={chartDataFuncionario} options={{ responsive: true, maintainAspectRatio: true }} />
+          
         </div>
       </div>
 

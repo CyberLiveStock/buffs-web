@@ -14,8 +14,6 @@ const HomeContent = () => {
   const [quantidadeFuncionariosAtivo, setQuantidadeFuncionariosAtivo] = useState(0);
   const [quantidadeFuncionariosInativo, setQuantidadeFuncionariosInativo] = useState(0);
 
-
-
   // Fetch para coleção Demandas
   useEffect(() => {
     const fetchDemandas = async () => {
